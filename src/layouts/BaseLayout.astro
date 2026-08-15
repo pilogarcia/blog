@@ -8,20 +8,46 @@ import { SITE_TITLE } from '../consts';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
 
-const { title, description = 'El Ojo Inusual — un podcast sobre filosofía, música, poesía, creencias y experiencias de vida.' } = Astro.props;
+const {
+  title,
+  description = 'El Ojo Inusual — un podcast sobre filosofía, música, poesía, creencias y experiencias de vida.',
+  image = '/images/og-default.jpg',
+  type = 'website',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
 ---
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} — El Ojo Inusual</title>
+   <title>{title} — El Ojo Inusual</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} — El Ojo Inusual`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="El Ojo Inusual" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} — El Ojo Inusual`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
   </head>
   <body>
     <div class="grain"></div>
