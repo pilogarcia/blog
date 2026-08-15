@@ -7,7 +7,7 @@
       <div class="font-mono brand-tag">MIRAR LO QUE NO SE VE</div>
     </a>
 
-    <nav class="nav">
+    <nav class="nav" id="site-nav">
       <a href="/" class="nav-link">Inicio</a>
       <a href="/#articulos" class="nav-link">Artículos</a>
       <a href="https://elojoinusual.com.ar" class="nav-link" target="_blank" rel="noopener noreferrer">El Ojo Inusual Web</a>
@@ -19,6 +19,12 @@
       <a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener" aria-label="Spotify"><i class="icon">♫</i></a>
       <a href="/rss.xml" aria-label="RSS"><i class="icon">⟴</i></a>
     </div>
+
+    <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="site-nav">
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+      <span class="menu-bar"></span>
+    </button>
   </div>
 </header>
 
@@ -30,6 +36,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .header-inner {
+    position: relative;
     max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem;
     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
   }
@@ -37,15 +44,57 @@
   .brand-title { font-size: 2rem; line-height: 1; letter-spacing: 0.06em; color: #f5f5f5; }
   .accent { color: #2cc8e7; }
   .brand-tag { font-size: 11px; color: #8a8a8a; letter-spacing: 0.1em; margin-top: 2px; }
-  .nav { display: none; gap: 2.5rem; }
-  .nav-link { color: #c0c0c0; }
+  .nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(19, 19, 19, 0.97);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 0.5rem 1.5rem 1rem;
+  }
+  .nav.open { display: flex; }
+  
+.nav-link { color: #c0c0c0; padding: 0.75rem 0; border-top: 1px solid rgba(255, 255, 255, 0.06); }
   .nav-link:hover { color: #2cc8e7; }
   .socials { display: flex; align-items: center; gap: 1.3rem; }
   .socials a { color: #c0c0c0; transition: color 0.3s; font-size: 1.5rem; }
   .socials a:hover { color: #2cc8e7; }
   .icon { font-style: normal; }
 
+  .menu-toggle {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 30px; height: 30px; padding: 0;
+    background: transparent; border: none; cursor: pointer;
+  }
+  .menu-bar { width: 100%; height: 2px; background: #f5f5f5; transition: transform 0.3s, opacity 0.3s; }
+  .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded="true"] .menu-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   @media (min-width: 900px) {
-    .nav { display: flex; }
+    .nav {
+      display: flex; flex-direction: row; gap: 2.5rem;
+      position: static; background: none; border: none; padding: 0;
+    }
+    .nav-link { padding: 0; border-top: none; }
+    .menu-toggle { display: none; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById('menu-toggle');
+    var nav = document.getElementById('site-nav');
+    if (!btn || !nav) return;
+    btn.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
