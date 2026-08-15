@@ -29,6 +29,7 @@ const formatDate = (d: Date) =>
       {post.data.author} · {formatDate(post.data.pubDate)}
       {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
     </div>
+    <span class="font-heading card-read">Leer <span class="card-read-arrow">→</span></span>
   </div>
 </a>
 
@@ -72,4 +73,12 @@ const formatDate = (d: Date) =>
   .card-title { font-size: 1.6rem; line-height: 1.02; margin: 0 0 0.6rem; }
   .card-excerpt { color: var(--fg-dim); font-size: 0.9rem; line-height: 1.55; margin: 0 0 1.2rem; flex: 1; }
   .card-meta { color: var(--muted); font-size: 10px; letter-spacing: 0.13em; text-transform: uppercase; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-light); }
+
+  .card-read {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1rem; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .card-read-arrow { display: inline-block; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+  .card:hover .card-read-arrow { transform: translateX(4px); }
 </style>
