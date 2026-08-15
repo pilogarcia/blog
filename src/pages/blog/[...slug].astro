@@ -20,7 +20,7 @@ const { Content } = await render(post);
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
-<BaseLayout title={post.data.title} description={post.data.excerpt}>
+<BaseLayout title={post.data.title} description={post.data.excerpt} image={post.data.cover} type="article">
   <article class="post">
     <header class="post-header">
       <a href="/#articulos" class="font-mono back-link">← Artículos</a>
