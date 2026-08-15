@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ScrollTopButton from '../components/ScrollTopButton.astro';
+import { SITE_TITLE } from '../consts';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'El Ojo Inusual — un podcast sobre filosofía, música, poesía, creencias y experiencias de vida.' } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — El Ojo Inusual</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href="/rss.xml" />
+  </head>
+  <body>
+    <div class="grain"></div>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <ScrollTopButton />
+  </body>
+</html>

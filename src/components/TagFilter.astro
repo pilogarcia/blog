@@ -1,0 +1,29 @@
+---
+import { slugifyTag } from '../lib/tags';
+
+interface Props {
+  tags: string[];
+  activeTag?: string;
+}
+
+const { tags, activeTag } = Astro.props;
+---
+<div class="tag-filter font-mono">
+  <a href="/" class={`tag-pill ${!activeTag ? 'active' : ''}`}>Todos</a>
+  {tags.map((tag) => (
+    <a href={`/tag/${slugifyTag(tag)}/`} class={`tag-pill ${activeTag === tag ? 'active' : ''}`}>
+      {tag}
+    </a>
+  ))}
+</div>
+
+<style>
+  .tag-filter { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3rem; }
+  .tag-pill {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--fg-dim); border: 1px solid var(--border-light);
+    padding: 0.5rem 1rem; transition: all 0.3s;
+  }
+  .tag-pill:hover { color: var(--fg); border-color: var(--accent-dim); }
+  .tag-pill.active { color: black; background: var(--accent); border-color: var(--accent); }
+</style>

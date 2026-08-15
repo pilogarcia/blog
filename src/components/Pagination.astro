@@ -1,0 +1,53 @@
+---
+interface Props {
+  currentPage: number;
+  lastPage: number;
+  /** Función que arma la URL de una página dada, ej. (n) => n === 1 ? '/' : `/${n}/` */
+  urlFor: (page: number) => string;
+}
+
+const { currentPage, lastPage, urlFor } = Astro.props;
+
+const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
+---
+{lastPage > 1 && (
+  <nav class="pagination font-mono" aria-label="Paginación de artículos">
+    {currentPage > 1 ? (
+      <a href={urlFor(currentPage - 1)} class="page-nav">← Anterior</a>
+    ) : (
+      <span class="page-nav disabled">← Anterior</span>
+    )}
+
+    <div class="page-numbers">
+      {pages.map((p) => (
+        <a href={urlFor(p)} class={`page-number ${p === currentPage ? 'active' : ''}`}>
+          {String(p).padStart(2, '0')}
+        </a>
+      ))}
+    </div>
+
+    {currentPage < lastPage ? (
+      <a href={urlFor(currentPage + 1)} class="page-nav">Siguiente →</a>
+    ) : (
+      <span class="page-nav disabled">Siguiente →</span>
+    )}
+  </nav>
+)}
+
+<style>
+  .pagination {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-light);
+    flex-wrap: wrap; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .page-nav { color: var(--fg-dim); transition: color 0.3s; }
+  .page-nav:hover { color: var(--accent); }
+  .page-nav.disabled { color: var(--muted); opacity: 0.4; pointer-events: none; }
+  .page-numbers { display: flex; gap: 0.5rem; }
+  .page-number {
+    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); border: 1px solid var(--border-light); transition: all 0.3s;
+  }
+  .page-number:hover { color: var(--fg); border-color: var(--accent-dim); }
+  .page-number.active { color: black; background: var(--accent); border-color: var(--accent); }
+</style>

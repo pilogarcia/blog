@@ -1,0 +1,50 @@
+---
+---
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="brand">
+      <div class="font-display brand-title">EL OJO <span class="accent">INUSUAL</span></div>
+      <div class="font-mono brand-tag">MIRAR LO QUE NO SE VE</div>
+    </a>
+
+    <nav class="nav">
+      <a href="/" class="nav-link">Inicio</a>
+      <a href="/#articulos" class="nav-link">Artículos</a>
+    </nav>
+
+    <div class="socials">
+      <a href="https://youtube.com/@elojoinusual" target="_blank" rel="noopener" aria-label="YouTube"><i class="icon">▶</i></a>
+      <a href="https://instagram.com/elojoinusual" target="_blank" rel="noopener" aria-label="Instagram"><i class="icon">◎</i></a>
+      <a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener" aria-label="Spotify"><i class="icon">♫</i></a>
+      <a href="/rss.xml" aria-label="RSS"><i class="icon">⟴</i></a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(8px);
+    background: rgba(19, 19, 19, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .header-inner {
+    max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+  }
+  .brand { display: flex; flex-direction: column; }
+  .brand-title { font-size: 2rem; line-height: 1; letter-spacing: 0.06em; color: #f5f5f5; }
+  .accent { color: #2cc8e7; }
+  .brand-tag { font-size: 11px; color: #8a8a8a; letter-spacing: 0.1em; margin-top: 2px; }
+  .nav { display: none; gap: 2.5rem; }
+  .nav-link { color: #c0c0c0; }
+  .nav-link:hover { color: #2cc8e7; }
+  .socials { display: flex; align-items: center; gap: 1.3rem; }
+  .socials a { color: #c0c0c0; transition: color 0.3s; font-size: 1.5rem; }
+  .socials a:hover { color: #2cc8e7; }
+  .icon { font-style: normal; }
+
+  @media (min-width: 900px) {
+    .nav { display: flex; }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="font-display brand-title">EL OJO <span class="accent">INUSUAL</span></div>
+      <p class="font-body footer-desc">
+        Un podcast sobre filosofía, música, poesía, creencias y experiencias de vida.
+        Conversaciones profundas para entender el mundo.
+      </p>
+    </div>
+    <div class="footer-links">
+      <h4 class="font-mono footer-heading">Síguenos</h4>
+      <ul>
+        <li><a href="https://youtube.com/@elojoinusual" target="_blank" rel="noopener" class="font-body">YouTube</a></li>
+        <li><a href="https://instagram.com/elojoinusual" target="_blank" rel="noopener" class="font-body">Instagram</a></li>
+        <li><a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener" class="font-body">Spotify</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom font-mono">
+    <p>© {year} El ojo inusual · Todos los derechos reservados</p>
+    <p>Mejor, pensando.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { border-top: 1px solid var(--border); padding: 4rem 1.5rem 2rem; }
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto 3rem; display: flex; flex-wrap: wrap;
+    justify-content: space-between; gap: 3rem;
+  }
+  .footer-brand { max-width: 420px; }
+  .brand-title { font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 1rem; }
+  .accent { color: var(--accent); }
+  .footer-desc { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+  .footer-heading { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+  .footer-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+  .footer-links a { color: var(--fg-dim); font-size: 0.9rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--border-light);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+</style>
