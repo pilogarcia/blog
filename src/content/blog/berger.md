@@ -1,7 +1,7 @@
 ---
-title: "El llanto de un lugar"
+title: "El llanto de un lugar (2009)"
 excerpt: "Un espacio para la reflexión"
-pubDate: 2009-01-01
+pubDate: 2026-08-15
 author: "John Berger"
 tag: "Escritores"
 cover: "/images/posts/berger.jpg"
