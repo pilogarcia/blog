@@ -62,7 +62,7 @@ a { color: inherit; text-decoration: none; }
 }
 .section-marker::before { content: ''; width: 32px; height: 1px; background: var(--accent); }
 
-.text-stroke { -webkit-text-stroke: 0px var(--accent-bright); color: #c60909; }
+.text-stroke { -webkit-text-stroke: 0px var(--accent-bright); color: #10a2ac; }
 
 .link-underline { position: relative; display: inline-block; }
 .link-underline::after {
