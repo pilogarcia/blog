@@ -110,10 +110,11 @@ a { color: inherit; text-decoration: none; }
 .prose { max-width: 720px; margin: 0 auto; font-family: 'Libertinus Serif', serif; color: var(--fg-dim); font-size: 1.25rem; line-height: 1.85; }
 
 .prose p {
-  margin: 0 0 1.6em;
+  margin: 0 0 0.75em;
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
+  text-indent: 2em;
 }
 
 .prose h2 { font-family: 'Oswald', sans-serif; color: var(--fg); font-size: 1.2rem; margin: 2.2em 0 0.8em; text-transform: uppercase; letter-spacing: 0.02em; }
