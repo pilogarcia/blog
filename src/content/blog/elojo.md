@@ -4,7 +4,6 @@ excerpt: "Un espacio para la reflexión"
 pubDate: 2026-08-14
 author: "Pilo García"
 tag: "Interés General"
-minutesRead: 5
 cover: "/images/posts/ojo.jpg"
 ---
 
