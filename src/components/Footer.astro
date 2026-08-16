@@ -18,6 +18,21 @@ const year = new Date().getFullYear();
         <li><a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener" class="font-body">Spotify</a></li>
       </ul>
     </div>
+
+    <div class="footer-subscribe" id="suscribite">
+      <h4 class="font-mono footer-heading">Suscribite</h4>
+      <p class="font-body footer-desc">Un correo cuando salga un artículo nuevo. Sin ruido.</p>
+      <form
+        action="https://buttondown.email/api/emails/embed-subscribe/TU-USUARIO"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.email/TU-USUARIO', 'popupwindow')"
+        class="subscribe-form"
+      >
+        <input type="email" name="email" required placeholder="tu@correo.com" class="subscribe-input font-body" />
+        <button type="submit" class="subscribe-btn font-heading">Sumarme</button>
+      </form>
+    </div>
   </div>
   <div class="footer-bottom font-mono">
     <p>© {year} El ojo inusual · Todos los derechos reservados</p>
@@ -44,4 +59,20 @@ const year = new Date().getFullYear();
     display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
     font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
   }
+
+  .footer-subscribe { max-width: 280px; }
+  .subscribe-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .subscribe-input {
+    flex: 1; min-width: 0;
+    background: transparent; border: none; border-bottom: 1px solid var(--border-light);
+    color: var(--fg); padding: 0.5rem 0; font-size: 0.9rem;
+  }
+  .subscribe-input:focus { outline: none; border-color: var(--accent); }
+  .subscribe-input::placeholder { color: var(--muted); }
+  .subscribe-btn {
+    background: var(--accent); color: #fff; border: none;
+    padding: 0.5rem 1rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.3s; white-space: nowrap;
+  }
+  .subscribe-btn:hover { background: var(--accent-bright); }
 </style>
