@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import CommentSection from '../../components/CommentSection.astro';
+
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -38,12 +38,7 @@ const formatDate = (d: Date) =>
     </div>
   </article>
 
-  <CommentSection
-    pageId={post.id}
-    pageTitle={post.data.title}
-    pageUrl={Astro.url.href}
-  />
-</BaseLayout>
+  </BaseLayout>
 
 <style>
   .post { max-width: 900px; margin: 0 auto; padding: 4rem 1.5rem 7rem; }
