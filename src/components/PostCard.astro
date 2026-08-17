@@ -4,14 +4,15 @@ import type { CollectionEntry } from 'astro:content';
 interface Props {
   post: CollectionEntry<'blog'>;
   index?: number;
+  featured?: boolean; // Nueva propiedad para el panorama
 }
 
-const { post, index } = Astro.props;
+const { post, index, featured = false } = Astro.props;
 
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
-<a href={`/blog/${post.id}/`} class="card notch-corner">
+<a href={`/blog/${post.id}/`} class={`card notch-corner ${featured ? 'featured' : ''}`}>
   <div class="card-media">
     {post.data.cover ? (
       <img src={post.data.cover} alt={post.data.title} loading="lazy" />
@@ -21,6 +22,9 @@ const formatDate = (d: Date) =>
     <div class="card-media-overlay"></div>
     <span class="font-mono card-tag">{post.data.tag}</span>
     {typeof index === 'number' && <span class="font-mono card-index">/ {String(index + 1).padStart(2, '0')}</span>}
+    
+    {/* Acá agregamos la etiqueta de última publicación */}
+    {featured && <span class="font-mono card-new-badge">ÚLTIMA PUBLICACIÓN</span>}
   </div>
   <div class="card-body">
     <h2 class="font-display card-title">{post.data.title}</h2>
@@ -74,6 +78,16 @@ const formatDate = (d: Date) =>
     font-size: 10px; letter-spacing: 0.15em; color: var(--fg-dim);
   }
 
+  /* Estilos para la nueva etiqueta */
+  .card-new-badge {
+    position: absolute; bottom: 12px; right: 12px; z-index: 2;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: #111; /* Color oscuro para que resalte sobre el color de acento */
+    background: var(--accent); 
+    padding: 4px 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra para que flote sobre la imagen */
+  }
+
   .card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
   .card-title { font-size: 1.6rem; line-height: 1.02; margin: 0 0 0.6rem; }
   .card-excerpt { color: var(--fg-dim); font-size: 0.9rem; line-height: 1.55; margin: 0 0 1.2rem; flex: 1; }
@@ -86,4 +100,20 @@ const formatDate = (d: Date) =>
   }
   .card-read-arrow { display: inline-block; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
   .card:hover .card-read-arrow { transform: translateX(4px); }
+
+  /* --- ESTILOS PARA LA TARJETA PANORÁMICA (FEATURED) --- */
+  /* En escritorio (a partir de 700px donde hay 2+ columnas) */
+  @media (min-width: 700px) {
+    .card.featured {
+      grid-column: span 2; /* Ocupa el doble de ancho en el grid */
+    }
+    
+    .card.featured .card-media {
+      aspect-ratio: 16 / 7; /* Hacemos la imagen más panorámica */
+    }
+
+    .card.featured .card-title {
+      font-size: 2rem; /* Un título ligeramente más grande para destacarlo */
+    }
+  }
 </style>

@@ -23,6 +23,9 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const tags = [...new Set(allPosts.map((p) => p.data.tag))];
 
 const urlFor = (n: number) => (n === 1 ? '/' : `/${n}/`);
+
+// Sabemos si estamos en la página 1 para destacar el primer post
+const isFeaturedPage = page.currentPage === 1;
 ---
 <BaseLayout title="Artículos">
   <section class="hero-strip">
@@ -55,7 +58,11 @@ así la luz, con nuestras palabras, también"</i><br><br>
 
       <div class="grid">
         {page.data.map((post, i) => (
-          <PostCard post={post} index={(page.currentPage - 1) * POSTS_PER_PAGE + i} />
+          <PostCard 
+            post={post} 
+            index={(page.currentPage - 1) * POSTS_PER_PAGE + i} 
+            featured={isFeaturedPage && i === 0} 
+          />
         ))}
       </div>
 
@@ -89,8 +96,6 @@ así la luz, con nuestras palabras, también"</i><br><br>
 
   .grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
   @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 1200px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-
-
+  @media (min-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1200px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 </style>
