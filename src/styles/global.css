@@ -31,6 +31,7 @@ body,
 }
 
 body {
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--fg);
   font-family: 'PT Sans', sans-serif;
