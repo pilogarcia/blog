@@ -24,13 +24,15 @@ const tags = [...new Set(allPosts.map((p) => p.data.tag))];
 
 const urlFor = (n: number) => (n === 1 ? '/' : `/${n}/`);
 
-// Sabemos si estamos en la página 1 para destacar el primer post
 const isFeaturedPage = page.currentPage === 1;
 ---
 <BaseLayout title="Artículos">
   <section class="hero-strip">
     <div class="hero-bg">
-      <img src="/images/hero-articulos.jpg" alt="" />
+      <!-- Acá agregamos las 3 imágenes de fondo -->
+      <div class="hero-bg-img hero-bg-img-1"></div>
+      <div class="hero-bg-img hero-bg-img-2"></div>
+      <div class="hero-bg-img hero-bg-img-3"></div>
       <div class="hero-bg-overlay"></div>
     </div>
     <div class="hero-inner">
@@ -73,12 +75,35 @@ así la luz, con nuestras palabras, también"</i><br><br>
 
 <style>
   .hero-strip { position: relative; padding: 7rem 1.5rem 5rem; border-bottom: 1px solid var(--border); overflow: hidden; }
+  
+  /* Contenedor del fondo */
   .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
-  .hero-bg img {
-    width: 100%; height: 100%; object-fit: cover;
+  
+  /* Clase base para las imágenes del slider */
+  .hero-bg-img {
+    position: absolute; 
+    inset: 0;
+    background-size: cover;
+    background-position: center;
     filter: grayscale(0%) contrast(1) brightness(1.5);
-    opacity: 0.5;
+    opacity: 0; /* Empiezan invisibles */
+    animation: heroCrossfade 15s infinite; /* La animación dura 15s y se repite */
   }
+
+  /* AQUÍ PUEDES CAMBIAR LOS NOMBRES DE TUS IMÁGENES */
+  .hero-bg-img-1 { background-image: url('/images/hero-articulos-1.jpg'); animation-delay: 0s; }
+  .hero-bg-img-2 { background-image: url('/images/hero-articulos-2.jpg'); animation-delay: 5s; }
+  .hero-bg-img-3 { background-image: url('/images/hero-articulos-3.jpg'); animation-delay: 10s; }
+
+  /* Animación para que las imágenes se vayan cruzando suavemente */
+  @keyframes heroCrossfade {
+    0%   { opacity: 0; }
+    5%   { opacity: 0.5; } /* Sube a 0.5 de opacidad (como lo tenías originalmente) */
+    33.33% { opacity: 0.5; } /* Se mantiene visible */
+    38.33% { opacity: 0; } /* Desaparece suavemente */
+    100% { opacity: 0; }
+  }
+
   .hero-bg-overlay {
     position: absolute; inset: 0;
     background:
