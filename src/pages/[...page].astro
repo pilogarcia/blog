@@ -86,22 +86,37 @@ así la luz, con nuestras palabras, también"</i><br><br>
     background-size: cover;
     background-position: center;
     filter: grayscale(0%) contrast(1) brightness(1.5);
-    opacity: 0; /* Empiezan invisibles */
-    animation: heroCrossfade 15s infinite; /* La animación dura 15s y se repite */
+    opacity: 0;
+    animation: heroCrossfade 15s infinite;
+    will-change: opacity, transform; /* Ayuda a que la animación sea más fluida en el navegador */
   }
 
-  /* AQUÍ PUEDES CAMBIAR LOS NOMBRES DE TUS IMÁGENES */
+  /* Rutas de tus imágenes */
   .hero-bg-img-1 { background-image: url('/images/hero-articulos-1.jpg'); animation-delay: 0s; }
   .hero-bg-img-2 { background-image: url('/images/hero-articulos-2.jpg'); animation-delay: 5s; }
   .hero-bg-img-3 { background-image: url('/images/hero-articulos-3.jpg'); animation-delay: 10s; }
 
-  /* Animación para que las imágenes se vayan cruzando suavemente */
+   /* Animación con fundido mucho más largo y pronunciado */
   @keyframes heroCrossfade {
-    0%   { opacity: 0; }
-    5%   { opacity: 0.5; } /* Sube a 0.5 de opacidad (como lo tenías originalmente) */
-    33.33% { opacity: 0.5; } /* Se mantiene visible */
-    38.33% { opacity: 0; } /* Desaparece suavemente */
-    100% { opacity: 0; }
+    0%   { 
+      opacity: 0; 
+      transform: scale(1); 
+    }
+    13%  { 
+      opacity: 0.6; /* Tarda más en aparecer */
+    }
+    26%  { 
+      opacity: 0.6; 
+      transform: scale(1.04); 
+    }
+    46%  { 
+      opacity: 0; /* Tarda mucho más en desaparecer, fundiéndose con la próxima */
+      transform: scale(1.08); 
+    }
+    100% { 
+      opacity: 0; 
+      transform: scale(1.08); 
+    }
   }
 
   .hero-bg-overlay {
