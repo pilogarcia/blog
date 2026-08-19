@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Buscar">
+  <section class="search-page">
+    <div class="search-inner">
+      <p class="font-mono eyebrow">Buscar</p>
+      <h1 class="font-display search-title">¿Qué estás buscando?</h1>
+      <input
+        type="text"
+        id="search-input"
+        class="search-input font-body"
+        placeholder="Título, tema o categoría..."
+        autocomplete="off"
+      />
+      <div id="search-results" class="search-results"></div>
+      <p id="search-empty" class="font-body search-empty" hidden>No encontramos artículos con esa búsqueda.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .search-page { padding: 7rem 1.5rem 7rem; }
+  .search-inner { max-width: 700px; margin: 0 auto; }
+  .eyebrow { color: var(--accent); letter-spacing: 0.25em; font-size: 11px; margin-bottom: 1rem; }
+  .search-title { font-size: clamp(2rem, 6vw, 3.2rem); line-height: 0.95; margin: 0 0 2rem; }
+
+  .search-input {
+    width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border-light);
+    color: var(--fg); padding: 0.85rem 0; font-size: 1.3rem; transition: border-color 0.3s;
+  }
+  .search-input:focus { outline: none; border-color: var(--accent); }
+  .search-input::placeholder { color: var(--muted); }
+
+  .search-results { margin-top: 2.5rem; display: flex; flex-direction: column; }
+  .search-empty { color: var(--muted); margin-top: 2.5rem; }
+
+  .result-row {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    padding: 1.25rem 0; border-top: 1px solid var(--border-light);
+    transition: opacity 0.2s;
+  }
+  .result-row:last-child { border-bottom: 1px solid var(--border-light); }
+  .result-title { font-family: 'Oswald', sans-serif; font-size: 1.15rem; color: var(--fg); }
+  .result-row:hover .result-title { color: var(--accent); }
+  .result-excerpt { font-family: 'PT Sans', sans-serif; font-size: 0.9rem; color: var(--fg-dim); }
+  .result-meta {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--muted);
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var input = document.getElementById('search-input');
+    var results = document.getElementById('search-results');
+    var empty = document.getElementById('search-empty');
+    var posts = [];
+
+    fetch('/search-index.json')
+      .then(function (res) { return res.json(); })
+      .then(function (data) { posts = data; });
+
+    function formatDate(iso) {
+      var d = new Date(iso);
+      return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
+    }
+
+    function render(list) {
+      results.innerHTML = '';
+      empty.hidden = list.length > 0;
+      list.forEach(function (post) {
+        var a = document.createElement('a');
+        a.href = '/blog/' + post.id + '/';
+        a.className = 'result-row';
+        a.innerHTML =
+          '<span class="result-title">' + post.title + '</span>' +
+          '<span class="result-excerpt">' + post.excerpt + '</span>' +
+          '<span class="result-meta">' + post.tag + ' · ' + post.author + ' · ' + formatDate(post.pubDate) + '</span>';
+        results.appendChild(a);
+      });
+    }
+
+    input.addEventListener('input', function () {
+      var q = input.value.trim().toLowerCase();
+      if (!q) {
+        results.innerHTML = '';
+        empty.hidden = true;
+        return;
+      }
+      var filtered = posts.filter(function (post) {
+        return (
+          post.title.toLowerCase().includes(q) ||
+          post.excerpt.toLowerCase().includes(q) ||
+          post.tag.toLowerCase().includes(q)
+        );
+      });
+      render(filtered);
+    });
+
+    input.focus();
+  })();
+</script>
