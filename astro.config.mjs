@@ -4,6 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://blog.elojoinusual.com.ar',
+  site: 'https://elojoinusual.com.ar',
   integrations: [sitemap()],
 });
