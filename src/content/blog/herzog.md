@@ -25,7 +25,7 @@ El libro es un diario cronológico escrito día a día con las notas que Herzog 
 
 ## Conquista de lo inútil
 
-Es fundamental leer *Conquista de lo inútil* (2004), el libro que Herzog escribió durante el rodaje de Fitzcarraldo en la selva amazónica. Comparten el género, la prosa de frases cortas y aún más un mismo tipo de protagonista, ese Herzog empeñado en una empresa desmedida y aparentemente insensata y sostenida por pura terquedad, ya sea caminar 800 kilómetros en invierno o arrastrar un barco por la selva. En ambos casos la odisea física funciona como un proceso de conocimiento, un “making of” más revelador que cualquier documental convencional sobre su obra. La diferencia es que Del caminar sobre hielo es un gesto íntimo, sin productora ni película de por medio, mientras que Conquista de lo inútil está atado a un rodaje concreto.
+Es fundamental leer *Conquista de lo inútil* (2004), el libro que Herzog escribió durante el rodaje de Fitzcarraldo en la selva amazónica. Comparten el género, la prosa de frases cortas y aún más un mismo tipo de protagonista, ese Herzog empeñado en una empresa desmedida y aparentemente insensata y sostenida por pura terquedad, ya sea caminar 800 kilómetros en invierno o arrastrar un barco por la selva. En ambos casos la odisea física funciona como un proceso de conocimiento, un making of más revelador que cualquier documental convencional sobre su obra. La diferencia es que Del caminar sobre hielo es un gesto íntimo, sin productora ni película de por medio, mientras que Conquista de lo inútil está atado a un rodaje concreto.
 
 ## Conclusión
 
