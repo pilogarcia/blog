@@ -9,6 +9,8 @@ const year = new Date().getFullYear();
         Un blog sobre interes general filosofía, música, poesía, ciencia, creencias y experiencias de vida.
         Asuntos para entender el mundo.
       </p>
+      Escribinos: <a href="mailto:contacto@elojoinusual.com.ar" class="font-body footer-mail">
+        contacto@elojoinusual.com.ar</a>
     </div>
     <div class="footer-links">
       <h4 class="font-mono footer-heading">Síguenos</h4>
@@ -51,6 +53,14 @@ const year = new Date().getFullYear();
   .accent { color: var(--accent); }
    .accent2 { color: #2cc8e7; }
   .footer-desc { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+  .footer-mail {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--fg-dim);
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  .footer-mail:hover { color: var(--accent); }
   .footer-heading { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
   .footer-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
   .footer-links a { color: var(--fg-dim); font-size: 0.9rem; transition: color 0.3s; }
