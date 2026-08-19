@@ -32,9 +32,9 @@ const { prev, next } = Astro.props;
   }
   .pn-link {
     display: flex; flex-direction: column; gap: 0.6rem;
-    padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border);
-    transition: border-color 0.35s, background 0.35s;
+    padding: 1.5rem 0; transition: opacity 0.3s;
   }
+  .pn-link:hover { opacity: 0.7; }
   .pn-link:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); }
   .pn-next { text-align: right; align-items: flex-end; }
   .pn-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
