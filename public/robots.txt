@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://blog.elojoinusual.com.ar/sitemap-index.xml
+Sitemap: https://elojoinusual.com.ar/sitemap-index.xml
