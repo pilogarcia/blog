@@ -1,29 +1,43 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
+import TableOfContents from '../../components/TableOfContents.astro';
+import PrevNextNav from '../../components/PrevNextNav.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return posts.map((post, i) => ({
     params: { slug: post.id },
-    props: { post },
+    props: {
+      post,
+      prev: i < posts.length - 1 ? posts[i + 1] : null, // más viejo
+      next: i > 0 ? posts[i - 1] : null, // más nuevo
+      related: posts
+        .filter((p) => p.id !== post.id && p.data.tag === post.data.tag)
+        .slice(0, 3),
+    },
   }));
 }
 
 interface Props {
   post: CollectionEntry<'blog'>;
+  prev: CollectionEntry<'blog'> | null;
+  next: CollectionEntry<'blog'> | null;
+  related: CollectionEntry<'blog'>[];
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, prev, next, related } = Astro.props;
+const { Content, headings } = await render(post);
 
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
 <BaseLayout title={post.data.title} description={post.data.excerpt} image={post.data.cover} type="article">
-  <article class="post">
-   <header class="post-hero">
+  <article class="post-wrapper">
+    <header class="post-hero">
       <div class="post-hero-bg">
         {post.data.cover && <img src={post.data.cover} alt="" />}
         <div class="post-hero-overlay"></div>
@@ -39,27 +53,31 @@ const formatDate = (d: Date) =>
       </div>
     </header>
 
-   <div class="prose">
-      <Content />
+    <div class="post">
+      <TableOfContents headings={headings} />
+      <div class="prose">
+        <Content />
+      </div>
     </div>
   </article>
 
-  </BaseLayout>
+  <PrevNextNav prev={prev} next={next} />
+  <RelatedPosts posts={related} tag={post.data.tag} />
+</BaseLayout>
 
 <style>
- .post { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 7rem; }
+  .post { max-width: 900px; margin: 0 auto; padding: 0 1.5rem 5rem; }
 
   .post-hero {
     position: relative; overflow: hidden;
-    padding: 7rem 1.5rem 4rem; margin: 0 -1.5rem 3rem;
+    width: 100%;
+    padding: 7rem 1.5rem 4rem; margin-bottom: 3rem;
   }
   .post-hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
-.post-hero {
-    position: relative; overflow: hidden;
-    padding: 7rem 1.5rem 4rem; margin-bottom: 3rem;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+  .post-hero-bg img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.05) brightness(1.35);
+    opacity: 0.5;
   }
   .post-hero-overlay {
     position: absolute; inset: 0;
@@ -68,9 +86,10 @@ const formatDate = (d: Date) =>
       radial-gradient(ellipse at 20% 30%, rgba(10, 124, 143, 0.10) 0%, transparent 55%);
   }
   .post-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
-  .back-link { color: #1f1f1f; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
-  .back-link:hover { color: #db8e09; }
-  .post-tag { color: #000000; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin: 2rem 0 1rem; }
+
+  .back-link { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+  .back-link:hover { color: var(--accent); }
+  .post-tag { color: var(--accent); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin: 2rem 0 1rem; }
   .post-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 0.95; margin: 0 0 1.5rem; }
-  .post-meta { color: #2f2f2f; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
 </style>
