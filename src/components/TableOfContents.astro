@@ -1,0 +1,43 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings: Heading[];
+}
+
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2);
+---
+{items.length >= 2 && (
+  <nav class="toc" aria-label="Tabla de contenidos">
+    <p class="font-mono toc-heading">En este artículo</p>
+    <ol>
+      {items.map((h) => (
+        <li><a href={`#${h.slug}`} class="font-body">{h.text}</a></li>
+      ))}
+    </ol>
+  </nav>
+)}
+
+<style>
+  .toc {
+    max-width: 900px; margin: 0 auto 3rem; padding: 1.5rem 1.75rem;
+    background: var(--bg-card); border: 1px solid var(--border);
+  }
+  .toc-heading {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.9rem;
+  }
+  .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; display: flex; flex-direction: column; gap: 0.55rem; }
+  .toc li { counter-increment: toc; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted); margin-right: 0.6rem;
+  }
+  .toc a { color: var(--fg-dim); font-size: 0.95rem; transition: color 0.3s; }
+  .toc a:hover { color: var(--accent); }
+</style>

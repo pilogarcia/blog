@@ -1,0 +1,47 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  prev?: CollectionEntry<'blog'> | null;
+  next?: CollectionEntry<'blog'> | null;
+}
+
+const { prev, next } = Astro.props;
+---
+{(prev || next) && (
+  <nav class="prev-next" aria-label="Navegación entre artículos">
+    {prev ? (
+      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev notch-corner">
+        <span class="font-mono pn-label">← Anterior</span>
+        <span class="font-display pn-title">{prev.data.title}</span>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a href={`/blog/${next.id}/`} class="pn-link pn-next notch-corner">
+        <span class="font-mono pn-label">Siguiente →</span>
+        <span class="font-display pn-title">{next.data.title}</span>
+      </a>
+    ) : <span></span>}
+  </nav>
+)}
+
+<style>
+  .prev-next {
+    max-width: 900px; margin: 0 auto 5rem; padding: 0 1.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+  }
+  .pn-link {
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 1.5rem; background: var(--bg-card); border: 1px solid var(--border);
+    transition: border-color 0.35s, background 0.35s;
+  }
+  .pn-link:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); }
+  .pn-next { text-align: right; align-items: flex-end; }
+  .pn-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+  .pn-title { font-size: 1.15rem; line-height: 1.15; color: var(--fg); }
+
+  @media (max-width: 640px) {
+    .prev-next { grid-template-columns: 1fr; }
+    .pn-next { text-align: left; align-items: flex-start; }
+  }
+</style>
