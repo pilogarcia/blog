@@ -5,6 +5,7 @@ pubDate: 2026-08-14
 author: "Pilo García"
 tag: "Interés General"
 cover: "/images/posts/ojo.jpg"
+type: "article"
 ---
 
 La idea del nombre del proyecto, nace desde una poética deficiente, pero simbólica. Desde niño intenté mirar lo que aparentemente no se ve, mirar como ser poético que somos y no como un obediente alumno de lo normal. 
