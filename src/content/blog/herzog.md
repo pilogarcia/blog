@@ -1,11 +1,11 @@
 ---
 title: "Del caminar sobre hielo"
 excerpt: "El libro de Werner Herzog"
+type: "article"
 pubDate: 2026-08-16
 author: "Pilo García"
 tag: "Diario de viaje"
 cover: "/images/posts/herzog.jpg"
-type: "article"
 ---
 
 ### - Reseña: sobre el libro de Werner Herzog

@@ -5,6 +5,7 @@ pubDate: 2026-08-16
 author: "Puchi García"
 tag: "Diario de viaje"
 cover: "/images/posts/puchi.webp"
+type: "article"
 ---
 
 ## Introducción: (por Pilo García)

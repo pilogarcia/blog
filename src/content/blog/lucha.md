@@ -1,11 +1,11 @@
 ---
 title: "Una lucha válida"
 excerpt: "Pensar lo que viene"
+type: "article"
 pubDate: 2026-08-15
 author: "Pilo García"
 tag: "Interés General"
 cover: "/images/posts/lucha.jpg"
-type: "article"
 ---
 
 Por qué vamos a dejar a la intemperie el corazón, los surcos de la piel o algún rastro de ingenuidad.

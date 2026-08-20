@@ -1,11 +1,11 @@
 ---
 title: "El llanto de un lugar"
 excerpt: "Texto de 2009"
+type: "article"
 pubDate: 2026-08-15
 author: "John Berger"
 tag: "Escritores"
 cover: "/images/posts/berger.jpg"
-type: "article"
 ---
 Unos días después de nuestro retorno de lo que hasta hace poco suponíamos que sería el futuro Estado de Palestina, y que ahora es la prisión más grande del mundo (Gaza), la sala de espera más grande del mundo (Cisjordania), tuve un sueño. Estaba solo, de pie, desnudo de la cintura para arriba, en un desierto de cuarzo arenisco. En algún momento, la mano de alguien recogía del suelo un poco de esa arena y me la lanzaba al pecho. Su acción era más bien algo considerado y no un acto agresivo. Antes de tocarme, la tierra o grava se transformaba en jirones de tela, tal vez algodón, que se envolvían solos alrededor de mi torso. Estos trapos rasgados cambiaban otra vez y se volvían palabras, frases. No eran escritas por mí sino por el lugar.
 Al recordar este sueño, me vino a la mente el término inventado tierra arrasada. Y se repetía. Tierra arrasada describe un lugar o los lugares donde todo, lo material y lo inmaterial, ha sido barrido, robado, desmantelado, desmenuzado, lavado, todo excepto la tierra palpable.
