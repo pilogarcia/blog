@@ -49,9 +49,12 @@ const ogImageURL = new URL(image, Astro.site);
     <meta name="twitter:image" content={ogImageURL} />
 
  <!-- Acá agregamos el favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/ico" href="/favicon.ico" />
-  <link rel="shortcut icon" href="/favicon.png" />
+  <!-- Usamos el SVG para navegadores modernos (se ve nítido) -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Usamos el ICO como respaldo para navegadores viejos -->
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+<!-- Opcional: Para la pantalla de inicio en iOS -->
+<link rel="apple-touch-icon" href="/favicon.jpg" />
 
     <!-- Datos Estructurados para Google -->
   {type === 'article' && (
