@@ -35,7 +35,14 @@ const { Content, headings } = await render(post);
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
-<BaseLayout title={post.data.title} description={post.data.excerpt} image={post.data.cover} type="article">
+<BaseLayout 
+  title={post.data.title} 
+  description={post.data.excerpt} 
+  image={post.data.cover} 
+  type="article"
+  pubDate={post.data.pubDate}
+  author={post.data.author}
+>
   <article class="post-wrapper">
     <header class="post-hero">
       <div class="post-hero-bg">
