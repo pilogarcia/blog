@@ -23,6 +23,9 @@ const { tags, activeTag } = Astro.props;
     font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--fg-dim); border: 1px solid var(--border-light);
     padding: 0.5rem 1rem; transition: all 0.3s;
+    
+    /* Acá le redondeamos la esquina inferior derecha */
+    border-bottom-right-radius: 10px; /* Puedes subir o bajar este número si quieres más o menos curva */
   }
   .tag-pill:hover { color: var(--fg); border-color: var(--accent-dim); }
   .tag-pill.active { color: black; background: var(--accent); border-color: var(--accent); }
