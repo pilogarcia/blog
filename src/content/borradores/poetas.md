@@ -1,10 +1,10 @@
 ---
-title: "Puchi"
-excerpt: "La poesía en las serranías"
+title: "Poetas"
+excerpt: "Un relato de mil años"
 pubDate: 2026-08-16
-author: "Puchi García"
-tag: "Diario de viaje"
-cover: "/images/posts/puchi.webp"
+author: "Pilo García"
+tag: "Relato"
+cover: "/images/posts/poetas.jpg"
 type: "article"
 ---
 
