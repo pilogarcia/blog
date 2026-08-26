@@ -198,3 +198,19 @@ a { color: inherit; text-decoration: none; }
   color: #000 !important;
 }
 /* --- FIN DE ESTILOS PAGEFIND --- */
+
+/* --- ARREGLO PARA LA IMAGEN DE PAGEFIND --- */
+.pagefind-ui__result-image {
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+  max-width: 100px !important; /* Le damos un tamaño chico como a una miniatura */
+  margin-right: 1rem !important;
+  float: left !important; /* Que la imagen quede a la izquierda y el texto la rodee */
+}
+
+.pagefind-ui__result {
+  overflow: hidden !important; /* Para que la imagen no se escape de la caja del resultado */
+  position: relative !important;
+  z-index: 1 !important;
+}
