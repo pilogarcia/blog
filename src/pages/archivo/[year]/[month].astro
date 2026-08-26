@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PostCard from '../../../components/PostCard.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  
+  // Creamos un Set para guardar combinaciones únicas de "Año-Mes"
+  const archiveSet = new Set<string>();
+  
+  allPosts.forEach(post => {
+    const year = post.data.pubDate.getFullYear();
+    const month = post.data.pubDate.getMonth() + 1; // +1 porque Enero es 0
+    archiveSet.add(`${year}-${month}`);
+  });
+
+  // Convertimos el Set en el formato que Astro necesita para las rutas
+  return Array.from(archiveSet).map(entry => {
+    const [year, month] = entry.split('-');
+    return {
+      params: { year, month },
+    };
+  });
+}
+
+const { year, month } = Astro.params;
+
+const monthsNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Filtramos los posts para que solo salgan los de este mes y año exactos
+const filteredPosts = allPosts
+  .filter(post => 
+    post.data.pubDate.getFullYear() === Number(year) && 
+    post.data.pubDate.getMonth() + 1 === Number(month)
+  )
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Nombre bonito para el título (ej: "Octubre 2023")
+const monthName = monthsNames[Number(month) - 1];
+---
+<BaseLayout title={`Archivo: ${monthName} ${year}`}>
+  <section class="articles">
+    <div class="articles-inner">
+      <div class="section-marker"><span>Archivo</span></div>
+      
+      <a href="/" class="font-mono back-link">← Volver al Inicio</a>
+      
+      <h1 class="font-display archive-title">{monthName} {year}</h1>
+      <p class="font-body archive-desc">
+        {filteredPosts.length} {filteredPosts.length === 1 ? 'artículo publicado' : 'artículos publicados'}
+      </p>
+
+      {filteredPosts.length === 0 ? (
+        <p class="font-body empty">No hay artículos publicados en esta fecha.</p>
+      ) : (
+        <div class="grid">
+          {filteredPosts.map((post, i) => (
+            <PostCard post={post} index={i} />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .articles { padding: 7rem 1.5rem 7rem; }
+  .articles-inner { max-width: 1200px; margin: 0 auto; }
+  .back-link { display: inline-block; color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; transition: color 0.3s; }
+  .back-link:hover { color: var(--accent); }
+  .archive-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0 0 0.5rem; color: var(--fg); }
+  .archive-desc { color: var(--fg-dim); font-size: 1.1rem; margin-bottom: 3rem; }
+  .empty { color: var(--muted); }
+  
+  /* Usamos la misma grilla adaptable que en la home */
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+    gap: 2rem; 
+  }
+</style>
