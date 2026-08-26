@@ -3,88 +3,13 @@
 ---
 <div id="search-modal" class="search-modal hidden">
   <div class="search-modal-content">
-    
     <span class="font-mono search-title">BUSCAR EN EL BLOG</span>
     <div id="search"></div>
-    
   </div>
 </div>
 
 <style>
-  /* --- ESTILOS GLOBALES DE PAGEFIND (Tema Claro) --- */
-  :global(.pagefind-ui) {
-    --pagefind-ui-primary: #2cc8e7;
-    --pagefind-ui-text: #131313;
-    --pagefind-ui-secondary-text: #555;
-    --pagefind-ui-input-background: #ffffff;
-    --pagefind-ui-background: #ffffff;
-    --pagefind-ui-border: #e0e0e0;
-    --pagefind-ui-tag: #f0f0f0;
-    --pagefind-ui-border-radius: 0px;
-    --pagefind-ui-font: 'IBM Plex Mono', monospace;
-  }
-
-  :global(.pagefind-ui .pagefind-ui__search-input) {
-    background: #ffffff !important;
-    border: 1px solid #ccc !important;
-    color: #131313 !important;
-    padding: 1rem !important;
-    font-size: 1rem !important;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
-  }
-  :global(.pagefind-ui .pagefind-ui__search-input:focus) {
-    border-color: #2cc8e7 !important;
-    outline: none !important;
-    box-shadow: 0 0 0 2px rgba(44, 200, 231, 0.2) !important;
-  }
-  
-  /* Estilo para el botón Limpiar de Pagefind y nuestro botón Cerrar */
-  :global(.pagefind-ui .pagefind-ui__search-clear),
-  :global(.search-close-btn) {
-    background-color: #f0f0f0 !important;
-    border: 1px solid #ccc !important;
-    color: #555 !important;
-    border-radius: 0 !important;
-    font-size: 12px !important;
-    padding: 0.5rem 0.8rem !important;
-    cursor: pointer !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    margin-left: 8px !important; /* Espacio entre Limpiar y Cerrar */
-  }
-  :global(.pagefind-ui .pagefind-ui__search-clear:hover),
-  :global(.search-close-btn:hover) {
-    color: #000 !important;
-    border-color: #2cc8e7 !important;
-    background: #e0e0e0 !important;
-  }
-
-  :global(.pagefind-ui__result) {
-    border-top: 1px solid #eee !important;
-    padding: 1.2rem 0 !important;
-  }
-  :global(.pagefind-ui__result-title) {
-    color: #131313 !important;
-    font-family: 'IBM Plex Mono', monospace !important;
-    font-size: 1.1rem !important;
-    letter-spacing: 0.05em !important;
-    text-decoration: none !important;
-    margin-bottom: 0.5rem !important;
-  }
-  :global(.pagefind-ui__result-title:hover) {
-    color: #2cc8e7 !important;
-  }
-  :global(.pagefind-ui__result-excerpt) {
-    color: #444 !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 0.9rem !important;
-    line-height: 1.5 !important;
-  }
-  :global(.pagefind-ui__mark) {
-    background-color: rgba(44, 200, 231, 0.25) !important;
-    color: #000 !important;
-  }
-
-  /* --- ESTILOS DEL MODAL FLOTANTE --- */
+  /* --- ESTILOS DEL MODAL FLOTANTE (Estos sí se quedan acá) --- */
   .search-modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0,0,0,0.5);
@@ -104,12 +29,11 @@
     border-top: 4px solid #2cc8e7;
   }
 
-  /* Título mejorado */
   .search-title {
     display: block;
-    font-size: 14px; /* Un punto más grande */
+    font-size: 14px;
     letter-spacing: 0.2em;
-    color: #131313; /* Color oscuro para mejor lectura */
+    color: #131313;
     font-weight: 700;
     margin-bottom: 1.5rem;
   }
@@ -142,9 +66,8 @@
           if (clearBtn) {
             const closeBtn = document.createElement('button');
             closeBtn.innerText = 'Cerrar ✕';
-            closeBtn.className = 'search-close-btn'; // Le asignamos la clase para estilarlo igual que Limpiar
+            closeBtn.className = 'search-close-btn';
             closeBtn.addEventListener('click', closeModal);
-            // Lo insertamos justo después del botón Limpiar
             clearBtn.parentNode.insertBefore(closeBtn, clearBtn.nextSibling);
           }
 

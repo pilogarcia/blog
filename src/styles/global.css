@@ -125,3 +125,76 @@ a { color: inherit; text-decoration: none; }
 .prose a:hover { color: var(--accent-bright); }
 .prose img { width: 100%; filter: grayscale(60%) contrast(1.2); margin: 2em 0; }
 .prose code { font-family: 'JetBrains Mono', monospace; background: var(--bg-card); padding: 0.15em 0.4em; font-size: 1.2em; }
+
+/* --- ESTILOS GLOBALES DE PAGEFIND (Para que no los borre Astro en producción) --- */
+.pagefind-ui {
+  --pagefind-ui-primary: #2cc8e7;
+  --pagefind-ui-text: #131313;
+  --pagefind-ui-secondary-text: #555;
+  --pagefind-ui-input-background: #ffffff;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #e0e0e0;
+  --pagefind-ui-tag: #f0f0f0;
+  --pagefind-ui-border-radius: 0px;
+  --pagefind-ui-font: 'IBM Plex Mono', monospace;
+}
+
+.pagefind-ui .pagefind-ui__search-input {
+  background: #ffffff !important;
+  border: 1px solid #ccc !important;
+  color: #131313 !important;
+  padding: 1rem !important;
+  font-size: 1rem !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+}
+.pagefind-ui .pagefind-ui__search-input:focus {
+  border-color: #2cc8e7 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(44, 200, 231, 0.2) !important;
+}
+
+.pagefind-ui .pagefind-ui__search-clear,
+.search-close-btn {
+  background-color: #f0f0f0 !important;
+  border: 1px solid #ccc !important;
+  color: #555 !important;
+  border-radius: 0 !important;
+  font-size: 12px !important;
+  padding: 0.5rem 0.8rem !important;
+  cursor: pointer !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  margin-left: 8px !important;
+}
+.pagefind-ui .pagefind-ui__search-clear:hover,
+.search-close-btn:hover {
+  color: #000 !important;
+  border-color: #2cc8e7 !important;
+  background: #e0e0e0 !important;
+}
+
+.pagefind-ui__result {
+  border-top: 1px solid #eee !important;
+  padding: 1.2rem 0 !important;
+}
+.pagefind-ui__result-title {
+  color: #131313 !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.05em !important;
+  text-decoration: none !important;
+  margin-bottom: 0.5rem !important;
+}
+.pagefind-ui__result-title:hover {
+  color: #2cc8e7 !important;
+}
+.pagefind-ui__result-excerpt {
+  color: #444 !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+.pagefind-ui__mark {
+  background-color: rgba(44, 200, 231, 0.25) !important;
+  color: #000 !important;
+}
+/* --- FIN DE ESTILOS PAGEFIND --- */
