@@ -88,13 +88,18 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
         <!-- Columna lateral: Sidebar -->
         <aside class="sidebar font-mono">
           
-          <!-- Caja de Donación -->
+                    <!-- Caja de Donación -->
           <div class="sidebar-box donate-box">
             <h3 class="sidebar-title">APOYAR EL BLOG</h3>
             <p class="sidebar-text">Si te gustó lo que leíste, podés colaborar con el blog.</p>
             
-            <a href="https://cafecito.app/elojoinusual" target="_blank" rel="noopener noreferrer" class="donate-btn primary">
-              Cafecito
+            <a href='https://cafecito.app/elojoinusual' rel='noopener' target='_blank' class="cafecito-btn">
+              <img 
+                srcset='https://cdn.cafecito.app/imgs/buttons/button_6.png 1x, https://cdn.cafecito.app/imgs/buttons/button_6_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_6_3.75x.png 3.75x' 
+                src='https://cdn.cafecito.app/imgs/buttons/button_6.png' 
+                alt='Invitame un café en cafecito.app' 
+                class="cafecito-img"
+              />
             </a>
           </div>
 
@@ -217,31 +222,18 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
     margin-bottom: 1.2rem;
     line-height: 1.5;
   }
-  .donate-btn {
+    .cafecito-btn {
     display: block;
     text-align: center;
-    padding: 0.7rem;
-    margin-bottom: 0.6rem;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: transform 0.2s, background 0.3s, color 0.3s;
-    border: 1px solid var(--accent);
   }
-  .donate-btn:last-child { 
-    margin-bottom: 0; 
+  .cafecito-img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block;
+    transition: transform 0.2s;
   }
-
-  /* Botón principal (Cafecito) - Relleno */
-  .donate-btn.primary {
-    background: var(--accent);
-    color: #000;
-  }
-  .donate-btn.primary:hover { 
+  .cafecito-img:hover { 
     transform: translateY(-2px); 
-    background: transparent;
-    color: var(--accent);
   }
 
   /* Botón secundario - Solo borde (Por si lo vuelves a usar) */
