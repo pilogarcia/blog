@@ -81,19 +81,22 @@ const ogImageURL = new URL(image, Astro.site);
     )}
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f498ae863144aa6bb353835ef12acd5"}'></script><!-- End Cloudflare Web Analytics -->
   </head>
-    <body>
+      <body>
     <div class="grain"></div>
-    <Header />
     
-    <!-- Le agregamos position: relative y z-index: 0 para crear un contexto de apilamiento y que nada se escape -->
-    <main style="position: relative; z-index: 0;">
+    <!-- Header aislado para que su blur no afecte al resto -->
+    <div style="isolation: isolate; position: relative; z-index: 50;">
+      <Header />
+    </div>
+    
+    <!-- Main aislado para que NINGUNA imagen o animación de adentro pueda tapar al buscador -->
+    <main style="isolation: isolate; position: relative; z-index: 0;">
       <slot />
     </main>
     
     <Footer />
     <ScrollTopButton />
     
-    <!-- Comentario arreglado -->
     <Search /> 
   </body>
 </html>
