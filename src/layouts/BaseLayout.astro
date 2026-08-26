@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollTopButton from '../components/ScrollTopButton.astro';
 import { SITE_TITLE } from '../consts';
+import Search from '../components/Search.astro';
 
 interface Props {
   title: string;
@@ -88,5 +89,6 @@ const ogImageURL = new URL(image, Astro.site);
     </main>
     <Footer />
     <ScrollTopButton />
+    <Search /> <!-- ¡Acá lo ponemos al final de todo! -->
   </body>
 </html>
