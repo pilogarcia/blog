@@ -28,7 +28,13 @@
       script.src = '/pagefind/pagefind-ui.js';
       script.onload = () => {
         if (window.PagefindUI) {
-          new window.PagefindUI({ element: "#search", showSubResults: true });
+          // ACÁ LE AGREGUÉ showImages: false para que no ponga fotos
+          new window.PagefindUI({ 
+            element: "#search", 
+            showSubResults: true,
+            showImages: false 
+          });
+          
           const clearBtn = document.querySelector('.pagefind-ui__search-clear');
           if (clearBtn) {
             const closeBtn = document.createElement('button');
