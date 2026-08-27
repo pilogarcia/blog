@@ -24,16 +24,13 @@ const year = new Date().getFullYear();
     <div class="footer-subscribe" id="suscribite">
       <h4 class="font-mono footer-heading">Suscribite</h4>
       <p class="font-body footer-desc">Suscribite para recibir las novedades!</p>
-      <form
-        action="https://buttondown.email/api/emails/embed-subscribe/elbloginusual"
-        method="post"
-        target="popupwindow"
-        onsubmit="window.open('https://buttondown.email/elbloginusual', 'popupwindow')"
-        class="subscribe-form"
-      >
-        <input type="email" name="email" required placeholder="tu@correo.com" class="subscribe-input font-body" />
-        <button type="submit" class="subscribe-btn font-heading">Suscribirme</button>
+      
+      <!-- Le sacamos el action y el onsubmit para manejarlo con JavaScript -->
+      <form id="subscribe-form" class="subscribe-form">
+        <input type="email" id="email-input" name="email" required placeholder="tu@correo.com" class="subscribe-input font-body" />
+        <button type="submit" id="subscribe-btn" class="subscribe-btn font-heading">Suscribirme</button>
       </form>
+      <p id="subscribe-status" class="subscribe-status"></p>
     </div>
   </div>
   <div class="footer-bottom font-mono">
@@ -51,7 +48,7 @@ const year = new Date().getFullYear();
   .footer-brand { max-width: 420px; }
   .brand-title { font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 1rem; }
   .accent { color: var(--accent); }
-   .accent2 { color: #2cc8e7; }
+  .accent2 { color: #2cc8e7; }
   .footer-desc { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
   .footer-mail {
     display: inline-block;
@@ -86,4 +83,56 @@ const year = new Date().getFullYear();
     cursor: pointer; transition: background 0.3s; white-space: nowrap;
   }
   .subscribe-btn:hover { background: var(--accent-bright); }
+  .subscribe-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  /* Estilos para el mensaje de éxito o error */
+  .subscribe-status {
+    margin-top: 0.75rem; font-size: 0.85rem; min-height: 1.2rem; font-family: 'JetBrains Mono', monospace;
+  }
+  .subscribe-status.success { color: #2cc8e7; }
+  .subscribe-status.error { color: #c4560a; }
 </style>
+
+<script is:inline>
+  const form = document.getElementById('subscribe-form');
+  const emailInput = document.getElementById('email-input');
+  const btn = document.getElementById('subscribe-btn');
+  const status = document.getElementById('subscribe-status');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Evita que se recargue la página o abra popups
+    const email = emailInput.value;
+    if (!email) return;
+
+    // Cambiamos el botón a "Enviando..."
+    btn.disabled = true;
+    btn.innerText = 'Enviando...';
+    status.textContent = '';
+    status.className = 'subscribe-status';
+
+    try {
+      // Hacemos la petición a nuestra función de Cloudflare (/api/subscribe)
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (res.ok) {
+        status.textContent = '¡Listo! Revisa tu correo para confirmar.';
+        status.classList.add('success');
+        emailInput.value = ''; // Limpiamos el input
+      } else {
+        status.textContent = 'Ups, ocurrió un error. Intenta de nuevo.';
+        status.classList.add('error');
+      }
+    } catch (err) {
+      status.textContent = 'Error de conexión. Intenta más tarde.';
+      status.classList.add('error');
+    } finally {
+      // Restauramos el botón
+      btn.disabled = false;
+      btn.innerText = 'Suscribirme';
+    }
+  });
+</script>
