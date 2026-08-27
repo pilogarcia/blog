@@ -111,15 +111,16 @@ const year = new Date().getFullYear();
     status.className = 'subscribe-status';
 
     try {
-      // Hacemos la petición a nuestra función de Cloudflare (/api/subscribe)
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+      // Enviamos el email directamente a Buttondown desde el navegador
+      const res = await fetch("https://buttondown.email/api/emails/embed-subscribe/elbuginusual", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ email }).toString()
       });
 
-      if (res.ok) {
-      status.textContent = '¡Listo! Gracias por suscribirte.';
+      // Si Buttondown responde que todo salió bien (o redirecciona)
+      if (res.ok || res.redirected) {
+        status.textContent = '¡Listo! Revisa tu correo para confirmar.';
         status.classList.add('success');
         emailInput.value = ''; // Limpiamos el input
       } else {
