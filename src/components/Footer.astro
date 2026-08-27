@@ -116,7 +116,7 @@ const year = new Date().getFullYear();
   iframe?.addEventListener('load', () => {
     // Si el botón está deshabilitado, significa que el formulario se envió
     if (btn.disabled) {
-      status.textContent = '¡Listo! Revisa tu correo para confirmar.';
+      status.textContent = '¡Listo! Gracias por suscribirte.';
       status.classList.add('success');
       emailInput.value = ''; // Limpiamos el input
       btn.disabled = false;
