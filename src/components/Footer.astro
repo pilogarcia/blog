@@ -25,11 +25,13 @@ const year = new Date().getFullYear();
       <h4 class="font-mono footer-heading">Suscribite</h4>
       <p class="font-body footer-desc">Suscribite para recibir las novedades!</p>
       
-      <!-- Le sacamos el action y el onsubmit para manejarlo con JavaScript -->
-      <form id="subscribe-form" class="subscribe-form">
+      <!-- El formulario apunta al iframe invisible -->
+      <form id="subscribe-form" action="https://buttondown.email/api/emails/embed-subscribe/elbloginusual" method="post" target="hidden-iframe" class="subscribe-form">
         <input type="email" id="email-input" name="email" required placeholder="tu@correo.com" class="subscribe-input font-body" />
         <button type="submit" id="subscribe-btn" class="subscribe-btn font-heading">Suscribirme</button>
       </form>
+      <!-- Iframe invisible para atrapar la respuesta de Buttondown -->
+      <iframe name="hidden-iframe" id="hidden-iframe" style="display: none;"></iframe>
       <p id="subscribe-status" class="subscribe-status"></p>
     </div>
   </div>
@@ -85,7 +87,6 @@ const year = new Date().getFullYear();
   .subscribe-btn:hover { background: var(--accent-bright); }
   .subscribe-btn:disabled { opacity: 0.6; cursor: not-allowed; }
   
-  /* Estilos para el mensaje de éxito o error */
   .subscribe-status {
     margin-top: 0.75rem; font-size: 0.85rem; min-height: 1.2rem; font-family: 'JetBrains Mono', monospace;
   }
@@ -98,40 +99,26 @@ const year = new Date().getFullYear();
   const emailInput = document.getElementById('email-input');
   const btn = document.getElementById('subscribe-btn');
   const status = document.getElementById('subscribe-status');
+  const iframe = document.getElementById('hidden-iframe');
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Evita que se recargue la página o abra popups
+  // Cuando el formulario se envía, cambiamos el botón a "Enviando..."
+  form?.addEventListener('submit', (e) => {
     const email = emailInput.value;
     if (!email) return;
-
-    // Cambiamos el botón a "Enviando..."
+    
     btn.disabled = true;
     btn.innerText = 'Enviando...';
     status.textContent = '';
     status.className = 'subscribe-status';
+  });
 
-    try {
-      // Enviamos el email directamente a Buttondown desde el navegador
-      const res = await fetch("https://buttondown.email/api/emails/embed-subscribe/elbuginusual", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ email }).toString()
-      });
-
-      // Si Buttondown responde que todo salió bien (o redirecciona)
-      if (res.ok || res.redirected) {
-        status.textContent = '¡Listo! Revisa tu correo para confirmar.';
-        status.classList.add('success');
-        emailInput.value = ''; // Limpiamos el input
-      } else {
-        status.textContent = 'Ups, ocurrió un error. Intenta de nuevo.';
-        status.classList.add('error');
-      }
-    } catch (err) {
-      status.textContent = 'Error de conexión. Intenta más tarde.';
-      status.classList.add('error');
-    } finally {
-      // Restauramos el botón
+  // Cuando el iframe termina de cargar, significa que Buttondown respondió
+  iframe?.addEventListener('load', () => {
+    // Si el botón está deshabilitado, significa que el formulario se envió
+    if (btn.disabled) {
+      status.textContent = '¡Listo! Revisa tu correo para confirmar.';
+      status.classList.add('success');
+      emailInput.value = ''; // Limpiamos el input
       btn.disabled = false;
       btn.innerText = 'Suscribirme';
     }
