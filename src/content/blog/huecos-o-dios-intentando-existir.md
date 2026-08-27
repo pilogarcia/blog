@@ -12,7 +12,7 @@ Ayer, justo ayer, le dije a T. que Dios es un hueco. Cuando nacemos además de c
 
 Dios es un hueco, la muerte es otro hueco. La vocación y el amor, dos huecos, acaso bellos a veces no tanto pero bonitos.
 
-La filosofía es un hueco al que siempre intentamos llenar con asuntos y creo que Dios es lo mismo. Como el adiós indefinido, un hueco que de vez en cuando duele pero siempre enseña. La filosofía requiere dudas preguntas incertidumbres que suelen doler con un dolor peculiar, el dolor de seguir preguntando y al fin y al cabo no saber nunca lo preciso pero encontranmos en ella algunos razonamientos que nos ayudan a seguir dudando hasta que arribamos a la conclusión que el fin, es dudar.
+La filosofía es un hueco al que siempre intentamos llenar con asuntos y creo que Dios es lo mismo. Como el adiós indefinido, un hueco que de vez en cuando duele pero siempre enseña. La filosofía requiere dudas preguntas incertidumbres que suelen doler con un dolor peculiar, el dolor de seguir preguntando y al fin y al cabo no saber nunca lo preciso pero encontramos en ella algunos razonamientos que nos ayudan a seguir dudando hasta que arribamos a la conclusión que el fin, es dudar.
 
 Dios es un hueco pero para quien lleva su vida con fe (no es mi caso, o no la fe religiosa, bueno, quiero decir la fe de las iglesias) es una ventana que por lo mínimo deja ver una eternidad de la cual dudo pero me hace envidiar a los que llevan su fe, o alguna otra fe distinta pero aún parecida.
 
