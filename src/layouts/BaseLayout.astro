@@ -36,6 +36,10 @@ const ogImageURL = new URL(image, Astro.site);
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Auto-descubrimiento de Sitemap y RSS -->
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="El Ojo Inusual" href={new URL('rss.xml', Astro.site)} />
 
     <!-- Open Graph -->
     <meta property="og:type" content={type} />
@@ -43,6 +47,9 @@ const ogImageURL = new URL(image, Astro.site);
     <meta property="og:title" content={`${title} — El Ojo Inusual`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
+    <!-- Dimensiones estándar para WhatsApp/Facebook (1200x630) -->
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="El Ojo Inusual" />
     <meta property="og:locale" content="es_AR" />
 
@@ -52,15 +59,12 @@ const ogImageURL = new URL(image, Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
 
-    <!-- Acá agregamos el favicon -->
-    <!-- Usamos el SVG para navegadores modernos (se ve nítido) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <!-- Usamos el ICO como respaldo para navegadores viejos -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <!-- Opcional: Para la pantalla de inicio en iOS -->
     <link rel="apple-touch-icon" href="/favicon.jpg" />
 
-    <!-- Datos Estructurados para Google -->
+    <!-- Datos Estructurados para Google (JSON-LD) -->
     {type === 'article' && (
       <script type="application/ld+json" set:html={JSON.stringify({
         "@context": "https://schema.org",
@@ -75,21 +79,25 @@ const ogImageURL = new URL(image, Astro.site);
         "datePublished": pubDate ? pubDate.toISOString() : undefined,
         "publisher": {
           "@type": "Organization",
-          "name": "El Ojo Inusual"
+          "name": "El Ojo Inusual",
+          "logo": {
+            "@type": "ImageObject",
+            "url": new URL('/favicon.svg', Astro.site).toString()
+          }
         }
       })} />
     )}
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f498ae863144aa6bb353835ef12acd5"}'></script><!-- End Cloudflare Web Analytics -->
+
+    <!-- Cloudflare Web Analytics -->
+    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5f498ae863144aa6bb353835ef12acd5"}'></script>
   </head>
-      <body>
+  <body>
     <div class="grain"></div>
     
-    <!-- Header aislado para que su blur no afecte al resto -->
     <div style="isolation: isolate; position: relative; z-index: 50;">
       <Header />
     </div>
     
-    <!-- Main aislado para que NINGUNA imagen o animación de adentro pueda tapar al buscador -->
     <main style="isolation: isolate; position: relative; z-index: 0;">
       <slot />
     </main>
