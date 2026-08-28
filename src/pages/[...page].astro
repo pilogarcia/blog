@@ -146,6 +146,18 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
               ))}
             </ul>
           </div>
+
+                    <!-- NUEVA CAJA: Sobre el Autor -->
+          <div class="sidebar-box author-box">
+            <div class="author-top">
+              <img src="/images/autor.jpg" alt="Tu Nombre" class="author-img" />
+              <div class="author-info">
+                <span class="author-name font-body">Pilo García</span>
+                <span class="author-role font-mono">El Ojo Inusual</span>
+              </div>
+            </div>
+            <a href="/sobre-mi/" class="author-link font-mono">Leer bio completa →</a>
+          </div>
           
         </aside>
 
@@ -156,6 +168,58 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 </BaseLayout>
 
 <style>
+   /* Estilos para la caja del Autor (Alineado a la izquierda) */
+  .author-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea todo a la izquierda */
+    text-align: left;
+    padding-top: 1rem;
+    gap: 1rem; /* Espacio entre la foto/nombre y el link de abajo */
+  }
+  .author-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Espacio entre la foto y el texto */
+  }
+  .author-img {
+    width: 60px; /* Tamaño cuadrado */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0; /* Sin bordes redondos */
+    filter: grayscale(40%);
+    border: 1px solid var(--border-light);
+    border-bottom-right-radius: 10px; /* El detalle de diseño de tu blog */
+  }
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .author-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.2;
+  }
+  .author-role {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .author-link {
+    font-size: 11px;
+    color: var(--fg-dim);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .author-link:hover {
+    color: var(--accent);
+  }
+
   /* Estilos del Hero (Tus originales de GitHub) */
   .hero-strip { position: relative; padding: 7rem 1.5rem 5rem; border-bottom: 1px solid var(--border); overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
