@@ -12,7 +12,8 @@ const { post, index, featured = false } = Astro.props;
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
-<a href={`/blog/${post.id}/`} class={`card notch-corner ${featured ? 'featured' : ''}`}>
+<!-- Le saqué la clase notch-corner y dejé solo card y featured -->
+<a href={`/blog/${post.id}/`} class={`card ${featured ? 'featured' : ''}`}>
   <div class="card-media">
     {post.data.cover ? (
       <img src={post.data.cover} alt={post.data.title} loading="lazy" />
@@ -36,7 +37,6 @@ const formatDate = (d: Date) =>
         {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
       </span>
     </div>
-    
 
     <span class="font-heading card-read">Leer <span class="card-read-arrow">→</span></span>
   </div>
@@ -48,6 +48,8 @@ const formatDate = (d: Date) =>
     background: var(--bg-card);
     border: 1px solid var(--border);
     transition: border-color 0.4s, background 0.4s, transform 0.4s;
+    border-bottom-right-radius: 10px; /* Acá le redondeamos la esquina */
+    overflow: hidden; /* Para que la imagen y el fondo respeten la curva */
   }
   .card:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); transform: translateY(-4px); }
 
@@ -73,7 +75,6 @@ const formatDate = (d: Date) =>
     font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
     color: var(--accent); background: rgba(0,0,0,0.55); padding: 4px 10px; backdrop-filter: blur(4px);
   }
-
 
   /* Estilos para la nueva etiqueta */
   .card-new-badge {
