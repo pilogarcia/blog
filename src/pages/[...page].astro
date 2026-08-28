@@ -19,7 +19,6 @@ interface Props {
 
 const { page } = Astro.props;
 
-// Ordenamos todos los posts por fecha
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const tags = [...new Set(allPosts.map((p) => p.data.tag))];
 
@@ -27,9 +26,12 @@ const urlFor = (n: number) => (n === 1 ? '/' : `/${n}/`);
 
 const isFeaturedPage = page.currentPage === 1;
 
+// Separamos el primer post para el Hero, y el resto para la grilla
+const heroPost = isFeaturedPage ? page.data[0] : null;
+const gridPosts = isFeaturedPage ? page.data.slice(1) : page.data;
+
 // Agrupar posts por Año y Mes
 const monthsNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-
 const archiveData = allPosts.reduce((acc, post) => {
   const year = String(post.data.pubDate.getFullYear());
   const month = post.data.pubDate.getMonth();
@@ -38,36 +40,42 @@ const archiveData = allPosts.reduce((acc, post) => {
   acc[year][month]++;
   return acc;
 }, {} as Record<string, Record<number, number>>);
-
 const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a));
 
-// Lógica para los artículos Más Leídos
 const popularPosts = allPosts.filter(post => (post.data as any).popular).slice(0, 3);
 const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...allPosts.filter(p => !(p.data as any).popular)].slice(0, 3);
 ---
 <BaseLayout title="Blog">
-  <!-- El Hero con tus cambios personalizados de GitHub -->
-  <section class="hero-strip">
-    <div class="hero-bg">
-      <div class="hero-bg-img hero-bg-img-1"></div>
-      <div class="hero-bg-img hero-bg-img-2"></div>
-      <div class="hero-bg-img hero-bg-img-3"></div>
-      <div class="hero-bg-overlay"></div>
-    </div>
-    <div class="hero-inner">
-      <p class="font-mono eyebrow">EL OJO INUSUAL</p>
-      <h1 class="font-display hero-title">
-        UN BLOG<span class="text-stroke"> INUSUAL</span><br>
-        POR UNA POÉTICA<br>ACASO INÚTIL
+  <!-- NUEVO HERO: Imagen del último post + Slogan + Título del post -->
+  {heroPost && (
+    <section class="hero-strip">
+      <div class="hero-bg">
+        {heroPost.data.cover && (
+          <div class="hero-bg-img" style={`background-image: url('${heroPost.data.cover}');`}></div>
+        )}
+        <div class="hero-bg-overlay"></div>
+      </div>
+      <div class="hero-inner">
+        
+       <h1 class="font-display hero-title">
+        Última <span class="text-stroke">PUBLICACIÓN:</span>
       </h1>
-      <p class="font-body hero-desc">Artículos para recuperar la esencia humana.</p>
-    </div>
-  </section>
+                    <a href={`/blog/${heroPost.id}/`} class="hero-post-link">
+                 
+          <h2 class="font-display hero-post-title">{heroPost.data.title}</h2>
+          
+          <!-- Sello y Link juntos en la misma fila -->
+          <div class="hero-post-footer">
+            
+            <span class="font-mono hero-post-read">Leer artículo →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
 
   <section class="articles" id="articulos">
     <div class="articles-inner">
-  
-
       <TagFilter tags={tags} />
 
       {page.data.length === 0 && (
@@ -76,15 +84,11 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 
       <div class="blog-layout">
         
-        <!-- Columna principal: Artículos -->
+        <!-- Columna principal: Artículos (Ahora todos son tarjetas normales) -->
         <main class="main-content">
           <div class="grid">
-            {page.data.map((post, i) => (
-              <PostCard 
-                post={post} 
-                index={(page.currentPage - 1) * POSTS_PER_PAGE + i} 
-                featured={isFeaturedPage && i === 0} 
-              />
+            {gridPosts.map((post, i) => (
+              <PostCard post={post} index={i} />
             ))}
           </div>
           <Pagination currentPage={page.currentPage} lastPage={page.lastPage} urlFor={urlFor} />
@@ -97,7 +101,6 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
           <div class="sidebar-box donate-box">
             <h3 class="sidebar-title">APOYAR EL BLOG</h3>
             <p class="sidebar-text">Si te gusta este contenido, podés colaborar con el blog.</p>
-            
             <a href='https://cafecito.app/elojoinusual' rel='noopener' target='_blank' class="cafecito-btn">
               <img 
                 srcset='https://cdn.cafecito.app/imgs/buttons/button_6.png 1x, https://cdn.cafecito.app/imgs/buttons/button_6_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_6_3.75x.png 3.75x' 
@@ -108,22 +111,20 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
             </a>
           </div>
 
-          <!-- NUEVA CAJA: Más Leídos -->
+          <!-- Más Leídos -->
           <div class="sidebar-box">
             <h3 class="sidebar-title">LO MÁS LEÍDO</h3>
             <ul class="popular-list">
               {topPosts.map((post, i) => (
                 <li class="popular-item">
                   <span class="popular-rank font-mono">0{i + 1}</span>
-                  <a href={`/blog/${post.id}/`} class="popular-title font-body">
-                    {post.data.title}
-                  </a>
+                  <a href={`/blog/${post.id}/`} class="popular-title font-body">{post.data.title}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <!-- Caja de Archivo por Fecha -->
+          <!-- Archivo -->
           <div class="sidebar-box">
             <h3 class="sidebar-title">ARCHIVO</h3>
             <ul class="archive-list">
@@ -147,10 +148,10 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
             </ul>
           </div>
 
-                    <!-- NUEVA CAJA: Sobre el Autor -->
+          <!-- Sobre el Autor -->
           <div class="sidebar-box author-box">
             <div class="author-top">
-              <img src="/images/autor.jpg" alt="Tu Nombre" class="author-img" />
+              <img src="/images/autor.jpg" alt="Pilo García" class="author-img" />
               <div class="author-info">
                 <span class="author-name font-body">Pilo García</span>
                 <span class="author-role font-mono">El Ojo Inusual</span>
@@ -160,96 +161,121 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
           </div>
           
         </aside>
-
       </div>
-
     </div>
   </section>
 </BaseLayout>
 
 <style>
-   /* Estilos para la caja del Autor (Alineado a la izquierda) */
-  .author-box {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinea todo a la izquierda */
-    text-align: left;
-    padding-top: 1rem;
-    gap: 1rem; /* Espacio entre la foto/nombre y el link de abajo */
+   /* --- ESTILOS DEL NUEVO HERO (Tono claro original) --- */
+  .hero-strip { 
+    position: relative; 
+    padding: 7rem 1.5rem 5rem; 
+    border-bottom: 1px solid var(--border); 
+    overflow: hidden; 
+    min-height: 60vh; 
+    display: flex; 
+    align-items: center; 
   }
-  .author-top {
-    display: flex;
-    align-items: center;
-    gap: 1rem; /* Espacio entre la foto y el texto */
-  }
-  .author-img {
-    width: 60px; /* Tamaño cuadrado */
-    height: 60px;
-    object-fit: cover;
-    border-radius: 0; /* Sin bordes redondos */
-    filter: grayscale(40%);
-    border: 1px solid var(--border-light);
-    border-bottom-right-radius: 10px; /* El detalle de diseño de tu blog */
-  }
-  .author-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-  .author-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--fg);
-    line-height: 1.2;
-  }
-  .author-role {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-  .author-link {
-    font-size: 11px;
-    color: var(--fg-dim);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .author-link:hover {
-    color: var(--accent);
-  }
-
-  /* Estilos del Hero (Tus originales de GitHub) */
-  .hero-strip { position: relative; padding: 7rem 1.5rem 5rem; border-bottom: 1px solid var(--border); overflow: hidden; }
   .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
-  .hero-bg-img {
+   .hero-bg-img {
     position: absolute; inset: 0;
     background-size: cover; background-position: center;
-    filter: grayscale(0%) contrast(1) brightness(1.5);
-    opacity: 0; animation: heroCrossfade 15s infinite;
-    will-change: opacity, transform;
-  }
-  .hero-bg-img-1 { background-image: url('/images/hero-articulos-1.jpg'); animation-delay: 0s; }
-  .hero-bg-img-2 { background-image: url('/images/hero-articulos-2.jpg'); animation-delay: 5s; }
-  .hero-bg-img-3 { background-image: url('/images/hero-articulos-3.jpg'); animation-delay: 10s; }
-  @keyframes heroCrossfade {
-    0%   { opacity: 0; transform: scale(1); }
-    13%  { opacity: 0.6; }
-    26%  { opacity: 0.6; transform: scale(1.04); }
-    46%  { opacity: 0; transform: scale(1.08); }
-    100% { opacity: 0; transform: scale(1.08); }
+    /* Sacamos el brillo extremo y el grises para que la foto se vea natural */
+    filter: contrast(1.1) brightness(0.9); 
+    animation: kenburns 20s ease-out infinite alternate;
   }
   .hero-bg-overlay {
     position: absolute; inset: 0;
+    /* Volvemos al overlay gris claro/transparente de antes */
     background:
       linear-gradient(180deg, rgba(177, 177, 177, 0.75) 0%, rgba(247,245,240,0.35) 45%, var(--bg) 100%),
       radial-gradient(ellipse at 20% 30%, rgba(10, 124, 143, 0.10) 0%, transparent 55%);
   }
-  .hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+  
+  /* Contenedor alineado a la izquierda */
+  .hero-inner { 
+    position: relative; 
+    z-index: 1; 
+    max-width: 1200px; 
+    width: 100%;
+    margin: 0 auto; 
+    text-align: left; 
+    padding: 0 1.5rem; 
+    box-sizing: border-box;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+  }
   .eyebrow { color: #000000; letter-spacing: 0.25em; font-size: 12px; margin-bottom: 1rem; }
-  .hero-title { font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1; margin: 0 0 0.8rem; color: var(--fg); }
-  .hero-desc { color: var(--fg-dim); font-size: 1.1rem; line-height: 1.7; max-width: 720px; }
+  
+  /* Slogan más chico */
+  .hero-title { 
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem); 
+    line-height: 1.1; 
+    margin: 0 0 4rem; 
+    color: var(--fg); 
+    text-shadow: 0 1px 2px rgba(255,255,255,0.5); /* Sombra clara para que no se funda con la foto */
+  }
+  
+  /* Sello de última publicación */
+/* Sello de última publicación (Sin relleno, solo bordes y esquina redondeada) */
+  .hero-new-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #333333; /* Texto celeste */
+    background: transparent; /* Sin fondo */
+    border: 1px solid var(--accent); /* Borde celeste */
+    border-bottom-right-radius: 10px; /* Esquina inferior derecha redondeada */
+    padding: 4px 10px;
+      margin-left: 0; /* 0 margen izquierdo */
+    margin-bottom: 20px; /* 20px de margen abajo */
+  }
+
+  /* Link y título del post en el Hero */
+ .hero-post-link { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    text-decoration: none; 
+    max-width: 800px; 
+  }
+  .hero-post-tag { 
+    font-size: 11px; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+    color: var(--accent); 
+    background: rgba(0,0,0,0.55); 
+    padding: 4px 10px; 
+    margin-bottom: 1rem; 
+    backdrop-filter: blur(4px); /* Este blur es solo para el fondito de la etiqueta, está bien */
+  }
+ .hero-post-title { 
+    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    line-height: 0.95; 
+    margin: 0 0 1rem; 
+    color: #333333; 
+    text-shadow: 0 2px 4px rgba(255,255,255,0.6); /* Sombra clara para que resalte sobre la foto */
+  }
+  .hero-post-read { 
+    font-size: 15px; 
+    letter-spacing: 0.15em; 
+    text-transform: uppercase; 
+    color: var(--fg); 
+    border-bottom: 1px solid var(--accent); 
+    padding-bottom: 4px; 
+    transition: color 0.3s; 
+  }
+  .hero-post-link:hover .hero-post-read { color: var(--accent); }
+  .hero-post-footer {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Espacio entre el sello y el link */
+    margin-top: 0.5rem;
+  }
 
   /* Estilos de los Artículos */
   .articles { padding: 5rem 1.5rem 7rem; }
@@ -257,112 +283,46 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
   .empty { color: var(--muted); }
 
   /* Layout de dos columnas */
-  .blog-layout {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-  }
+  .blog-layout { display: flex; flex-direction: column; gap: 3rem; }
   @media (min-width: 900px) {
-    .blog-layout {
-      flex-direction: row;
-      align-items: flex-start;
-    }
-    .main-content {
-      flex: 1;
-      min-width: 0;
-    }
-    .sidebar {
-      flex: 0 0 280px;
-      position: sticky;
-      top: 2rem;
-    }
+    .blog-layout { flex-direction: row; align-items: flex-start; }
+    .main-content { flex: 1; min-width: 0; }
+    .sidebar { flex: 0 0 280px; position: sticky; top: 2rem; }
   }
 
   /* Grilla adaptable */
-  .grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
-    gap: 2rem; 
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
 
-  /* Estilos para el Sidebar (Sin recuadros) */
-  .sidebar-box {
-    padding: 0 0 2rem 0;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-  .sidebar-box:last-child {
-    border-bottom: none;
-  }
-  .sidebar-title {
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    margin-bottom: 1rem;
-    color: var(--accent);
-  }
-  .sidebar-text {
-    font-size: 13px;
-    color: var(--fg-dim);
-    margin-bottom: 1.2rem;
-    line-height: 1.5;
-  }
-  .cafecito-btn {
-    display: block;
-    text-align: left;
-  }
-  .cafecito-img {
-    max-width: 100%;
-    height: auto;
-    display: inline-block;
-    transition: transform 0.2s;
-  }
-  .cafecito-img:hover { 
-    transform: translateY(-2px); 
-  }
-
-    /* Estilos para Más Leídos (Sin líneas) */
+  /* Estilos para el Sidebar */
+  .sidebar-box { padding: 0 0 2rem 0; margin-bottom: 2rem; border-bottom: 1px solid var(--border-light); }
+  .sidebar-box:last-child { border-bottom: none; }
+  .sidebar-title { font-size: 13px; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--accent); }
+  .sidebar-text { font-size: 13px; color: var(--fg-dim); margin-bottom: 1.2rem; line-height: 1.5; }
+  .cafecito-btn { display: block; text-align: left; }
+  .cafecito-img { max-width: 100%; height: auto; display: inline-block; transition: transform 0.2s; }
+  .cafecito-img:hover { transform: translateY(-2px); }
+  
   .popular-list { list-style: none; padding: 0; margin: 0; }
-  .popular-item { 
-    display: flex; 
-    align-items: flex-start; 
-    gap: 0.8rem; 
-    margin-bottom: 1.2rem; /* Espacio entre artículos, sin línea */
-  }
-  .popular-item:last-child { 
-    margin-bottom: 0; /* Que no tenga espacio extra al final */
-  }
-  .popular-rank { 
-    font-size: 14px; 
-    font-weight: 700; 
-    color: var(--accent); 
-    line-height: 1.4;
-  }
-  .popular-title { 
-    font-size: 13px; 
-    color: var(--fg-dim); 
-    text-decoration: none; 
-    line-height: 1.4; 
-    transition: color 0.3s; 
-  }
+  .popular-item { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.2rem; }
+  .popular-item:last-child { margin-bottom: 0; }
+  .popular-rank { font-size: 14px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+  .popular-title { font-size: 13px; color: var(--fg-dim); text-decoration: none; line-height: 1.4; transition: color 0.3s; }
   .popular-title:hover { color: var(--accent); }
 
-  /* Estilos de Archivo */
   .archive-list { list-style: none; padding: 0; margin: 0; }
   .archive-year { margin-bottom: 1.2rem; }
-  .year-title { 
-    display: block; 
-    font-size: 13px; 
-    font-weight: 700; 
-    color: var(--fg); 
-    margin-bottom: 0.5rem; 
-  }
+  .year-title { display: block; font-size: 13px; font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; }
   .archive-months { list-style: none; padding-left: 0.8rem; margin: 0; }
   .archive-months li { margin-bottom: 0.3rem; }
-  .archive-months a { 
-    color: var(--fg-dim); 
-    font-size: 13px; 
-    text-decoration: none; 
-    transition: color 0.3s;
-  }
+  .archive-months a { color: var(--fg-dim); font-size: 13px; text-decoration: none; transition: color 0.3s; }
   .archive-months a:hover { color: var(--accent); }
+
+  .author-box { display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding-top: 1rem; gap: 1rem; }
+  .author-top { display: flex; align-items: center; gap: 1rem; }
+  .author-img { width: 60px; height: 60px; object-fit: cover; border-radius: 0; filter: grayscale(40%); border: 1px solid var(--border-light); border-bottom-right-radius: 10px; }
+  .author-info { display: flex; flex-direction: column; gap: 0.2rem; }
+  .author-name { font-size: 14px; font-weight: 700; color: var(--fg); line-height: 1.2; }
+  .author-role { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+  .author-link { font-size: 11px; color: var(--fg-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
+  .author-link:hover { color: var(--accent); }
 </style>
