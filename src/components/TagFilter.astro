@@ -9,7 +9,7 @@ interface Props {
 const { tags, activeTag } = Astro.props;
 
 // Mostramos solo las primeras 3 categorías, el resto se esconden
-const VISIBLE_COUNT = 3;
+const VISIBLE_COUNT = 0;
 const visibleTags = tags.slice(0, VISIBLE_COUNT);
 const hiddenTags = tags.slice(VISIBLE_COUNT);
 ---
