@@ -6,6 +6,7 @@ pubDate: 2026-08-26
 author: "Lic. Viviana Aragno"
 tag: "Escritores"
 cover: "/images/posts/ver.jpg"
+popular: true
 ---
 
 <div align="right">

@@ -19,7 +19,8 @@ interface Props {
 
 const { page } = Astro.props;
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+// Ordenamos todos los posts por fecha
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const tags = [...new Set(allPosts.map((p) => p.data.tag))];
 
 const urlFor = (n: number) => (n === 1 ? '/' : `/${n}/`);
@@ -39,6 +40,10 @@ const archiveData = allPosts.reduce((acc, post) => {
 }, {} as Record<string, Record<number, number>>);
 
 const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a));
+
+// Lógica para los artículos Más Leídos
+const popularPosts = allPosts.filter(post => (post.data as any).popular).slice(0, 3);
+const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...allPosts.filter(p => !(p.data as any).popular)].slice(0, 3);
 ---
 <BaseLayout title="Blog">
   <!-- El Hero con tus cambios personalizados de GitHub -->
@@ -88,7 +93,7 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
         <!-- Columna lateral: Sidebar -->
         <aside class="sidebar font-mono">
           
-                    <!-- Caja de Donación -->
+          <!-- Caja de Donación -->
           <div class="sidebar-box donate-box">
             <h3 class="sidebar-title">APOYAR EL BLOG</h3>
             <p class="sidebar-text">Si te gusta este contenido, podés colaborar con el blog.</p>
@@ -101,6 +106,21 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
                 class="cafecito-img"
               />
             </a>
+          </div>
+
+          <!-- NUEVA CAJA: Más Leídos -->
+          <div class="sidebar-box">
+            <h3 class="sidebar-title">LO MÁS LEÍDO</h3>
+            <ul class="popular-list">
+              {topPosts.map((post, i) => (
+                <li class="popular-item">
+                  <span class="popular-rank font-mono">0{i + 1}</span>
+                  <a href={`/blog/${post.id}/`} class="popular-title font-body">
+                    {post.data.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <!-- Caja de Archivo por Fecha -->
@@ -222,7 +242,7 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
     margin-bottom: 1.2rem;
     line-height: 1.5;
   }
-    .cafecito-btn {
+  .cafecito-btn {
     display: block;
     text-align: left;
   }
@@ -236,17 +256,33 @@ const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a
     transform: translateY(-2px); 
   }
 
-  /* Botón secundario - Solo borde (Por si lo vuelves a usar) */
-  .donate-btn.secondary {
-    background: transparent;
-    color: var(--accent);
+    /* Estilos para Más Leídos (Sin líneas) */
+  .popular-list { list-style: none; padding: 0; margin: 0; }
+  .popular-item { 
+    display: flex; 
+    align-items: flex-start; 
+    gap: 0.8rem; 
+    margin-bottom: 1.2rem; /* Espacio entre artículos, sin línea */
   }
-  .donate-btn.secondary:hover {
-    transform: translateY(-2px); 
-    background: var(--accent);
-    color: #000;
+  .popular-item:last-child { 
+    margin-bottom: 0; /* Que no tenga espacio extra al final */
   }
-  
+  .popular-rank { 
+    font-size: 14px; 
+    font-weight: 700; 
+    color: var(--accent); 
+    line-height: 1.4;
+  }
+  .popular-title { 
+    font-size: 13px; 
+    color: var(--fg-dim); 
+    text-decoration: none; 
+    line-height: 1.4; 
+    transition: color 0.3s; 
+  }
+  .popular-title:hover { color: var(--accent); }
+
+  /* Estilos de Archivo */
   .archive-list { list-style: none; padding: 0; margin: 0; }
   .archive-year { margin-bottom: 1.2rem; }
   .year-title { 

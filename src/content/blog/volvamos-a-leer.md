@@ -6,6 +6,7 @@ pubDate: 2026-08-28
 author: "Pilo García"
 tag: "Experiencias"
 cover: "/images/posts/volver-a-leer.jpg"
+popular: true
 ---
 
 Repentinamente le regalamos nuestra imaginación a un grupo de tecnócratas. Todos ellos tienen la expresión de un extraño animal acorralado. Todos, ellos, tienen al hablar y andar, el gesto de quien se unta el rostro con ungüentos prohibidos.

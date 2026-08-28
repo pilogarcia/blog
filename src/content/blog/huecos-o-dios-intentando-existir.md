@@ -6,6 +6,7 @@ pubDate: 2026-08-23
 author: "Pilo García"
 tag: "Relato"
 cover: "/images/posts/huecos.webp"
+popular: true
 ---
 
 Ayer, justo ayer, le dije a T. que Dios es un hueco. Cuando nacemos además de cuerpo, alma y razón, nos regalan un hueco enorme. A saber: no me dolió casi nunca, al contrario, me forjó una de mis mayores vocaciones y ésta es querer saber cosas.
