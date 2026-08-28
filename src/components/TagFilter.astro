@@ -7,26 +7,95 @@ interface Props {
 }
 
 const { tags, activeTag } = Astro.props;
+
+// Mostramos solo las primeras 3 categorías, el resto se esconden
+const VISIBLE_COUNT = 3;
+const visibleTags = tags.slice(0, VISIBLE_COUNT);
+const hiddenTags = tags.slice(VISIBLE_COUNT);
 ---
 <div class="tag-filter font-mono">
   <a href="/" class={`tag-pill ${!activeTag ? 'active' : ''}`}>Todos</a>
-  {tags.map((tag) => (
+  
+  {visibleTags.map((tag) => (
     <a href={`/tag/${slugifyTag(tag)}/`} class={`tag-pill ${activeTag === tag ? 'active' : ''}`}>
+      {tag}
+    </a>
+  ))}
+
+  {hiddenTags.length > 0 && (
+    <button id="tag-toggle" class="tag-pill tag-toggle-btn" type="button">
+     <span class="arrow">+</span> Categorías 
+    </button>
+  )}
+
+  {hiddenTags.map((tag) => (
+    <a href={`/tag/${slugifyTag(tag)}/`} class={`tag-pill tag-hidden ${activeTag === tag ? 'active' : ''}`}>
       {tag}
     </a>
   ))}
 </div>
 
 <style>
-  .tag-filter { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3rem; }
+  .tag-filter { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 3rem; align-items: center; }
   .tag-pill {
     font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--fg-dim); border: 1px solid var(--border-light);
     padding: 0.5rem 1rem; transition: all 0.3s;
     
     /* Acá le redondeamos la esquina inferior derecha */
-    border-bottom-right-radius: 10px; /* Puedes subir o bajar este número si quieres más o menos curva */
+    border-bottom-right-radius: 10px; 
   }
   .tag-pill:hover { color: var(--fg); border-color: var(--accent-dim); }
   .tag-pill.active { color: black; background: var(--accent); border-color: var(--accent); }
+  
+  /* Ajustes para que el botón se vea idéntico a los enlaces */
+  .tag-toggle-btn {
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* Estilos para las etiquetas escondidas */
+  .tag-hidden {
+    display: none; /* Escondidas por defecto */
+  }
+  .tag-hidden.show {
+    display: inline-block; /* Aparecen cuando se les agrega la clase 'show' */
+  }
+
+  /* Animación del símbolo + al hacer clic */
+  .tag-toggle-btn .arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  .tag-toggle-btn.open .arrow {
+    transform: rotate(45deg); /* Rota el + para que parezca una x */
+  }
 </style>
+
+<script is:inline>
+  // Esperamos a que la página cargue completamente
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('tag-toggle');
+    const hiddenTags = document.querySelectorAll('.tag-hidden');
+    
+    if (toggle && hiddenTags.length > 0) {
+      toggle.addEventListener('click', () => {
+        // Alternamos la clase 'open' en el botón para girar el signo +
+        const isOpen = toggle.classList.toggle('open');
+        
+        // Alternamos la clase 'show' en las etiquetas escondidas
+        hiddenTags.forEach(tag => {
+          if (isOpen) {
+            tag.classList.add('show');
+          } else {
+            tag.classList.remove('show');
+          }
+        });
+      });
+    }
+  });
+</script>
