@@ -58,7 +58,7 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
       <div class="hero-inner">
         
        <h1 class="font-display hero-title">
-        Última <span class="text-stroke">PUBLICACIÓN:</span>
+        Última PUBLICACIÓN:
       </h1>
                     <a href={`/blog/${heroPost.id}/`} class="hero-post-link">
                  
@@ -214,7 +214,7 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     font-size: clamp(1.2rem, 2.5vw, 1.8rem); 
     line-height: 1.1; 
     margin: 0 0 4rem; 
-    color: var(--fg); 
+    color: #4a4a4a; 
     text-shadow: 0 1px 2px rgba(255,255,255,0.5); /* Sombra clara para que no se funda con la foto */
   }
   
@@ -254,7 +254,8 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     backdrop-filter: blur(4px); /* Este blur es solo para el fondito de la etiqueta, está bien */
   }
  .hero-post-title { 
-    font-size: clamp(2.5rem, 6vw, 4.5rem); 
+    font-size: clamp(2rem, 4.5vw, 3.5rem); 
+    
     line-height: 0.95; 
     margin: 0 0 1rem; 
     color: #333333; 
