@@ -43,7 +43,7 @@ const formatDate = (d: Date) =>
         <div class="post-hero-overlay"></div>
       </div>
       <div class="post-hero-inner">
-        <a href="/#articulos" class="font-mono back-link">← Artículos</a>
+        <a href="/#articulos" class="font-mono back-link">← Volver a Artículos</a>
         <p class="font-mono post-tag">{post.data.tag}</p>
         <h1 class="font-display post-title">{post.data.title}</h1>
         <p class="font-mono post-meta">
@@ -87,9 +87,9 @@ const formatDate = (d: Date) =>
   }
   .post-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
 
-  .back-link { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+  .back-link { color: #333333; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
   .back-link:hover { color: var(--accent); }
-  .post-tag { color: var(--accent); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin: 2rem 0 1rem; }
+  .post-tag { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin: 2rem 0 1rem; }
   .post-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 0.95; margin: 0 0 1.5rem; }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
 </style>
