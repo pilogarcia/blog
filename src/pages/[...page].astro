@@ -31,7 +31,7 @@ const heroPost = isFeaturedPage ? page.data[0] : null;
 const gridPosts = isFeaturedPage ? page.data.slice(1) : page.data;
 
 // Función para extraer un fragmento automático del cuerpo del artículo
-const stripMarkdown = (md) => {
+const stripMarkdown = (md: string) => {
   if (!md) return '';
   return md
     .replace(/!\[.*?\]\(.*?\)/g, '') // Saca imágenes
@@ -42,7 +42,7 @@ const stripMarkdown = (md) => {
 };
 
 // Tomamos el cuerpo del último post y cortamos en el último espacio antes de 150 letras
-const rawHeroText = heroPost ? stripMarkdown(heroPost.body) : '';
+const rawHeroText = heroPost ? stripMarkdown(heroPost.body || '') : '';
 const heroExcerpt = rawHeroText.length > 150 
   ? rawHeroText.slice(0, rawHeroText.lastIndexOf(' ', 150)) + '...' 
   : rawHeroText;
@@ -207,11 +207,11 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     align-items: center; 
   }
   .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
-   .hero-bg-img {
+    .hero-bg-img {
     position: absolute; inset: 0;
     background-size: cover; background-position: center;
-    /* Sacamos el brillo extremo y el grises para que la foto se vea natural */
     filter: contrast(1.1) brightness(0.9); 
+    opacity: 0.7; /* Acá bajamos la presencia de la imagen (0.7 es 70%, probá con 0.6 o 0.8 si querés) */
     animation: kenburns 20s ease-out infinite alternate;
   }
   .hero-bg-overlay {
