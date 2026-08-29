@@ -30,6 +30,23 @@ const isFeaturedPage = page.currentPage === 1;
 const heroPost = isFeaturedPage ? page.data[0] : null;
 const gridPosts = isFeaturedPage ? page.data.slice(1) : page.data;
 
+// Función para extraer un fragmento automático del cuerpo del artículo
+const stripMarkdown = (md) => {
+  if (!md) return '';
+  return md
+    .replace(/!\[.*?\]\(.*?\)/g, '') // Saca imágenes
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Saca links pero deja el texto
+    .replace(/[*_`#>-]/g, '') // Saca símbolos de formato
+    .replace(/\n/g, ' ') // Saca saltos de línea
+    .trim();
+};
+
+// Tomamos el cuerpo del último post y cortamos en el último espacio antes de 150 letras
+const rawHeroText = heroPost ? stripMarkdown(heroPost.body) : '';
+const heroExcerpt = rawHeroText.length > 150 
+  ? rawHeroText.slice(0, rawHeroText.lastIndexOf(' ', 150)) + '...' 
+  : rawHeroText;
+
 // Agrupar posts por Año y Mes
 const monthsNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const archiveData = allPosts.reduce((acc, post) => {
@@ -59,14 +76,15 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
        <h1 class="font-display hero-title">
         Última PUBLICACIÓN:
       </h1>
-                    <a href={`/blog/${heroPost.id}/`} class="hero-post-link">
-                 
+                                  <a href={`/blog/${heroPost.id}/`} class="hero-post-link">
           <h2 class="font-display hero-post-title">{heroPost.data.title}</h2>
+          
+          <!-- NUEVO: Fragmento automático del artículo -->
+          <p class="hero-post-excerpt">{heroExcerpt}</p>
           
           <!-- Sello y Link juntos en la misma fila -->
           <div class="hero-post-footer">
-            
-            <span class="font-mono hero-post-read">Leer artículo →</span>
+            <span class="font-mono hero-post-read">Leer artículo completo →</span>
           </div>
         </a>
       </div>
@@ -166,6 +184,18 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 </BaseLayout>
 
 <style>
+  /* Fragmento del texto en el Hero */
+    /* Fragmento del texto en el Hero (Con tipografía de artículo) */
+  .hero-post-excerpt {
+    font-family: 'Libertinus Serif', serif; /* La misma de los artículos */
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--fg);
+    margin: 0 0 1.5rem 0;
+    max-width: 600px; 
+    text-shadow: 0 1px 2px rgba(255,255,255,0.6); 
+  }
+
    /* --- ESTILOS DEL NUEVO HERO (Tono claro original) --- */
   .hero-strip { 
     position: relative; 
