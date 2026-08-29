@@ -49,10 +49,9 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
   <!-- NUEVO HERO: Imagen del último post + Slogan + Título del post -->
   {heroPost && (
     <section class="hero-strip">
-      <div class="hero-bg">
-        {heroPost.data.cover && (
-          <div class="hero-bg-img" style={`background-image: url('${heroPost.data.cover}');`}></div>
-        )}
+           <div class="hero-bg">
+        <!-- Acá le ponemos tu imagen fija hero.jpg -->
+        <div class="hero-bg-img" style="background-image: url('/images/hero.jpg');"></div>
         <div class="hero-bg-overlay"></div>
       </div>
       <div class="hero-inner">
