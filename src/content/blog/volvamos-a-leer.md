@@ -5,7 +5,7 @@ type: "article"
 pubDate: 2026-08-28
 author: "Pilo García"
 tag: "Experiencias"
-cover: "/images/posts/hero.jpg"
+cover: "/images/posts/volver-a-leer.jpg"
 popular: true
 ---
 
