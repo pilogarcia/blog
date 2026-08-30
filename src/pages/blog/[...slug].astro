@@ -65,6 +65,11 @@ const formatDate = (d: Date) =>
         <Content />
       </div>
     </div>
+
+      <!-- PEGAMOS LOS COMENTARIOS ACÁ ABAJO -->
+    <div class="post-comments">
+      <div id="waline"></div>
+    </div>
   </article>
 
   <PrevNextNav prev={prev} next={next} />
@@ -120,4 +125,50 @@ const formatDate = (d: Date) =>
     letter-spacing: -0.01em;
   }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  <script type="module" is:inline>
+  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+  init({
+    el: '#waline',
+    serverURL: 'https://waline-comentarios-9lne5dxup-pilogarcia.vercel.app/',
+    lang: 'es',
+    dark: 'html[class="dark"]',
+    emoji: false,
+    search: false,
+  });
+</script>
+
+<style is:global>
+  .post-comments {
+    max-width: 900px;
+    margin: 0 auto 5rem;
+    padding: 0 1.5rem;
+  }
+
+  :root {
+    --waline-font: 'PT Sans', sans-serif;
+    --waline-bg-color: #FCFCF2; 
+    --waline-color: #2c2c2c;
+    --waline-light-color: #8a8272;
+  }
+  
+  .wl-header-item label {
+    font-family: 'Libertinus Serif', serif !important;
+    font-style: italic !important;
+  }
+  
+  .wl-btn {
+    font-family: 'Inter', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-size: 12px !important;
+    border-radius: 0 !important;
+    border-bottom-right-radius: 10px !important;
+  }
+
+  .wl-card {
+    border-radius: 0 !important;
+    border-bottom-right-radius: 10px !important;
+  }
+</style>
 </style>
