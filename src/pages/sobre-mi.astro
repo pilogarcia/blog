@@ -7,7 +7,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
      <div>  
       <a href="/" class="font-mono back-link">← Volver al Inicio</a></div>    
      
-      <h1 class="font-display about-title">Algo sobre mí</h1>
+      <h1 class="about-title">Algo sobre mí</h1>
       
       <div class="prose">
         
@@ -93,7 +93,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .articles-inner { max-width: 800px; margin: 0 auto; }
   .back-link { display: inline-block; color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 2rem; transition: color 0.3s; }
   .back-link:hover { color: var(--accent); }
-  .about-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 1; margin: 0 0 2rem; color: var(--fg); }
+    .about-title { 
+    font-family: 'Noto Serif Display', serif; 
+    font-size: clamp(2rem, 5vw, 3rem); /* Mismo tamaño que los artículos */
+    line-height: 1.1; 
+    margin: 0 0 4rem; 
+    color: var(--fg); 
+    font-weight: 250; 
+    text-transform: none; /* Respeta mayúscula tipo oración */
+    letter-spacing: -0.01em;
+  }
   
   /* Estilo de la foto en la página de bio */
   .about-img {

@@ -46,7 +46,11 @@ const hiddenTags = tags.slice(VISIBLE_COUNT);
     border-bottom-right-radius: 10px; 
   }
   .tag-pill:hover { color: var(--fg); border-color: var(--accent-dim); }
-  .tag-pill.active { color: black; background: var(--accent); border-color: var(--accent); }
+   .active {
+    background: transparent; /* Sacamos el relleno */
+    border: 1px solid var(--accent); /* Le ponemos borde celeste */
+    color: var(--accent); /* Texto celeste */
+  }
   
   /* Ajustes para que el botón se vea idéntico a los enlaces */
   .tag-toggle-btn {

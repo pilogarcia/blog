@@ -47,7 +47,12 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
   .page-number {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
     color: var(--muted); border: 1px solid var(--border-light); transition: all 0.3s;
+      border-bottom-right-radius: 8px; /* El detalle geométrico */
   }
   .page-number:hover { color: var(--fg); border-color: var(--accent-dim); }
-  .page-number.active { color: black; background: var(--accent); border-color: var(--accent); }
+  .active {
+    background: transparent; /* Sacamos el relleno */
+    border: 1px solid var(--accent); /* Le ponemos borde celeste */
+    color: var(--accent); /* Texto celeste */
+  }
 </style>

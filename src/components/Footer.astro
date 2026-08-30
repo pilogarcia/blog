@@ -1,126 +1,72 @@
 ---
-const year = new Date().getFullYear();
+// Footer limpio sin líneas ni copyright
 ---
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="font-display brand-title">EL OJO <span class="accent2">INUSUAL</span></div>
-      <p class="font-body footer-desc">
-        Un blog sobre interés general, filosofía, música, poesía, ciencia, creencias y experiencias de vida.
-        Asuntos para entender el mundo.
-      </p>
-      Escribinos: <a href="mailto:contacto@elojoinusual.com.ar" class="font-body footer-mail">
-        contacto@elojoinusual.com.ar</a>
-    </div>
-    <div class="footer-links">
-      <h4 class="font-mono footer-heading">Síguenos</h4>
-      <ul>
-        <li><a href="https://youtube.com/@elojoinusual" target="_blank" rel="noopener" class="font-body">YouTube</a></li>
-        <li><a href="https://instagram.com/elojoinusual" target="_blank" rel="noopener" class="font-body">Instagram</a></li>
-        <li><a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener" class="font-body">Spotify</a></li>
-      </ul>
+    
+    <!-- Redes a la izquierda -->
+    <nav class="footer-socials">
+      <a href="https://youtube.com/@elojoinusual" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://instagram.com/elojoinusual" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://open.spotify.com/show/0341dMFCs1p7XmDnjkM4bB" target="_blank" rel="noopener">Spotify</a>
+    </nav>
+
+    <!-- Mail al lado de las redes -->
+    <div class="footer-mail-sec">
+      <a href="mailto:contacto@elojoinusual.com.ar" class="footer-mail">
+        contacto@elojoinusual.com.ar
+      </a>
     </div>
 
-    <div class="footer-subscribe" id="suscribite">
-      <h4 class="font-mono footer-heading">Suscribite</h4>
-      <p class="font-body footer-desc">Suscribite para recibir las novedades!</p>
-      
-      <!-- El formulario apunta al iframe invisible -->
-      <form id="subscribe-form" action="https://buttondown.email/api/emails/embed-subscribe/elbloginusual" method="post" target="hidden-iframe" class="subscribe-form">
-        <input type="email" id="email-input" name="email" required placeholder="tu@correo.com" class="subscribe-input font-body" />
-        <button type="submit" id="subscribe-btn" class="subscribe-btn font-heading">Suscribirme</button>
-      </form>
-      <!-- Iframe invisible para atrapar la respuesta de Buttondown -->
-      <iframe name="hidden-iframe" id="hidden-iframe" style="display: none;"></iframe>
-      <p id="subscribe-status" class="subscribe-status"></p>
-    </div>
-  </div>
-  <div class="footer-bottom font-mono">
-    <p>© {year} El ojo inusual · Todos los derechos reservados</p>
-    <p>Mejor, pensando.</p>
   </div>
 </footer>
 
 <style>
-  .site-footer { border-top: 1px solid var(--border); padding: 4rem 1.5rem 2rem; }
-  .footer-inner {
-    max-width: 1200px; margin: 0 auto 3rem; display: flex; flex-wrap: wrap;
-    justify-content: space-between; gap: 3rem;
+  .site-footer { 
+    padding: 2.5rem 1.5rem; /* Le sacamos el border-top */
   }
-  .footer-brand { max-width: 420px; }
-  .brand-title { font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 1rem; }
-  .accent { color: var(--accent); }
-  .accent2 { color: #2cc8e7; }
-  .footer-desc { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
-  .footer-mail {
-    display: inline-block;
-    margin-top: 1rem;
+  .footer-inner {
+    max-width: 1200px; margin: 0 auto; 
+    display: flex; flex-wrap: wrap;
+    justify-content: flex-start; /* Alineamos todo a la izquierda */
+    align-items: center; 
+    gap: 2.5rem; /* Espacio entre las redes y el mail */
+  }
+  
+  /* Tipografía general */
+  .footer-socials a, .footer-mail {
+    font-family: 'Libertinus Serif', serif;
+    font-size: 1.1rem;
     color: var(--fg-dim);
-    font-size: 1rem;
     transition: color 0.3s;
   }
-  .footer-mail:hover { color: var(--accent); }
-  .footer-heading { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
-  .footer-links ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
-  .footer-links a { color: var(--fg-dim); font-size: 0.9rem; transition: color 0.3s; }
-  .footer-links a:hover { color: var(--accent); }
-  .footer-bottom {
-    max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--border-light);
-    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  .footer-socials a:hover, .footer-mail:hover {
+    color: var(--accent);
   }
 
-  .footer-subscribe { max-width: 280px; }
-  .subscribe-form { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-  .subscribe-input {
-    flex: 1; min-width: 0;
-    background: transparent; border: none; border-bottom: 1px solid var(--border-light);
-    color: var(--fg); padding: 0.5rem 0; font-size: 0.9rem;
+  /* Redes */
+  .footer-socials {
+    display: flex;
+    align-items: center;
   }
-  .subscribe-input:focus { outline: none; border-color: var(--accent); }
-  .subscribe-input::placeholder { color: var(--muted); }
-  .subscribe-btn {
-    background: var(--accent); color: #fff; border: none;
-    padding: 0.5rem 1rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-    cursor: pointer; transition: background 0.3s; white-space: nowrap;
+  .footer-socials a {
+    margin-right: 2.5rem; /* Espacio entre cada red */
   }
-  .subscribe-btn:hover { background: var(--accent-bright); }
-  .subscribe-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-  
-  .subscribe-status {
-    margin-top: 0.75rem; font-size: 0.85rem; min-height: 1.2rem; font-family: 'JetBrains Mono', monospace;
+  .footer-socials a:last-child {
+    margin-right: 0;
   }
-  .subscribe-status.success { color: #2cc8e7; }
-  .subscribe-status.error { color: #c4560a; }
-</style>
 
-<script is:inline>
-  const form = document.getElementById('subscribe-form');
-  const emailInput = document.getElementById('email-input');
-  const btn = document.getElementById('subscribe-btn');
-  const status = document.getElementById('subscribe-status');
-  const iframe = document.getElementById('hidden-iframe');
+  /* Mail */
+  .footer-mail-sec {
+    text-align: left;
+  }
 
-  // Cuando el formulario se envía, cambiamos el botón a "Enviando..."
-  form?.addEventListener('submit', (e) => {
-    const email = emailInput.value;
-    if (!email) return;
-    
-    btn.disabled = true;
-    btn.innerText = 'Enviando...';
-    status.textContent = '';
-    status.className = 'subscribe-status';
-  });
-
-  // Cuando el iframe termina de cargar, significa que Buttondown respondió
-  iframe?.addEventListener('load', () => {
-    // Si el botón está deshabilitado, significa que el formulario se envió
-    if (btn.disabled) {
-      status.textContent = '¡Listo! Gracias por suscribirte.';
-      status.classList.add('success');
-      emailInput.value = ''; // Limpiamos el input
-      btn.disabled = false;
-      btn.innerText = 'Suscribirme';
+  /* En móviles que se apilen hacia la izquierda */
+  @media (max-width: 768px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
     }
-  });
-</script>
+  }
+</style>

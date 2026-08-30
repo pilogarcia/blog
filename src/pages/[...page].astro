@@ -26,27 +26,6 @@ const urlFor = (n: number) => (n === 1 ? '/' : `/${n}/`);
 
 const isFeaturedPage = page.currentPage === 1;
 
-// Separamos el primer post para el Hero, y el resto para la grilla
-const heroPost = isFeaturedPage ? page.data[0] : null;
-const gridPosts = isFeaturedPage ? page.data.slice(1) : page.data;
-
-// Función para extraer un fragmento automático del cuerpo del artículo
-const stripMarkdown = (md: string) => {
-  if (!md) return '';
-  return md
-    .replace(/!\[.*?\]\(.*?\)/g, '') // Saca imágenes
-    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Saca links pero deja el texto
-    .replace(/[*_`#>-]/g, '') // Saca símbolos de formato
-    .replace(/\n/g, ' ') // Saca saltos de línea
-    .trim();
-};
-
-// Tomamos el cuerpo del último post y cortamos en el último espacio antes de 150 letras
-const rawHeroText = heroPost ? stripMarkdown(heroPost.body || '') : '';
-const heroExcerpt = rawHeroText.length > 150 
-  ? rawHeroText.slice(0, rawHeroText.lastIndexOf(' ', 150)) + '...' 
-  : rawHeroText;
-
 // Agrupar posts por Año y Mes
 const monthsNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 const archiveData = allPosts.reduce((acc, post) => {
@@ -63,33 +42,18 @@ const popularPosts = allPosts.filter(post => (post.data as any).popular).slice(0
 const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...allPosts.filter(p => !(p.data as any).popular)].slice(0, 3);
 ---
 <BaseLayout title="Blog">
-  <!-- NUEVO HERO: Imagen del último post + Slogan + Título del post -->
-  {heroPost && (
-    <section class="hero-strip">
-           <div class="hero-bg">
-        <!-- Acá le ponemos tu imagen fija hero.jpg -->
-        <div class="hero-bg-img" style="background-image: url('/images/hero.jpg');"></div>
-        <div class="hero-bg-overlay"></div>
-      </div>
-      <div class="hero-inner">
-        
-       <h1 class="font-display hero-title">
-        Última PUBLICACIÓN:
+  <!-- HERO MINIMALISTA -->
+  <section class="hero-strip">
+    <div class="hero-inner">
+      <h1 class="hero-title">
+        El Ojo Inusual,
+        un <i>blog</i><br>por una <i>poética</i> <br>
+        aparentemente inútil. <br>
+        Textos para volver <br>
+        al estado de <i>reflexión</i>.
       </h1>
-                                  <a href={`/blog/${heroPost.id}/`} class="hero-post-link">
-          <h2 class="font-display hero-post-title">{heroPost.data.title}</h2>
-          
-          <!-- NUEVO: Fragmento automático del artículo -->
-          <p class="hero-post-excerpt">{heroExcerpt}</p>
-          
-          <!-- Sello y Link juntos en la misma fila -->
-          <div class="hero-post-footer">
-            <span class="font-mono hero-post-read">Leer artículo completo →</span>
-          </div>
-        </a>
-      </div>
-    </section>
-  )}
+    </div>
+  </section>
 
   <section class="articles" id="articulos">
     <div class="articles-inner">
@@ -101,11 +65,15 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 
       <div class="blog-layout">
         
-        <!-- Columna principal: Artículos (Ahora todos son tarjetas normales) -->
+        <!-- Columna principal: Artículos -->
         <main class="main-content">
           <div class="grid">
-            {gridPosts.map((post, i) => (
-              <PostCard post={post} index={i} />
+            {page.data.map((post, i) => (
+              <PostCard 
+                post={post} 
+                index={i} 
+                featured={isFeaturedPage && i === 0} 
+              />
             ))}
           </div>
           <Pagination currentPage={page.currentPage} lastPage={page.lastPage} urlFor={urlFor} />
@@ -116,25 +84,19 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
           
           <!-- Caja de Donación -->
           <div class="sidebar-box donate-box">
-            <h3 class="sidebar-title">APOYAR EL BLOG</h3>
-            <p class="sidebar-text">Si te gusta este contenido, podés colaborar con el blog.</p>
-            <a href='https://cafecito.app/elojoinusual' rel='noopener' target='_blank' class="cafecito-btn">
-              <img 
-                srcset='https://cdn.cafecito.app/imgs/buttons/button_6.png 1x, https://cdn.cafecito.app/imgs/buttons/button_6_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_6_3.75x.png 3.75x' 
-                src='https://cdn.cafecito.app/imgs/buttons/button_6.png' 
-                alt='Invitame un café en cafecito.app' 
-                class="cafecito-img"
-              />
-            </a>
+            <h3 class="sidebar-title">Apoyar el blog</h3>
+            
+           <a href='https://cafecito.app/elojoinusual' rel='noopener' target='_blank'><img srcset='https://cdn.cafecito.app/imgs/buttons/button_5.png 1x, https://cdn.cafecito.app/imgs/buttons/button_5_2x.png 2x, https://cdn.cafecito.app/imgs/buttons/button_5_3.75x.png 3.75x' src='https://cdn.cafecito.app/imgs/buttons/button_5.png' alt='Invitame un café en cafecito.app' /></a>
           </div>
 
           <!-- Más Leídos -->
+                   <!-- Más Leídos -->
+          <!-- Más Leídos -->
           <div class="sidebar-box">
-            <h3 class="sidebar-title">LO MÁS LEÍDO</h3>
+            <h3 class="sidebar-title">Lo más leído</h3>
             <ul class="popular-list">
-              {topPosts.map((post, i) => (
+              {topPosts.map((post) => (
                 <li class="popular-item">
-                  <span class="popular-rank font-mono">0{i + 1}</span>
                   <a href={`/blog/${post.id}/`} class="popular-title font-body">{post.data.title}</a>
                 </li>
               ))}
@@ -143,7 +105,7 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 
           <!-- Archivo -->
           <div class="sidebar-box">
-            <h3 class="sidebar-title">ARCHIVO</h3>
+            <h3 class="sidebar-title">Archivo</h3>
             <ul class="archive-list">
               {sortedYears.map(year => (
                 <li class="archive-year">
@@ -166,15 +128,16 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
           </div>
 
           <!-- Sobre el Autor -->
+         <!-- Sobre el Autor -->
           <div class="sidebar-box author-box">
             <div class="author-top">
               <img src="/images/autor.jpg" alt="Pilo García" class="author-img" />
               <div class="author-info">
-                <span class="author-name font-body">Pilo García</span>
-                <span class="author-role font-mono">El Ojo Inusual</span>
+                <span class="author-name">Pilo García</span>
+                <!-- Acá movimos el link para que quede justo debajo del nombre -->
+                <a href="/sobre-mi/" class="author-link">Ver quién soy →</a>
               </div>
             </div>
-            <a href="/sobre-mi/" class="author-link font-mono">Ver quién soy →</a>
           </div>
           
         </aside>
@@ -184,128 +147,27 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
 </BaseLayout>
 
 <style>
-  /* Fragmento del texto en el Hero */
-    /* Fragmento del texto en el Hero (Con tipografía de artículo) */
-  .hero-post-excerpt {
-    font-family: 'Libertinus Serif', serif; /* La misma de los artículos */
-    font-size: 1.25rem;
-    line-height: 1.6;
-    color: var(--fg);
-    margin: 0 0 1.5rem 0;
-    max-width: 600px; 
-    text-shadow: 0 1px 2px rgba(255,255,255,0.6); 
-  }
-
-   /* --- ESTILOS DEL NUEVO HERO (Tono claro original) --- */
+  /* --- ESTILOS DEL HERO --- */
   .hero-strip { 
     position: relative; 
-    padding: 7rem 1.5rem 5rem; 
-    border-bottom: 1px solid var(--border); 
-    overflow: hidden; 
-    min-height: 60vh; 
+    padding: 8rem 1.5rem 6rem; 
+    border-bottom: none; 
+    background: #ffffff; 
     display: flex; 
     align-items: center; 
   }
-  .hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
-    .hero-bg-img {
-    position: absolute; inset: 0;
-    background-size: cover; background-position: center;
-    filter: contrast(1.1) brightness(0.9); 
-    opacity: 0.7; /* Acá bajamos la presencia de la imagen (0.7 es 70%, probá con 0.6 o 0.8 si querés) */
-    animation: kenburns 20s ease-out infinite alternate;
-  }
-  .hero-bg-overlay {
-    position: absolute; inset: 0;
-    /* Volvemos al overlay gris claro/transparente de antes */
-    background:
-      linear-gradient(180deg, rgba(177, 177, 177, 0.75) 0%, rgba(247,245,240,0.35) 45%, var(--bg) 100%),
-      radial-gradient(ellipse at 20% 30%, rgba(10, 124, 143, 0.10) 0%, transparent 55%);
-  }
-  
-  /* Contenedor alineado a la izquierda */
   .hero-inner { 
-    position: relative; 
-    z-index: 1; 
-    max-width: 1200px; 
-    width: 100%;
-    margin: 0 auto; 
-    text-align: left; 
-    padding: 0 1.5rem; 
-    box-sizing: border-box;
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; 
+    position: relative; z-index: 1; max-width: 1200px; width: 100%;
+    margin: 0 auto; text-align: left; padding: 0 1.5rem; box-sizing: border-box;
   }
-  .eyebrow { color: #000000; letter-spacing: 0.25em; font-size: 12px; margin-bottom: 1rem; }
-  
-  /* Slogan más chico */
   .hero-title { 
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem); 
-    line-height: 1.1; 
-    margin: 0 0 4rem; 
-    color: #4a4a4a; 
-    text-shadow: 0 1px 2px rgba(255,255,255,0.5); /* Sombra clara para que no se funda con la foto */
+    font-family: 'Noto Serif Display', serif; 
+    font-size: clamp(2.5rem, 6.5vw, 5rem); 
+    line-height: 1.05; margin: 0; color: #000000; 
+    font-weight: 200; letter-spacing: -0.01em; 
+    transform: scaleX(0.9); transform-origin: left center; 
   }
-  
-  /* Sello de última publicación */
-/* Sello de última publicación (Sin relleno, solo bordes y esquina redondeada) */
-  .hero-new-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #333333; /* Texto celeste */
-    background: transparent; /* Sin fondo */
-    border: 1px solid var(--accent); /* Borde celeste */
-    border-bottom-right-radius: 10px; /* Esquina inferior derecha redondeada */
-    padding: 4px 10px;
-      margin-left: 0; /* 0 margen izquierdo */
-    margin-bottom: 20px; /* 20px de margen abajo */
-  }
-
-  /* Link y título del post en el Hero */
- .hero-post-link { 
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start; 
-    text-decoration: none; 
-    max-width: 800px; 
-  }
-  .hero-post-tag { 
-    font-size: 11px; 
-    letter-spacing: 0.2em; 
-    text-transform: uppercase; 
-    color: var(--accent); 
-    background: rgba(0,0,0,0.55); 
-    padding: 4px 10px; 
-    margin-bottom: 1rem; 
-    backdrop-filter: blur(4px); /* Este blur es solo para el fondito de la etiqueta, está bien */
-  }
- .hero-post-title { 
-    font-size: clamp(2rem, 4.5vw, 3.5rem); 
-    
-    line-height: 0.95; 
-    margin: 0 0 1rem; 
-    color: #333333; 
-    text-shadow: 0 2px 4px rgba(255,255,255,0.6); /* Sombra clara para que resalte sobre la foto */
-  }
-  .hero-post-read { 
-    font-size: 15px; 
-    letter-spacing: 0.15em; 
-    text-transform: uppercase; 
-    color: var(--fg); 
-    border-bottom: 1px solid var(--accent); 
-    padding-bottom: 4px; 
-    transition: color 0.3s; 
-  }
-  .hero-post-link:hover .hero-post-read { color: var(--accent); }
-  .hero-post-footer {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem; /* Espacio entre el sello y el link */
-    margin-top: 0.5rem;
-  }
+  .hero-title i { font-weight: 200; transform: scaleX(0.9); transform-origin: left center; font-style: italic; }
 
   /* Estilos de los Artículos */
   .articles { padding: 5rem 1.5rem 7rem; }
@@ -320,28 +182,63 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     .sidebar { flex: 0 0 280px; position: sticky; top: 2rem; }
   }
 
-  /* Grilla adaptable */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
+  /* NUEVA GRILLA ESTRICTA DE 3 COLUMNAS */
+  .grid { 
+    display: grid; 
+    grid-template-columns: 1fr; /* 1 columna en móvil */
+    gap: 2rem; 
+  }
+  @media (min-width: 700px) { 
+    .grid { grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+    } 
+  }
+  @media (min-width: 1000px) { 
+    .grid { grid-template-columns: repeat(3, 1fr); /* 3 columnas en escritorio */
+    } 
+  }
 
   /* Estilos para el Sidebar */
   .sidebar-box { padding: 0 0 2rem 0; margin-bottom: 2rem; border-bottom: 1px solid var(--border-light); }
   .sidebar-box:last-child { border-bottom: none; }
-  .sidebar-title { font-size: 13px; letter-spacing: 0.2em; margin-bottom: 1rem; color: var(--accent); }
+ .sidebar-title { 
+    font-family: 'Libertinus Serif', serif; 
+    font-size: 1.2rem; 
+    font-weight: 163;
+    letter-spacing: normal; /* Le sacamos el espaciado exagerado */
+    margin-bottom: 1rem; 
+    color: #333333; 
+  }
   .sidebar-text { font-size: 13px; color: var(--fg-dim); margin-bottom: 1.2rem; line-height: 1.5; }
   .cafecito-btn { display: block; text-align: left; }
   .cafecito-img { max-width: 100%; height: auto; display: inline-block; transition: transform 0.2s; }
   .cafecito-img:hover { transform: translateY(-2px); }
   
-  .popular-list { list-style: none; padding: 0; margin: 0; }
-  .popular-item { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 1.2rem; }
+      .popular-list { list-style: none; padding: 0; margin: 0; }
+  .popular-item { 
+    margin-bottom: 1.2rem; /* Espacio entre un título y otro */
+  }
   .popular-item:last-child { margin-bottom: 0; }
-  .popular-rank { font-size: 14px; font-weight: 700; color: var(--accent); line-height: 1.4; }
-  .popular-title { font-size: 13px; color: var(--fg-dim); text-decoration: none; line-height: 1.4; transition: color 0.3s; }
+  
+  .popular-title { 
+    font-family: 'Libertinus Serif', serif; /* Usamos la tipografía de los artículos */
+    font-size: 1rem; 
+    color: var(--fg-dim); 
+    text-decoration: none; 
+    line-height: 1.4; 
+    transition: color 0.3s; 
+  }
   .popular-title:hover { color: var(--accent); }
 
   .archive-list { list-style: none; padding: 0; margin: 0; }
   .archive-year { margin-bottom: 1.2rem; }
-  .year-title { display: block; font-size: 13px; font-weight: 700; color: var(--fg); margin-bottom: 0.5rem; }
+  .year-title { 
+    display: block; 
+    font-family: 'Libertinus Serif', serif; 
+    font-size: 1rem; 
+    font-weight: 163; 
+    color: #333333; 
+    margin-bottom: 0.5rem; 
+  }
   .archive-months { list-style: none; padding-left: 0.8rem; margin: 0; }
   .archive-months li { margin-bottom: 0.3rem; }
   .archive-months a { color: var(--fg-dim); font-size: 13px; text-decoration: none; transition: color 0.3s; }
@@ -350,8 +247,18 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
   .author-box { display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding-top: 1rem; gap: 1rem; }
   .author-top { display: flex; align-items: center; gap: 1rem; }
   .author-img { width: 60px; height: 60px; object-fit: cover; border-radius: 0; filter: grayscale(40%); border: 1px solid var(--border-light); border-bottom-right-radius: 10px; }
-  .author-info { display: flex; flex-direction: column; gap: 0.2rem; }
-  .author-name { font-size: 14px; font-weight: 700; color: var(--fg); line-height: 1.2; }
+   .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+   .author-name {
+    font-family: 'Libertinus Serif', serif;
+    font-size: 1.1rem;
+    font-weight: 163;
+    color: var(--fg);
+    line-height: 1.2;
+  }
   .author-role { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
   .author-link { font-size: 11px; color: var(--fg-dim); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.3s; }
   .author-link:hover { color: var(--accent); }

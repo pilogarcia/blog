@@ -43,9 +43,15 @@ const formatDate = (d: Date) =>
         <div class="post-hero-overlay"></div>
       </div>
       <div class="post-hero-inner">
-        <a href="/#articulos" class="font-mono back-link">← Volver a Artículos</a>
-        <p class="font-mono post-tag">{post.data.tag}</p>
-        <h1 class="font-display post-title">{post.data.title}</h1>
+        
+        <!-- Nueva fila: Volver a la izquierda, Categoría a la derecha -->
+        <div class="post-hero-top">
+          <a href="/#articulos" class="font-mono back-link">← Volver a Artículos | </a>
+          <p class="font-mono post-tag">{post.data.tag}</p>
+        </div>
+
+        <h1 class="post-title">{post.data.title}</h1>
+          
         <p class="font-mono post-meta">
           {post.data.author} · {formatDate(post.data.pubDate)}
           {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
@@ -87,9 +93,31 @@ const formatDate = (d: Date) =>
   }
   .post-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
 
-  .back-link { color: #333333; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+  /* Contenedor flexible para ponerlos en la misma línea */
+  /* Contenedor flexible para ponerlos juntos en la misma línea */
+  .post-hero-top {
+    display: flex;
+    justify-content: flex-start; /* Que arranquen juntos desde la izquierda */
+    align-items: center;
+    gap: 0.8rem; /* Acá控制as el espacio exacto entre "Volver" y la categoría */
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-link { color: #333333; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; margin: 0; }
   .back-link:hover { color: var(--accent); }
-  .post-tag { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin: 2rem 0 1rem; }
-  .post-title { font-size: clamp(2rem, 5vw, 3rem); line-height: 0.95; margin: 0 0 1.5rem; }
+  
+  .post-tag { color: var(--accent); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; }
+  
+  .post-title { 
+    font-family: 'Noto Serif Display', serif; 
+    font-size: clamp(2.5rem, 6vw, 4rem); /* Un tamaño grande para que reine */
+    line-height: 1.1; 
+    margin: 0 0 1.5rem; 
+    color: var(--fg); 
+    font-weight: 250; 
+    text-transform: none; /* Respetar mayúscula tipo oración */
+    letter-spacing: -0.01em;
+  }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
 </style>

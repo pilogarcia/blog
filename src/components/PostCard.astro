@@ -12,7 +12,6 @@ const { post, index, featured = false } = Astro.props;
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
-<!-- Le saqué la clase notch-corner y dejé solo card y featured -->
 <a href={`/blog/${post.id}/`} class={`card ${featured ? 'featured' : ''}`}>
   <div class="card-media">
     {post.data.cover ? (
@@ -21,14 +20,15 @@ const formatDate = (d: Date) =>
       <div class="card-media-placeholder font-mono">SIN IMAGEN</div>
     )}
     <div class="card-media-overlay"></div>
-    <span class="font-mono card-tag">{post.data.tag}</span>
+    
+    {/* SAcamos la etiqueta de la categoría de acá */}
     {typeof index === 'number' && <span class="font-mono card-index">/ {String(index + 1).padStart(2, '0')}</span>}
     
     {/* Acá agregamos la etiqueta de última publicación */}
     {featured && <span class="font-mono card-new-badge">ÚLTIMA PUBLICACIÓN</span>}
   </div>
   <div class="card-body">
-    <h2 class="font-display card-title">{post.data.title}</h2>
+    <h2 class="card-title">{post.data.title}</h2>
     <p class="font-body card-excerpt">{post.data.excerpt}</p>
     <div class="font-mono card-meta">
       <span class="card-meta-author">{post.data.author}</span>
@@ -45,13 +45,13 @@ const formatDate = (d: Date) =>
 <style>
   .card {
     display: flex; flex-direction: column;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    transition: border-color 0.4s, background 0.4s, transform 0.4s;
-    border-bottom-right-radius: 10px; /* Acá le redondeamos la esquina */
-    overflow: hidden; /* Para que la imagen y el fondo respeten la curva */
+    background: transparent; /* Fondo transparente para que no haya cajas */
+    border: none; /* ACÁ LE SACAMOS EL BORDE */
+    transition: transform 0.4s;
+    border-bottom-right-radius: 10px; 
+    overflow: hidden; 
   }
-  .card:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); transform: translateY(-4px); }
+  .card:hover { transform: translateY(-4px); }
 
   .card-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-darker); }
   .card-media img {
@@ -70,24 +70,27 @@ const formatDate = (d: Date) =>
     position: absolute; inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
   }
-  .card-tag {
-    position: absolute; top: 12px; left: 12px; z-index: 2;
-    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--accent); background: rgba(0,0,0,0.55); padding: 4px 10px; backdrop-filter: blur(4px);
-  }
 
   /* Estilos para la nueva etiqueta */
   .card-new-badge {
     position: absolute; bottom: 12px; right: 12px; z-index: 2;
     font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    color: #111; /* Color oscuro para que resalte sobre el color de acento */
+    color: #111; 
     background: var(--accent); 
     padding: 4px 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra para que flote sobre la imagen */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
   }
 
-  .card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
-  .card-title { font-size: 1.6rem; line-height: 1.02; margin: 0 0 0.6rem; }
+  .card-body { padding: 1.5rem 0; display: flex; flex-direction: column; flex: 1; }
+   .card-title { 
+    font-family: 'Noto Serif Display', serif; 
+    font-size: 1.5rem; 
+    line-height: 1.1; 
+    margin: 0 0 0.6rem; 
+    font-weight: 300; 
+    text-transform: none; 
+    letter-spacing: -0.01em;
+  }
   .card-excerpt { color: var(--fg-dim); font-size: 0.9rem; line-height: 1.55; margin: 0 0 1.2rem; flex: 1; }
   .card-meta { color: #333333; font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 0.3rem; }
 
@@ -100,18 +103,18 @@ const formatDate = (d: Date) =>
   .card:hover .card-read-arrow { transform: translateX(4px); }
 
   /* --- ESTILOS PARA LA TARJETA PANORÁMICA (FEATURED) --- */
-  /* En escritorio (a partir de 700px donde hay 2+ columnas) */
+   /* --- ESTILOS PARA LA TARJETA DESTACADA (FEATURED) --- */
   @media (min-width: 700px) {
     .card.featured {
-      grid-column: span 2; /* Ocupa el doble de ancho en el grid */
+      grid-column: 1 / -1; /* Ocupa todo el ancho de la fila, sin importar cuantas columnas haya */
     }
     
     .card.featured .card-media {
-      aspect-ratio: 16 / 7; /* Hacemos la imagen más panorámica */
+      aspect-ratio: 21 / 9; /* Imagen súper panorámica (formato cine) */
     }
 
     .card.featured .card-title {
-      font-size: 2rem; /* Un título ligeramente más grande para destacarlo */
+      font-size: 2.5rem; /* Título bien grande para la portada */
     }
   }
 </style>

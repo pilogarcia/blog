@@ -1,4 +1,4 @@
-export const POSTS_PER_PAGE = 7;
+export const POSTS_PER_PAGE = 4;
 export const SITE_TITLE = 'El Ojo Inusual';
 export const SITE_DESCRIPTION =
   'El Ojo Inusual — Un blog de Interés general, filosofía, música, poesía, ciencia, creencias y experiencias de vida.';

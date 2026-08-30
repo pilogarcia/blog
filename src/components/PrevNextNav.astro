@@ -13,13 +13,15 @@ const { prev, next } = Astro.props;
     {prev ? (
       <a href={`/blog/${prev.id}/`} class="pn-link pn-prev notch-corner">
         <span class="font-mono pn-label">← Anterior</span>
-        <span class="font-display pn-title">{prev.data.title}</span>
+        <!-- Le saqué la clase font-display de acá -->
+        <span class="pn-title">{prev.data.title}</span>
       </a>
     ) : <span></span>}
     {next ? (
       <a href={`/blog/${next.id}/`} class="pn-link pn-next notch-corner">
         <span class="font-mono pn-label">Siguiente →</span>
-        <span class="font-display pn-title">{next.data.title}</span>
+        <!-- Y de acá -->
+        <span class="pn-title">{next.data.title}</span>
       </a>
     ) : <span></span>}
   </nav>
@@ -38,7 +40,17 @@ const { prev, next } = Astro.props;
   .pn-link:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); }
   .pn-next { text-align: right; align-items: flex-end; }
   .pn-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
-  .pn-title { font-size: 1.15rem; line-height: 1.15; color: var(--fg); }
+  
+  /* Acá le aplicamos la tipografía Noto Serif Display */
+  .pn-title { 
+    font-family: 'Noto Serif Display', serif; 
+    font-size: 1.3rem; 
+    line-height: 1.2; 
+    color: var(--fg); 
+    font-weight: 400; 
+    text-transform: none; /* Respetar mayúscula tipo oración */
+    letter-spacing: -0.01em;
+  }
 
   @media (max-width: 640px) {
     .prev-next { grid-template-columns: 1fr; }
