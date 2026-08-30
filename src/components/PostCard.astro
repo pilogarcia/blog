@@ -19,7 +19,7 @@ const formatDate = (d: Date) =>
     ) : (
       <div class="card-media-placeholder font-mono">SIN IMAGEN</div>
     )}
-    <div class="card-media-overlay"></div>
+
     
     {/* SAcamos la etiqueta de la categoría de acá */}
     {typeof index === 'number' && <span class="font-mono card-index">/ {String(index + 1).padStart(2, '0')}</span>}
@@ -66,10 +66,6 @@ const formatDate = (d: Date) =>
     background:
       repeating-linear-gradient(45deg, var(--bg-darker), var(--bg-darker) 10px, var(--border) 10px, var(--border) 20px);
   }
-  .card-media-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.65) 100%);
-  }
 
   /* Estilos para la nueva etiqueta */
   .card-new-badge {
@@ -102,7 +98,7 @@ const formatDate = (d: Date) =>
   .card-read-arrow { display: inline-block; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
   .card:hover .card-read-arrow { transform: translateX(4px); }
 
-  /* --- ESTILOS PARA LA TARJETA PANORÁMICA (FEATURED) --- */
+
    /* --- ESTILOS PARA LA TARJETA DESTACADA (FEATURED) --- */
   @media (min-width: 700px) {
     .card.featured {

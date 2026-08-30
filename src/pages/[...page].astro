@@ -151,7 +151,7 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     position: relative; 
     padding: 8rem 1.5rem 6rem; 
     border-bottom: none; 
-    background: #ffffff; 
+    background: var(--bg);; 
     display: flex; 
     align-items: center; 
   }
@@ -159,14 +159,34 @@ const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...
     position: relative; z-index: 1; max-width: 1400px; width: 100%;
     margin: 0 auto; text-align: left; padding: 0 1.5rem; box-sizing: border-box;
   }
-  .hero-title { 
+    .hero-title { 
     font-family: 'Noto Serif Display', serif; 
     font-size: clamp(2rem, 6vw, 4.5rem); 
     line-height: 1.05; margin: 0; color: #000000; 
     font-weight: 300; letter-spacing: -0.01em; 
     transform: scaleX(0.9); transform-origin: left center; 
+    
+    /* Acá le sumamos el fade in puro */
+    opacity: 0; /* Empieza invisible en su mismo lugar */
+    animation: heroFadeIn 1.2s ease-in-out 0.2s forwards; /* Aparece suavemente */
   }
-  .hero-title i { font-weight: 300; transform: scaleX(0.9); transform-origin: left center; font-style: italic; }
+  
+  .hero-title i { 
+    font-weight: 300; 
+    transform: scaleX(0.9); 
+    transform-origin: left center; 
+    font-style: italic; 
+  }
+
+  /* La animación que solo cambia la opacidad */
+  @keyframes heroFadeIn {
+    from { 
+      opacity: 0; 
+    }
+    to { 
+      opacity: 1; 
+    }
+  }
 
   /* Estilos de los Artículos */
   .articles { padding: 5rem 1.5rem 7rem; }
