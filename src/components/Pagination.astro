@@ -38,7 +38,7 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
   .pagination {
     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
     margin-top: 4rem; padding-top: 2rem; 
-    flex-wrap: wrap; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    flex-wrap: wrap; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
   }
   .page-nav { color: var(--fg-dim); transition: color 0.3s; }
   .page-nav:hover { color: var(--accent); }
@@ -46,13 +46,13 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
   .page-numbers { display: flex; gap: 0.5rem; }
   .page-number {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-    color: var(--muted); border: 1px solid var(--border-light); transition: all 0.3s;
+    color: var(--muted); border: none solid var(--border-light); transition: all 0.3s;
       border-bottom-right-radius: 8px; /* El detalle geométrico */
   }
   .page-number:hover { color: var(--fg); border-color: var(--accent-dim); }
   .active {
     background: transparent; /* Sacamos el relleno */
-    border: 1px solid var(--accent); /* Le ponemos borde celeste */
+    border: none solid var(--accent); /* Le ponemos borde celeste */
     color: var(--accent); /* Texto celeste */
   }
 </style>
