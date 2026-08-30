@@ -137,47 +137,49 @@ a { color: inherit; text-decoration: none; }
 
 .pagefind-ui {
   --pagefind-ui-primary: #2cc8e7;
-  --pagefind-ui-text: #131313;
-  --pagefind-ui-secondary-text: #555;
+  --pagefind-ui-text: #2c2c2c;
+  --pagefind-ui-secondary-text: #4c463a;
   --pagefind-ui-input-background: #ffffff;
-  --pagefind-ui-background: #ffffff;
-  --pagefind-ui-border: #e0e0e0;
-  --pagefind-ui-tag: #f0f0f0;
+  --pagefind-ui-background: #FCFCF2;
+  --pagefind-ui-border: #d6cfc0;
+  --pagefind-ui-tag: #efece4;
   --pagefind-ui-border-radius: 0px;
-  --pagefind-ui-font: 'Sono', monospace;
+  --pagefind-ui-font: 'Inter', sans-serif;
 }
 
 .pagefind-ui .pagefind-ui__search-input {
   background: #ffffff !important;
-  border: 1px solid #ccc !important;
-  color: #131313 !important;
+  border: 1px solid #d6cfc0 !important;
+  color: #2c2c2c !important;
   padding: 1rem !important;
   font-size: 1rem !important;
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05) !important;
+  font-family: 'Inter', sans-serif !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.03) !important;
 }
 .pagefind-ui .pagefind-ui__search-input:focus {
   border-color: #2cc8e7 !important;
   outline: none !important;
-  box-shadow: 0 0 0 2px rgba(44, 200, 231, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(44, 200, 231, 0.15) !important;
 }
 
 .pagefind-ui .pagefind-ui__search-clear,
 .search-close-btn {
-  background-color: #f0f0f0 !important;
-  border: 1px solid #ccc !important;
-  color: #555 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #d6cfc0 !important;
+  color: #4c463a !important;
   border-radius: 0 !important;
   font-size: 12px !important;
   padding: 0.5rem 0.8rem !important;
   cursor: pointer !important;
-  font-family: 'Sono', monospace !important;
+  font-family: 'Inter', sans-serif !important;
   margin-left: 8px !important;
+  transition: all 0.3s !important;
 }
 .pagefind-ui .pagefind-ui__search-clear:hover,
 .search-close-btn:hover {
   color: #000 !important;
   border-color: #2cc8e7 !important;
-  background: #e0e0e0 !important;
+  background: #f0f0f0 !important;
 }
 
 /* --- CAJA DEL RESULTADO --- */
@@ -185,7 +187,7 @@ a { color: inherit; text-decoration: none; }
   display: flex !important;
   align-items: flex-start !important;
   gap: 1.2rem !important;
-  border-top: 1px solid #eee !important;
+  border-top: 1px solid #d6cfc0 !important;
   padding: 1.5rem 0 !important;
   overflow: hidden !important;
   position: relative !important;
@@ -199,7 +201,7 @@ a { color: inherit; text-decoration: none; }
   flex-shrink: 0 !important;
   overflow: hidden !important;
   position: relative !important;
-  background: #f0f0f0 !important;
+  background: #efece4 !important;
 }
 
 /* --- LA IMAGEN DENTRO DE LA MINIATURA --- */
@@ -220,24 +222,28 @@ a { color: inherit; text-decoration: none; }
 }
 
 .pagefind-ui__result-title {
-  color: #131313 !important;
-  font-family: 'Sono', monospace !important;
-  font-size: 1.1rem !important;
-  letter-spacing: 0.05em !important;
+  color: #2c2c2c !important;
+  font-family: 'Noto Serif Display', serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: -0.01em !important;
   text-decoration: none !important;
   margin-bottom: 0.5rem !important;
+  transition: color 0.3s !important;
 }
 .pagefind-ui__result-title:hover {
   color: #2cc8e7 !important;
 }
 .pagefind-ui__result-excerpt {
-  color: #444 !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 0.9rem !important;
+  color: #4c463a !important;
+  font-family: 'Libertinus Serif', serif !important;
+  font-size: 1rem !important;
   line-height: 1.5 !important;
 }
 .pagefind-ui__mark {
-  background-color: rgba(44, 200, 231, 0.25) !important;
+  background-color: rgba(44, 200, 231, 0.2) !important;
   color: #000 !important;
+  padding: 0 2px !important;
 }
 /* --- FIN DE ESTILOS PAGEFIND --- */
