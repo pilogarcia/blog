@@ -24,8 +24,7 @@ const formatDate = (d: Date) =>
     {/* SAcamos la etiqueta de la categoría de acá */}
     {typeof index === 'number' && <span class="font-mono card-index">/ {String(index + 1).padStart(2, '0')}</span>}
     
-    {/* Acá agregamos la etiqueta de última publicación */}
-    {featured && <span class="font-mono card-new-badge">ÚLTIMA PUBLICACIÓN</span>}
+   
   </div>
   <div class="card-body">
     <h2 class="card-title">{post.data.title}</h2>
