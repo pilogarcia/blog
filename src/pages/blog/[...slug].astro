@@ -4,6 +4,7 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import PrevNextNav from '../../components/PrevNextNav.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Comments from '../../components/Comments.astro';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -67,19 +68,9 @@ const formatDate = (d: Date) =>
     </div>
 
 
-<!-- Comentarios de Cusdis -->
-<!-- Comentarios de Cusdis -->
-<div class="post-comments">
-  <div id="cusdis_thread"
-    data-host="https://cusdis.com"
-    data-app-id="73027611-5bed-46fd-b03d-68ca51d3e3b5"
-    data-page-id={post.id}
-    data-page-url={Astro.url.pathname}
-    data-page-title={post.data.title}
-    data-lang="es"
-  ></div>
- <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
-</div>
+  </article>
+
+  <Comments postId={post.id} />
   </article>
 
   <PrevNextNav prev={prev} next={next} />
