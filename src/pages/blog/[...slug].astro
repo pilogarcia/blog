@@ -66,10 +66,11 @@ const formatDate = (d: Date) =>
       </div>
     </div>
 
-      <!-- PEGAMOS LOS COMENTARIOS ACÁ ABAJO -->
+  <!-- LA CAJA DE COMENTARIOS TIENE QUE ESTAR ACÍ -->
     <div class="post-comments">
       <div id="waline"></div>
     </div>
+
   </article>
 
   <PrevNextNav prev={prev} next={next} />
@@ -126,16 +127,23 @@ const formatDate = (d: Date) =>
   }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
 
- <script type="module" is:inline>
-  import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
-  init({
-    el: '#waline',
-    serverURL: 'https://waline-blog-iota-one.vercel.app/', // <--- ACÁ LA NUEVA URL
-    lang: 'es',
-    dark: 'html[class="dark"]',
-    emoji: false,
-    search: false,
-  });
+ <script is:inline>
+  // Cargamos el script de Waline de forma tradicional para que Astro no interfiera
+  const script = document.createElement('script');
+  script.src = 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+  script.defer = true;
+  script.onload = () => {
+    if (window.Waline) {
+      window.Waline.init({
+        el: '#waline',
+        serverURL: 'https://waline-blog-iota-one.vercel.app/',
+        lang: 'es',
+        emoji: false,
+        search: false,
+      });
+    }
+  };
+  document.head.appendChild(script);
 </script>
 
 <style is:global>
