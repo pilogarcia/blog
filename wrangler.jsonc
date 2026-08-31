@@ -3,5 +3,12 @@
   "compatibility_date": "2024-09-23",
   "assets": {
     "directory": "./dist"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "waline-db",
+      "database_id": "eac72e16-acac-4502-ad44-c5b527327fd4"
+    }
+  ]
 }
