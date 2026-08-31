@@ -3,6 +3,7 @@ interface Props {
   postId: string;
 }
 const { postId } = Astro.props;
+
 ---
 <!-- Le pasamos el postId al div contenedor para que el script lo lea de ahí -->
 <div class="comments-section" data-post-id={postId}>
@@ -91,24 +92,27 @@ const { postId } = Astro.props;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 1.5rem;
   }
-  /* El contenedor que tiene el nombre y la fecha */
-    .comment-item > div {
+  
+  /* ACÁ está el arreglo para el espacio */
+  .comment-header {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Acá le damos el espacio entre el nombre y la fecha */
+    gap: 1.5rem; 
     margin-bottom: 0.5rem;
   }
+  
+  /* ACÁ le pusimos 700 para que esté en negrita */
   .comment-author {
     font-family: 'Inter', sans-serif;
-    font-weight: 600;
+    font-weight: 700; 
     color: var(--fg);
-    margin: 0; /* Le sacamos el margin-bottom que tenía antes */
+    margin: 0;
   }
-.comment-date {
+  .comment-date {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--muted);
-    margin: 0; /* Le sacamos el margin-left que tenía antes */
+    margin: 0;
   }
   .comment-content {
     font-family: 'Libertinus Serif', serif;
@@ -155,9 +159,12 @@ const { postId } = Astro.props;
           item.className = 'comment-item';
 
           const header = document.createElement('div');
+          header.className = 'comment-header'; // Le asignamos la clase acá
+          
           const author = document.createElement('span');
           author.className = 'comment-author';
           author.textContent = c.author;
+          
           const date = document.createElement('span');
           date.className = 'comment-date';
           date.textContent = new Date(c.created_at).toLocaleDateString('es-AR');
