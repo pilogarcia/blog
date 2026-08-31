@@ -88,13 +88,12 @@ const { postId } = Astro.props;
     flex-direction: column;
     gap: 1.5rem;
   }
-  .comment-item {
+:global(.comment-item) {
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 1.5rem;
   }
-  
   /* ACÁ está el arreglo para el espacio */
-  .comment-header {
+  :global(.comment-header) {
     display: flex;
     align-items: center;
     gap: 1.5rem; 
@@ -102,19 +101,19 @@ const { postId } = Astro.props;
   }
   
   /* ACÁ le pusimos 700 para que esté en negrita */
-  .comment-author {
+:global(.comment-author) {
     font-family: 'Inter', sans-serif;
     font-weight: 700; 
     color: var(--fg);
     margin: 0;
   }
-  .comment-date {
+  :global(.comment-date) {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--muted);
     margin: 0;
   }
-  .comment-content {
+  :global(.comment-content) {
     font-family: 'Libertinus Serif', serif;
     font-size: 1.1rem;
     line-height: 1.5;
