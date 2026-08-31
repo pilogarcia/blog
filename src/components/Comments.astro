@@ -91,17 +91,24 @@ const { postId } = Astro.props;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 1.5rem;
   }
+  /* El contenedor que tiene el nombre y la fecha */
+    .comment-item > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Acá le damos el espacio entre el nombre y la fecha */
+    margin-bottom: 0.5rem;
+  }
   .comment-author {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     color: var(--fg);
-    margin-bottom: 0.5rem;
+    margin: 0; /* Le sacamos el margin-bottom que tenía antes */
   }
-  .comment-date {
+.comment-date {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.8rem;
     color: var(--muted);
-    margin-left: 1rem;
+    margin: 0; /* Le sacamos el margin-left que tenía antes */
   }
   .comment-content {
     font-family: 'Libertinus Serif', serif;
