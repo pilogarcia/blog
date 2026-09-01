@@ -1,6 +1,6 @@
 ---
 title: "Brevísimo descargo"
-excerpt: "No te tengas miedo, a vos, sí a vos te digo"
+excerpt: "No tengas tanto miedo, a vos, sí a vos te digo"
 type: "article"
 pubDate: 2026-09-01
 author: "Pilo García"
