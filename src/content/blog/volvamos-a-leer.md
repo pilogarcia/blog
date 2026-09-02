@@ -13,7 +13,7 @@ Repentinamente le regalamos nuestra imaginación a un grupo de tecnócratas. Tod
 
 Y acá me encuentro, porque no sé cuántas veces, otra vez dándole a un proyecto de acomodación de palabras, este blog, que quiere darle nuevamente a mi imaginario un espacio, y robándome el título del libro de Werner Herzog, “la conquista de lo inútil”, un lugar a estas cosas que uno escribe y desea con tanto amor que alguien, al menos una persona, lea.
 
-En el silencio uno encuentra las palabras para que un otro las lea. En el ocio uno ve las cosas que debería hacer, y entre ellas, leer. En el silencio uno hace gestos con los brazos como queriendo espantar un animal molesto y en ese mismo silencio, acercamos y ponemos pegaditos al nuestro cuerpo, un poema, un relato, una canción.
+En el silencio encontramos las palabras para que un otro las lea. Y en el ocio vemos las cosas que deberíamos hacer, y entre ellas, leer. En el silencio uno hace gestos con los brazos como queriendo espantar un animal molesto y en ese mismo silencio, acercamos y ponemos pegaditos al nuestro cuerpo, un poema, un relato, una canción.
 
 La imaginación dice que practiquemos el desapego, como dice Leónidas Escudero en su poema *La medecina*; el desprendimiento de las cosas que nos roba la creatividad. Practiquemos el desapego, hagamos cosas inservibles para que los demás se contagien de esa sana enfermedad mañosa de hurgar entre los trapos sucios del aburrimiento. Aburrirse y luego escribirlo y luego leerlo y luego beber un vino. El resto, se lo dejamos a los señores del valle de la silicona.
 
