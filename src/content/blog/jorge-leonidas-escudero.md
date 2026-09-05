@@ -9,8 +9,8 @@ cover: "/images/posts/poema-y-maquina-de-escribir.jpg"
 popular: true
 ---
 
-Siempre él para cuando se me pianta la creatividad. Aclaro que a veces me da por Costantini, Girondo o Nicanor Parra. O cuando se me viene la prosa, John Berger. Y si aparece una locura, Werner Herzog.
-Pero sigamos en Escudero, porque uno lee sus poemas y repentinamente se nos atraviesa el señor con sus genialidades de escribidor insolente. Se nos cuelga del cogote con sus versos tan espantosos para la academia y tan conmovedores y geniales para nosotros, los apasionados. 
+Siempre él cuando se me pianta la creatividad. Aclaro que a veces me da por Costantini, Girondo o Nicanor Parra. O cuando se me viene la prosa, John Berger. Y si arremete la locura, Werner Herzog.
+Pero sigamos en Escudero, porque leemos sus poemas y repentinamente se nos atraviesa el señor con sus genialidades de escribidor insolente. Se nos cuelga del cogote con sus versos tan espantosos para la academia y tan conmovedores y geniales para nosotros, los apasionados. 
 
 >*En vez de hacer de perro del hortelano,*<br>
 >*o llorar a la luna porque no nos quieren,*<br>
