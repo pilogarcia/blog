@@ -9,8 +9,7 @@ cover: "/images/posts/poema-y-maquina-de-escribir.jpg"
 popular: true
 ---
 
-Siempre él cuando se me pianta la creatividad. Aclaro que a veces me da por Costantini, Girondo o Nicanor Parra. O cuando se me viene la prosa, John Berger. Y si arremete la locura, Werner Herzog.
-Pero sigamos en Escudero, porque leemos sus poemas y repentinamente se nos atraviesa el señor con sus genialidades de escribidor insolente. Se nos cuelga del cogote con sus versos tan espantosos para la academia y tan conmovedores y geniales para nosotros, los apasionados. 
+Siempre aparece el Leónidas si se me pianta la creatividad. Porque leo sus poemas y como si fuese un verdugo me atraviesa con sus genialidades de escribidor insolente y se me cuelga del cogote con sus versos tan exageradamente bellos y conmovedores para dejarme en claro que con la mediocridad, a otra parte.
 
 >*En vez de hacer de perro del hortelano,*<br>
 >*o llorar a la luna porque no nos quieren,*<br>
