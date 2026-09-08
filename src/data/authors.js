@@ -5,7 +5,7 @@ export const authors = {
   },
   "Lic. Viviana Aragno": {
     bio: "Lic. en ciencias de la educación.",
-    link: "mailto:example@example.com"
+    link: "mailto:vivigoel@gmail.com"
   }
 ,
    "Puchi García": {
