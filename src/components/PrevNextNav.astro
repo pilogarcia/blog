@@ -29,8 +29,10 @@ const { prev, next } = Astro.props;
 
 <style>
   .prev-next {
-    max-width: 900px; margin: 0 auto 5rem; padding: 0 1.5rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    margin: 4rem 0 0; /* Sacamos el auto para alinear a la izquierda */
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 1.25rem;
   }
   .pn-link {
     display: flex; flex-direction: column; gap: 0.6rem;

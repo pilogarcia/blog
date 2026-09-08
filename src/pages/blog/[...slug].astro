@@ -75,7 +75,7 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
           <Content />
         </div>
 
-        <!-- ICONOS PARA COMPARTIR (Movidos acá adentro) -->
+        <!-- ICONOS PARA COMPARTIR -->
         <div class="post-share">
           <span class="share-label">Compartir:</span>
           
@@ -102,8 +102,11 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
           </a>
         </div>
 
-        <!-- COMENTARIOS (Movidos acá adentro) -->
+        <!-- COMENTARIOS -->
         <Comments postId={post.id} />
+
+        <!-- MOVER ACÁ: ARTÍCULOS ANTERIOR/SIGUIENTE -->
+        <PrevNextNav prev={prev} next={next} />
       </div>
 
       <!-- Sidebar del Autor -->
@@ -121,7 +124,6 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     </div>
   </article>
 
-  <PrevNextNav prev={prev} next={next} />
   <RelatedPosts posts={related} tag={post.data.tag} />
 </BaseLayout>
 
@@ -139,8 +141,8 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
   .post {
     max-width: 720px; /* Mantiene la lectura cómoda */
     flex: 1;
-    margin: 0; /* Le sacamos el margin auto para que se pegue a la sidebar */
-    padding: 0; /* Le sacamos el padding porque ya lo tiene el layout */
+    margin: 0;
+    padding: 0;
   }
 
   /* La sidebar del autor */
@@ -153,7 +155,6 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     padding-left: 2rem;
     border-left: 1px solid var(--border-light);
   }
-  /* NUEVO: Etiqueta de "Autor del post:" */
   .author-sidebar-label {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
@@ -210,12 +211,11 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
 
   /* Estilos para los links de compartir (Alineados a la izquierda) */
   .post-share {
-    margin: 4.5rem 0 0; /* Le sacamos el auto y el padding para que se alinee al texto */
+    margin: 4.5rem 0 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 1.5rem; 
-    
   }
   .share-label {
     font-family: 'Libertinus Serif', serif;
@@ -244,7 +244,11 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     transform: scale(1.1);
   }
 
- 
+  /* Ajuste para Anterior/Siguiente (Alineado a la izquierda) */
+  :global(.prev-next) {
+    margin: 4rem 0 0 !important; /* Le sacamos el auto para que se pegue a la izquierda */
+    max-width: none !important; /* Que ocupe todo el ancho de la columna */
+  }
 
   .post-hero {
     position: relative; overflow: hidden;
