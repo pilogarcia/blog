@@ -2,13 +2,13 @@
 title: "Poetas"
 excerpt: "Un relato de mil años"
 pubDate: 2026-08-16
-author: "Pilo García"
+author: "Puchi García"
 tag: "Relato"
 cover: "/images/posts/poetas.jpg"
 type: "article"
 ---
 
-## Introducción: (por Pilo García)
+## Introducción *por Pilo García*
 
 **Una historia con un pasado de miles de años** 
 
