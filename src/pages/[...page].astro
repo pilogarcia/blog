@@ -38,8 +38,8 @@ const archiveData = allPosts.reduce((acc, post) => {
 }, {} as Record<string, Record<number, number>>);
 const sortedYears = Object.keys(archiveData).sort((a, b) => Number(b) - Number(a));
 
-const popularPosts = allPosts.filter(post => (post.data as any).popular).slice(0, 3);
-const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...allPosts.filter(p => !(p.data as any).popular)].slice(0, 3);
+const popularPosts = allPosts.filter(post => (post.data as any).popular).slice(0, 6);
+const topPosts = popularPosts.length >= 3 ? popularPosts : [...popularPosts, ...allPosts.filter(p => !(p.data as any).popular)].slice(0, 6);
 ---
 <BaseLayout title="Blog">
   <!-- HERO MINIMALISTA -->
