@@ -11,6 +11,7 @@ const blog = defineCollection({
     tag: z.string().default('Ensayo'),
     minutesRead: z.number().optional(),
     cover: z.string().optional(),
+    coverAuthor: z.string().optional(),
     draft: z.boolean().default(false),
   }),
 });

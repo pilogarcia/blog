@@ -59,10 +59,15 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
 
         <h1 class="post-title">{post.data.title}</h1>
           
-        <p class="font-mono post-meta">
+             <p class="font-mono post-meta">
           {post.data.author} · {formatDate(post.data.pubDate)}
           {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
         </p>
+
+        <!-- Crédito de la fotografía en su propia línea -->
+        {post.data.coverAuthor && (
+          <p class="cover-author">Foto: {post.data.coverAuthor}</p>
+        )}
       </div>
     </header>
 
@@ -246,8 +251,8 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
 
   /* Ajuste para Anterior/Siguiente (Alineado a la izquierda) */
   :global(.prev-next) {
-    margin: 4rem 0 0 !important; /* Le sacamos el auto para que se pegue a la izquierda */
-    max-width: none !important; /* Que ocupe todo el ancho de la columna */
+    margin: 4rem 0 0 !important;
+    max-width: none !important;
   }
 
   .post-hero {
@@ -294,4 +299,18 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     letter-spacing: -0.01em;
   }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+   /* Crédito de la fotografía (Línea de abajo, alineado a la izquierda) */
+  .cover-author {
+    display: block;
+    width: 100%;
+    text-align: left !important; /* Forzamos a la izquierda */
+    margin: 0.5rem 0 0; /* Un pequeño espacio separándolo de la fecha */
+    padding: 0;
+    color: var(--muted);
+    font-size: 11px; /* Mismo tamaño que la fecha */
+    letter-spacing: 0.15em; /* Mismo espaciado que la fecha */
+    text-transform: none;
+    font-family: 'JetBrains Mono', monospace;
+  }
 </style>

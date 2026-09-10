@@ -35,6 +35,10 @@ const formatDate = (d: Date) =>
         {formatDate(post.data.pubDate)}
         {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
       </span>
+      {/* NUEVO: Crédito de la fotografía debajo de la fecha */}
+      {post.data.coverAuthor && (
+        <span class="card-meta-cover">Foto: {post.data.coverAuthor}</span>
+      )}
     </div>
 
     <span class="font-heading card-read">Leer</span>
@@ -88,6 +92,11 @@ const formatDate = (d: Date) =>
   }
   .card-excerpt { color: var(--fg-dim); font-size: 0.9rem; line-height: 1.55; margin: 0 0 1.2rem; flex: 1; }
   .card-meta { color: #333333; font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 0.3rem; }
+  
+  /* NUEVO: Estilo sutil para el crédito de la foto en la tarjeta */
+  .card-meta-cover { 
+    color: var(--muted); /* Un gris más claro para que sea sutil */
+  }
 
   .card-read {
     display: inline-flex; align-items: center; gap: 0.4rem;
