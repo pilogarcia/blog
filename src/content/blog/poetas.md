@@ -37,7 +37,7 @@ Este hombre amanece en un día cualquiera para desplegar sus costumbres hartas d
 <br>
 Y desde que este hombre es domador de versos, venido desde un pasado plantado en filosofías difíciles de soslayar, con un cosmos que siempre lo sigue hasta el último rincón habitable, va dejando una estela de poemas para darle a este mundo violento y sin sentido, un rasgo de humanidad, para que los días dejen de ser mal llevados y uno un olvidado.
 
-Se anda con guitarra también, y con una deontología pasada de moda; con un gesto propio de quien se asume tropero de invenciones, y si alguien lo encuentra agachado en medio del monte, seguramente le haga el gesto de pedir silencio, porque más tarde confesará que estaba ofrendando sus versos al bicherío. Los bichos lo escuchan, así las piedras y el universo.
+Se anda con guitarra también, y con una deontología pasada de moda; con un gesto propio de quien se asume tropero de invenciones, y si alguien lo encuentra agachado en medio del monte, seguramente le haga el gesto de pedir silencio, porque más tarde confesará que estaba ofrendándole sus versos al bicherío. Los bichos lo escuchan, así las piedras y el universo.
 
 Un poeta es un pasado que vive en los ojos del tiempo, pero para eso nace en silencio cada vez que el mundo quiere aniquilarse.
 
