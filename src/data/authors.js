@@ -4,7 +4,7 @@ export const authors = {
     link: "mailto:pilogarcia@gmail.com"
   },
   "Lic. Viviana Aragno": {
-    bio: "Lic. en ciencias de la educación.",
+    bio: "Estudié Educación en la UNQ allí hice mi licenciatura, en la UNSAM donde cursé mi Maestría en Educación, Lenguajes y Medios con 11 sem aprobados, cursé en la ULPE Universidad Latinoamericana de las Periferias, en CLACSO y en FLACSO. Trabajé en educación media y superior al igual que en capacitación docente. Soy una mujer apasionada por la observación de los procesos de construcción subjetiva en territorio. Mamá de tres hijos y abuela de una bella nieta, me encanta cocinar, tejer, hacer cerámica y juntarme con amigos a cantar y leer poesía. Será un placer compartir-nos.",
     link: "mailto:vivigoel@gmail.com"
   }
 ,
