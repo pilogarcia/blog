@@ -9,7 +9,7 @@ coverAuthor: "Patrycja Mancewicz"
 type: "article"
 ---
 
-El poeta por el cual escribo este texto, camina por los senderos en la falda de la sierra, buscando excusas y alguna salvación como un animal que lucha consigo mismo. Es el mismo hombre que ha aprendido a dialogar con los árboles y el mismo que en las mañanas de temperaturas escandalosas, sabe domar la desesperación haciendo nacer el valor en cada cosa que se le planta entre el pasado y el futuro. Es un hombre herido de lejanías y de paisaje de alturas.
+El poeta por el cual escribo este texto, camina por los senderos en la falda de la sierra, buscando excusas y alguna salvación como un animal que lucha consigo mismo. Es el mismo hombre que aprendió a dialogar con los árboles y el mismo que en las mañanas de temperaturas escandalosas, sabe domar la desesperación haciendo nacer el valor en cada cosa que se le planta entre el pasado y el futuro. Es un hombre herido de lejanías y de paisaje de alturas.
 
 Un poeta siempre es ante todo un fabricante de verdades derogadas. Y otras veces, muchas veces, entendedor de lo inútil. Y así insiste y es porfiado por propia voluntad y naturaleza, o necesidad. Por eso es poeta y no un vagabundo de modernidades sin sentido. 
 
