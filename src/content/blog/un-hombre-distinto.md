@@ -29,7 +29,7 @@ Desde que dijo adiós en su íntimo instante me recrimino, conforme pasan los a�
 <br>
 
 
-Será que el tiempo es una maquinaria extravagante, y es posible que nunca lleguemos a entender su determinación. Asimismo creo que el tiempo necesita de nosotros para existir. Su cara menos graciosa es la que se nos revela en ese instante en que dejamos de ser porque desde que nacemos nos anuncian su carácter decidido. El tiempo es el recordatorio de lo carentes que estamos de salvaciones y eternidades. Hay veces que la poesía, la música o el amor nos calienta el pecho para hacer más llevadero este asunto, pero parece que ni un dios, al fin y al cabo, nos puede salvar de tan atrevido destino.
+Será que el tiempo es una maquinaria extravagante, y es posible que nunca lleguemos a entender su determinación. Asimismo creo que el tiempo necesita de nosotros para existir. Su cara menos graciosa es la que se nos revela en ese instante en que dejamos de ser porque desde que nacemos nos anuncian su carácter decidido. El tiempo es el recordatorio de lo carentes que estamos de salvaciones y eternidades. Hay veces que la poesía, la música o el amor nos calienta el pecho para hacer más llevadero este asunto, pero parece que ni siquiera un dios, al fin y al cabo, nos puede salvar de tan atrevido destino.
 
 Aún creo que J. supo domar a su manera a los dioses y al tiempo, por eso es que lo recordamos en cada crepúsculo. 
 Y si alguna vez lo olvido, desde ese instante, ya no tendré el derecho de mirar las entrañas del cosmos.
