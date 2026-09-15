@@ -17,7 +17,7 @@ Esta imagen se me viene con una luminosidad inusitada. J. junto a mí, mirando h
 
 A este hombre el mundo le resultó pequeño. Y no necesitó de sabidurías excéntricas ni siquiera un párrafo biográfico, sencillamente supo acuñar en memorias su andar tranquilo como esos hombres que entienden el silencio de los animales.
 
-Desde que dijo adiós en su íntimo instante me recrimino, conforme pasan los años, no haber escrito cada una de sus historias. Sus relatos eran como pinceladas de genialidad que se encadenaban con la naturalidad de un pajarito posado en las ramas de los eucaliptos. Relataba cada escena describiendo hasta el mínimo detalle de su pueblo, de su campo, de esos cielos extraños que cubren la historia de colonos esperanzados.
+Desde que dijo adiós en su íntimo instante me recrimino, conforme pasan los años, no haber escrito cada una de sus historias. Sus relatos eran pinceladas de genialidad que se encadenaban con la naturalidad de un pajarito posado en las ramas de los eucaliptos. Relataba cada escena describiendo hasta el mínimo detalle de su pueblo, de su campo, de esos cielos extraños que cubren la historia de colonos esperanzados.
 
 
 &emsp;&emsp;&emsp;&emsp;*así*  
