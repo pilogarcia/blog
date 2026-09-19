@@ -27,10 +27,6 @@ la ignominia crece desde el pie en una tierra a la que le han quitado la esperan
 un río hecho de lágrimas  
 se oscurecen mis ojos  
 
-no quiero metáforas extravagantes  
-ni un lenguaje con alhajas, ahora no  
-porque lloro, ahora sí   
-
 y como aves que nos recuerdan la muerte  
 aves de plumas de plomo  
 ellos...  
