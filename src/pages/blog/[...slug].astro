@@ -49,25 +49,29 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
         {post.data.cover && <img src={post.data.cover} alt="" data-pagefind-meta="image" />}
         <div class="post-hero-overlay"></div>
       </div>
+      <!-- Cambiamos el contenedor para que ocupe el mismo ancho que el layout de abajo -->
       <div class="post-hero-inner">
         
-        <!-- Nueva fila: Volver a la izquierda, Categoría a la derecha -->
-        <div class="post-hero-top">
-          <a href="/#articulos" class="font-mono back-link">← Volver | </a>
-          <p class="font-mono post-tag">{post.data.tag}</p>
-        </div>
-
-        <h1 class="post-title">{post.data.title}</h1>
+        <!-- Nueva caja interna para que los textos se alineen a la izquierda con el texto del post -->
+        <div class="post-hero-content">
           
-             <p class="font-mono post-meta">
-          {post.data.author} · {formatDate(post.data.pubDate)}
-          {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
-        </p>
+          <div class="post-hero-top">
+            <a href="/#articulos" class="font-mono back-link">← Volver | </a>
+            <p class="font-mono post-tag">{post.data.tag}</p>
+          </div>
 
-        <!-- Crédito de la fotografía en su propia línea -->
-        {post.data.coverAuthor && (
-          <p class="cover-author">Foto: {post.data.coverAuthor}</p>
-        )}
+          <h1 class="post-title">{post.data.title}</h1>
+            
+          <p class="font-mono post-meta">
+            {post.data.author} · {formatDate(post.data.pubDate)}
+            {post.data.minutesRead && <span> · {post.data.minutesRead} MIN</span>}
+          </p>
+
+          {post.data.coverAuthor && (
+            <p class="cover-author">Foto: {post.data.coverAuthor}</p>
+          )}
+
+        </div>
       </div>
     </header>
 
@@ -155,9 +159,9 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     width: 280px;
     flex-shrink: 0;
     position: sticky;
-    top: 2rem;
+    top: 2.5rem;
     align-self: flex-start;
-    padding-left: 2rem;
+    padding-left: 3.5rem;
     border-left: 1px solid var(--border-light);
   }
   .author-sidebar-label {
@@ -166,11 +170,11 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     color: var(--accent);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin: 0 0 0.5rem;
+    margin: 14 0 2rem;
   }
   .author-sidebar-title {
     font-family: 'Noto Serif Display', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 400;
     color: var(--fg);
     margin: 0 0 1rem;
@@ -255,10 +259,11 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     max-width: none !important;
   }
 
-  .post-hero {
+   .post-hero {
     position: relative; overflow: hidden;
     width: 100%;
-    padding: 7rem 1.5rem 4rem; margin-bottom: 3rem;
+    padding: 5rem 1.5rem 6rem; /* ACÁ le bajamos el 7rem a 5rem para subir los textos */
+    margin-bottom: 3rem;
   }
   .post-hero-bg { position: absolute; inset: 0; z-index: 0; background: var(--bg); }
   .post-hero-bg img {
@@ -272,7 +277,19 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
       linear-gradient(180deg, rgba(252,252,242,0.75) 0%, rgba(252,252,242,0.55) 45%, var(--bg) 100%),
       radial-gradient(ellipse at 20% 30%, rgba(10, 124, 143, 0.10) 0%, transparent 55%);
   }
-  .post-hero-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+  
+  /* NUEVO: El contenedor del hero ocupa el mismo ancho que el layout de abajo */
+  .post-hero-inner { 
+    position: relative; 
+    z-index: 1; 
+    max-width: 1200px; /* Mismo ancho que .post-layout */
+    margin: 0 auto; 
+  }
+
+  /* NUEVO: La caja interna que alinea los textos a la izquierda */
+  .post-hero-content {
+    max-width: 720px; /* Mismo ancho que el texto del post */
+  }
 
   .post-hero-top {
     display: flex;
@@ -283,10 +300,10 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     margin-bottom: 1.5rem;
   }
 
-  .back-link { color: #333333; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; margin: 0; }
+  .back-link { color: #333333; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; margin: 0; margin-bottom: 2rem; display: inline-block; }
   .back-link:hover { color: var(--accent); }
   
-  .post-tag { color: var(--accent); font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; }
+  .post-tag { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; margin-bottom: 2rem; display: inline-block; }
   
   .post-title { 
     font-family: 'Noto Serif Display', serif; 
@@ -300,16 +317,16 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
   }
   .post-meta { color: var(--muted); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
 
-   /* Crédito de la fotografía (Línea de abajo, alineado a la izquierda) */
+   /* Crédito de la fotografía */
   .cover-author {
     display: block;
     width: 100%;
-    text-align: left !important; /* Forzamos a la izquierda */
-    margin: 0.5rem 0 0; /* Un pequeño espacio separándolo de la fecha */
+    text-align: left !important; 
+    margin: 0.5rem 0 0; 
     padding: 0;
     color: var(--muted);
-    font-size: 11px; /* Mismo tamaño que la fecha */
-    letter-spacing: 0.15em; /* Mismo espaciado que la fecha */
+    font-size: 11px; 
+    letter-spacing: 0.15em; 
     text-transform: none;
     font-family: 'JetBrains Mono', monospace;
   }
