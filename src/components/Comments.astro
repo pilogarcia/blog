@@ -3,11 +3,12 @@ interface Props {
   postId: string;
 }
 const { postId } = Astro.props;
+
 ---
+<!-- Le pasamos el postId al div contenedor para que el script lo lea de ahí -->
 <div class="comments-section" data-post-id={postId}>
   <h2 class="comments-title">Comentarios</h2>
   
-  <!-- Formulario principal -->
   <form id="comment-form" class="comment-form">
     <input type="hidden" id="parent-id-input" value="" />
     <input type="text" id="comment-author" placeholder="Tu nombre" required class="comment-input" />
@@ -25,9 +26,7 @@ const { postId } = Astro.props;
 
 <style>
   .comments-section {
-    max-width: 900px;
-    margin: 4rem auto 5rem;
-    padding: 0 1.5rem;
+    margin: 4rem 0 0; /* Sacamos el auto y el padding para que se alinee al texto */
   }
   .comments-title {
     font-family: 'Noto Serif Display', serif;
@@ -50,7 +49,10 @@ const { postId } = Astro.props;
     font-size: 1rem;
     color: var(--fg);
   }
-  .comment-input:focus { outline: none; border-color: var(--accent); }
+  .comment-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
   .comment-textarea {
     padding: 0.8rem;
     background: transparent;
@@ -61,17 +63,21 @@ const { postId } = Astro.props;
     min-height: 120px;
     resize: vertical;
   }
-  .comment-textarea:focus { outline: none; border-color: var(--accent); }
+  .comment-textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
   .form-actions {
     display: flex;
-    gap: 1rem;
     align-items: center;
+    gap: 1rem;
   }
   .comment-btn {
+    align-self: flex-start;
     padding: 0.8rem 1.5rem;
-    background: var(--accent);
-    color: #fff;
-    border: none;
+    background: transparent;
+    color: #333;
+    border: 1px solid var(--border-light);
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
@@ -81,7 +87,9 @@ const { postId } = Astro.props;
     border-bottom-right-radius: 10px;
     transition: background 0.3s;
   }
-  .comment-btn:hover { background: var(--accent-bright); }
+  .comment-btn:hover {
+    background: #e6cf66;
+  }
   .cancel-btn {
     background: transparent;
     border: none;
@@ -91,29 +99,35 @@ const { postId } = Astro.props;
     cursor: pointer;
     text-decoration: underline;
   }
-  
-  .comments-list { display: flex; flex-direction: column; gap: 1.5rem; }
-  
-  /* A los comentarios que son respuestas, los empujamos hacia la derecha */
-  :global(.comment-item.reply) {
-    margin-left: 2.5rem;
-    border-left: 2px solid var(--border-light);
-    padding-left: 1.5rem;
+  .comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
-
   :global(.comment-item) {
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 1.5rem;
   }
+  /* NUEVO: Estilo para las respuestas (indentadas hacia la derecha) */
+  :global(.comment-item.reply) {
+    margin-left: 2.5rem;
+    border-left: 2px solid var(--border-light);
+    border-bottom: none;
+    padding-left: 1.5rem;
+    padding-bottom: 0;
+  }
+  /* ACÁ está el arreglo para el espacio */
   :global(.comment-header) {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1.5rem; 
     margin-bottom: 0.5rem;
   }
+  
+  /* ACÁ le pusimos 700 para que esté en negrita */
   :global(.comment-author) {
     font-family: 'Inter', sans-serif;
-    font-weight: 700;
+    font-weight: 700; 
     color: var(--fg);
     margin: 0;
   }
@@ -130,6 +144,7 @@ const { postId } = Astro.props;
     color: var(--fg-dim);
     margin-bottom: 0.5rem;
   }
+  /* NUEVO: Botón de responder */
   :global(.reply-btn) {
     background: transparent;
     border: none;
@@ -142,8 +157,9 @@ const { postId } = Astro.props;
     padding: 0;
     transition: color 0.3s;
   }
-  :global(.reply-btn:hover) { color: var(--accent); }
-  
+  :global(.reply-btn:hover) {
+    color: var(--accent);
+  }
   .loading-text {
     font-family: 'Libertinus Serif', serif;
     font-style: italic;
@@ -152,9 +168,11 @@ const { postId } = Astro.props;
 </style>
 
 <script>
+  // Leemos el postId desde el atributo data-post-id del div contenedor
   const section = document.querySelector('.comments-section') as HTMLElement;
   if (section) {
     const postId = section.dataset.postId;
+    
     const form = document.getElementById('comment-form') as HTMLFormElement;
     const authorInput = document.getElementById('comment-author') as HTMLInputElement;
     const contentInput = document.getElementById('comment-content') as HTMLTextAreaElement;
@@ -182,16 +200,18 @@ const { postId } = Astro.props;
       return roots;
     }
 
-    // Función para dibujar un comentario y sus respuestas
+    // Función recursiva para dibujar un comentario y sus respuestas
     function renderCommentNode(comment: any, isReply: boolean = false) {
       const item = document.createElement('div');
       item.className = isReply ? 'comment-item reply' : 'comment-item';
 
       const header = document.createElement('div');
       header.className = 'comment-header';
+      
       const author = document.createElement('span');
       author.className = 'comment-author';
       author.textContent = comment.author;
+      
       const date = document.createElement('span');
       date.className = 'comment-date';
       date.textContent = new Date(comment.created_at).toLocaleDateString('es-AR');
@@ -226,6 +246,7 @@ const { postId } = Astro.props;
       return item;
     }
 
+    // Cargar comentarios
     async function loadComments() {
       try {
         const res = await fetch('/api/comments?postId=' + postId);
