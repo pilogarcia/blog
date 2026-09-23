@@ -7,17 +7,35 @@
     <button id="subscribe-close" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #8a8272; transition: color 0.3s;">✕</button>
     
     <h2 style="font-family: 'Noto Serif Display', serif; font-size: 2rem; font-weight: 400; margin: 0 0 1rem; color: #2c2c2c; text-align: center;">Recibir novedades</h2>
-    <p style="font-family: 'Libertinus Serif', serif; font-size: 1.1rem; line-height: 1.5; color: #4c463a; text-align: center; margin-bottom: 2rem;">Suscribite para recibir los nuevos artículos y reflexiones directo en tu correo.</p>
+    <p style="font-family: 'Libertinus Serif', serif; font-size: 1.1rem; line-height: 1.5; color: #4c463a; text-align: center; margin-bottom: 2rem;">¡Suscribite para recibir los nuevos artículos!</p>
     
     <form id="subscribe-form" style="display: flex; flex-direction: column; gap: 1rem;">
       <input type="email" id="subscribe-email" required placeholder="tu@correo.com" style="padding: 0.8rem; background: #ffffff; border: 1px solid #d6cfc0; font-family: 'Libertinus Serif', serif; font-size: 1rem; color: #2c2c2c; text-align: center;" />
-      <button type="submit" style="padding: 0.8rem 1.5rem; background: var(--accent); color: #fff; border: none; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-bottom-right-radius: 10px; transition: background 0.3s;">Suscribirme</button>
+           <button type="submit" class="subscribe-btn">Suscribirme</button>
     </form>
     
-    <p id="subscribe-status" style="font-family: 'Libertinus Serif', serif; font-style: italic; font-size: 0.9rem; color: #2cc8e7; text-align: center; margin-top: 1.5rem; min-height: 1.2rem;"></p>
+    <p id="subscribe-status" style="font-family: 'Libertinus Serif', serif; font-style: italic; font-size: 0.9rem; color: #1c1c1c; text-align: center; margin-top: 1.5rem; min-height: 1.2rem;"></p>
   </div>
 </div>
-
+<style>
+  .subscribe-btn {
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    color: #333;
+    border: 1px solid #d6cfc0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-bottom-right-radius: 10px;
+    transition: background 0.3s;
+  }
+  .subscribe-btn:hover {
+    background: #e6cf66;
+  }
+</style>
 <script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('subscribe-toggle');
