@@ -3,16 +3,19 @@ interface Props {
   postId: string;
 }
 const { postId } = Astro.props;
-
 ---
-<!-- Le pasamos el postId al div contenedor para que el script lo lea de ahí -->
 <div class="comments-section" data-post-id={postId}>
   <h2 class="comments-title">Comentarios</h2>
   
+  <!-- Formulario principal -->
   <form id="comment-form" class="comment-form">
+    <input type="hidden" id="parent-id-input" value="" />
     <input type="text" id="comment-author" placeholder="Tu nombre" required class="comment-input" />
     <textarea id="comment-content" placeholder="Escribe tu comentario..." required class="comment-textarea"></textarea>
-    <button type="submit" class="comment-btn">Enviar comentario</button>
+    <div class="form-actions">
+      <button type="submit" class="comment-btn">Enviar comentario</button>
+      <button type="button" id="cancel-reply" class="cancel-btn" style="display: none;">Cancelar respuesta</button>
+    </div>
   </form>
 
   <div id="comments-list" class="comments-list">
@@ -22,7 +25,9 @@ const { postId } = Astro.props;
 
 <style>
   .comments-section {
-    margin: 4rem 0 0; /* Sacamos el auto y el padding para que se alinee al texto */
+    max-width: 900px;
+    margin: 4rem auto 5rem;
+    padding: 0 1.5rem;
   }
   .comments-title {
     font-family: 'Noto Serif Display', serif;
@@ -45,10 +50,7 @@ const { postId } = Astro.props;
     font-size: 1rem;
     color: var(--fg);
   }
-  .comment-input:focus {
-    outline: none;
-    border-color: var(--accent);
-  }
+  .comment-input:focus { outline: none; border-color: var(--accent); }
   .comment-textarea {
     padding: 0.8rem;
     background: transparent;
@@ -59,16 +61,17 @@ const { postId } = Astro.props;
     min-height: 120px;
     resize: vertical;
   }
-  .comment-textarea:focus {
-    outline: none;
-    border-color: var(--accent);
+  .comment-textarea:focus { outline: none; border-color: var(--accent); }
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
   }
   .comment-btn {
-    align-self: flex-start;
     padding: 0.8rem 1.5rem;
-    background: transparent;
-    color: #333;
-    border: 1px solid var(--border-light);
+    background: var(--accent);
+    color: #fff;
+    border: none;
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
@@ -78,30 +81,39 @@ const { postId } = Astro.props;
     border-bottom-right-radius: 10px;
     transition: background 0.3s;
   }
-  .comment-btn:hover {
-    background: #e6cf66;
+  .comment-btn:hover { background: var(--accent-bright); }
+  .cancel-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
   }
-  .comments-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  
+  .comments-list { display: flex; flex-direction: column; gap: 1.5rem; }
+  
+  /* A los comentarios que son respuestas, los empujamos hacia la derecha */
+  :global(.comment-item.reply) {
+    margin-left: 2.5rem;
+    border-left: 2px solid var(--border-light);
+    padding-left: 1.5rem;
   }
-:global(.comment-item) {
+
+  :global(.comment-item) {
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 1.5rem;
   }
-  /* ACÁ está el arreglo para el espacio */
   :global(.comment-header) {
     display: flex;
     align-items: center;
-    gap: 1.5rem; 
+    gap: 1.5rem;
     margin-bottom: 0.5rem;
   }
-  
-  /* ACÁ le pusimos 700 para que esté en negrita */
-:global(.comment-author) {
+  :global(.comment-author) {
     font-family: 'Inter', sans-serif;
-    font-weight: 700; 
+    font-weight: 700;
     color: var(--fg);
     margin: 0;
   }
@@ -116,7 +128,22 @@ const { postId } = Astro.props;
     font-size: 1.1rem;
     line-height: 1.5;
     color: var(--fg-dim);
+    margin-bottom: 0.5rem;
   }
+  :global(.reply-btn) {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+  }
+  :global(.reply-btn:hover) { color: var(--accent); }
+  
   .loading-text {
     font-family: 'Libertinus Serif', serif;
     font-style: italic;
@@ -125,17 +152,80 @@ const { postId } = Astro.props;
 </style>
 
 <script>
-  // Leemos el postId desde el atributo data-post-id del div contenedor
   const section = document.querySelector('.comments-section') as HTMLElement;
   if (section) {
     const postId = section.dataset.postId;
-    
     const form = document.getElementById('comment-form') as HTMLFormElement;
     const authorInput = document.getElementById('comment-author') as HTMLInputElement;
     const contentInput = document.getElementById('comment-content') as HTMLTextAreaElement;
+    const parentIdInput = document.getElementById('parent-id-input') as HTMLInputElement;
     const list = document.getElementById('comments-list') as HTMLDivElement;
+    const cancelReplyBtn = document.getElementById('cancel-reply') as HTMLButtonElement;
 
-    // Cargar comentarios
+    // Función para armar el árbol de comentarios (padres e hijos)
+    function buildCommentTree(comments: any[]) {
+      const commentMap: Record<number, any> = {};
+      const roots: any[] = [];
+
+      comments.forEach(c => {
+        commentMap[c.id] = { ...c, children: [] };
+      });
+
+      comments.forEach(c => {
+        if (c.parent_id && commentMap[c.parent_id]) {
+          commentMap[c.parent_id].children.push(commentMap[c.id]);
+        } else {
+          roots.push(commentMap[c.id]);
+        }
+      });
+
+      return roots;
+    }
+
+    // Función para dibujar un comentario y sus respuestas
+    function renderCommentNode(comment: any, isReply: boolean = false) {
+      const item = document.createElement('div');
+      item.className = isReply ? 'comment-item reply' : 'comment-item';
+
+      const header = document.createElement('div');
+      header.className = 'comment-header';
+      const author = document.createElement('span');
+      author.className = 'comment-author';
+      author.textContent = comment.author;
+      const date = document.createElement('span');
+      date.className = 'comment-date';
+      date.textContent = new Date(comment.created_at).toLocaleDateString('es-AR');
+      
+      header.appendChild(author);
+      header.appendChild(date);
+
+      const content = document.createElement('p');
+      content.className = 'comment-content';
+      content.textContent = comment.content;
+
+      const replyBtn = document.createElement('button');
+      replyBtn.className = 'reply-btn';
+      replyBtn.textContent = 'Responder';
+      replyBtn.addEventListener('click', () => {
+        parentIdInput.value = comment.id;
+        cancelReplyBtn.style.display = 'inline-block';
+        // Movemos el formulario abajo de este comentario
+        item.insertAdjacentElement('afterend', form);
+        authorInput.focus();
+      });
+
+      item.appendChild(header);
+      item.appendChild(content);
+      item.appendChild(replyBtn);
+
+      // Dibujamos las respuestas (hijos)
+      comment.children.forEach((child: any) => {
+        item.appendChild(renderCommentNode(child, true));
+      });
+
+      return item;
+    }
+
     async function loadComments() {
       try {
         const res = await fetch('/api/comments?postId=' + postId);
@@ -151,32 +241,11 @@ const { postId } = Astro.props;
           return;
         }
 
-        comments.forEach((c: any) => {
-          const item = document.createElement('div');
-          item.className = 'comment-item';
-
-          const header = document.createElement('div');
-          header.className = 'comment-header'; // Le asignamos la clase acá
-          
-          const author = document.createElement('span');
-          author.className = 'comment-author';
-          author.textContent = c.author;
-          
-          const date = document.createElement('span');
-          date.className = 'comment-date';
-          date.textContent = new Date(c.created_at).toLocaleDateString('es-AR');
-          
-          header.appendChild(author);
-          header.appendChild(date);
-
-          const content = document.createElement('p');
-          content.className = 'comment-content';
-          content.textContent = c.content;
-
-          item.appendChild(header);
-          item.appendChild(content);
-          list.appendChild(item);
+        const tree = buildCommentTree(comments);
+        tree.forEach(root => {
+          list.appendChild(renderCommentNode(root));
         });
+
       } catch (e) {
         list.innerHTML = '';
         const p = document.createElement('p');
@@ -186,22 +255,35 @@ const { postId } = Astro.props;
       }
     }
 
+    // Botón de cancelar respuesta
+    cancelReplyBtn.addEventListener('click', () => {
+      parentIdInput.value = '';
+      cancelReplyBtn.style.display = 'none';
+      // Devolvemos el formulario arriba del todo
+      list.insertAdjacentElement('beforebegin', form);
+    });
+
     // Enviar comentario
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const author = authorInput.value;
       const content = contentInput.value;
+      const parent_id = parentIdInput.value || null;
 
       try {
         const res = await fetch('/api/comments', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ post_id: postId, author, content })
+          body: JSON.stringify({ post_id: postId, author, content, parent_id })
         });
 
         if (res.ok) {
           authorInput.value = '';
           contentInput.value = '';
+          parentIdInput.value = '';
+          cancelReplyBtn.style.display = 'none';
+          // Devolvemos el formulario arriba
+          list.insertAdjacentElement('beforebegin', form);
           loadComments();
         }
       } catch (e) {
