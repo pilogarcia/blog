@@ -8,15 +8,17 @@ interface Props {
 
 const { prev, next } = Astro.props;
 ---
-{prev ? (
-      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev">
+   {prev ? (
+      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev notch-corner">
         <span class="font-mono pn-label">Anterior</span>
+        <!-- Le saqué la clase font-display de acá -->
         <span class="pn-title">{prev.data.title}</span>
       </a>
     ) : <span></span>}
     {next ? (
-      <a href={`/blog/${next.id}/`} class="pn-link pn-next">
+      <a href={`/blog/${next.id}/`} class="pn-link pn-next notch-corner">
         <span class="font-mono pn-label">Siguiente</span>
+        <!-- Y de acá -->
         <span class="pn-title">{next.data.title}</span>
       </a>
     ) : <span></span>}
@@ -54,4 +56,10 @@ const { prev, next } = Astro.props;
     .prev-next { grid-template-columns: 1fr; }
     .pn-next { text-align: left; align-items: flex-start; }
   }
+  /* Ocultamos las esquinas geométricas del notch-corner */
+  .pn-link.notch-corner::before,
+  .pn-link.notch-corner::after {
+    display: none !important;
+  }
+
 </style>
