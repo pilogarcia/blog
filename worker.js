@@ -31,6 +31,28 @@ export default {
       }
     }
 
+    // SI EL PEDIDO ES A LA API DE SUSCRIPCIÓN
+    if (url.pathname === '/api/subscribe') {
+      if (request.method === 'POST') {
+        try {
+          const { email } = await request.json();
+          if (!email) return new Response(JSON.stringify({ error: 'Falta el email' }), { status: 400 });
+
+          // Fijamos si el mail ya existe para no duplicarlo
+          const { results } = await env.DB.prepare("SELECT * FROM subscribers WHERE email = ?").bind(email).all();
+          if (results.length > 0) {
+            return new Response(JSON.stringify({ error: 'Este email ya está suscripto.' }), { status: 409 });
+          }
+
+          // Guardamos el mail en la base de datos
+          await env.DB.prepare("INSERT INTO subscribers (email) VALUES (?)").bind(email).run();
+          return new Response(JSON.stringify({ success: true }), { headers: { 'Content-Type': 'application/json' } });
+        } catch (e) {
+          return new Response(e.message, { status: 500 });
+        }
+      }
+    }
+
     // Si es cualquier otro pedido (tu blog normal), le sirve la web estática
     return env.ASSETS.fetch(request);
   }

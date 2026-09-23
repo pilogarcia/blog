@@ -1,0 +1,96 @@
+---
+// Componente Subscribe.astro
+---
+<div id="subscribe-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 2147483646; display: none; align-items: center; justify-content: center; padding: 1.5rem;">
+  <div style="background: #FCFCF2; border: 1px solid #d6cfc0; width: 100%; max-width: 500px; padding: 2.5rem; box-shadow: 0 20px 50px rgba(0,0,0,0.15); position: relative;">
+    
+    <button id="subscribe-close" style="position: absolute; top: 10px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #8a8272; transition: color 0.3s;">✕</button>
+    
+    <h2 style="font-family: 'Noto Serif Display', serif; font-size: 2rem; font-weight: 400; margin: 0 0 1rem; color: #2c2c2c; text-align: center;">Recibir novedades</h2>
+    <p style="font-family: 'Libertinus Serif', serif; font-size: 1.1rem; line-height: 1.5; color: #4c463a; text-align: center; margin-bottom: 2rem;">Suscribite para recibir los nuevos artículos y reflexiones directo en tu correo.</p>
+    
+    <form id="subscribe-form" style="display: flex; flex-direction: column; gap: 1rem;">
+      <input type="email" id="subscribe-email" required placeholder="tu@correo.com" style="padding: 0.8rem; background: #ffffff; border: 1px solid #d6cfc0; font-family: 'Libertinus Serif', serif; font-size: 1rem; color: #2c2c2c; text-align: center;" />
+      <button type="submit" style="padding: 0.8rem 1.5rem; background: var(--accent); color: #fff; border: none; font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; border-bottom-right-radius: 10px; transition: background 0.3s;">Suscribirme</button>
+    </form>
+    
+    <p id="subscribe-status" style="font-family: 'Libertinus Serif', serif; font-style: italic; font-size: 0.9rem; color: #2cc8e7; text-align: center; margin-top: 1.5rem; min-height: 1.2rem;"></p>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('subscribe-toggle');
+    const modal = document.getElementById('subscribe-modal');
+    const closeBtn = document.getElementById('subscribe-close');
+    const form = document.getElementById('subscribe-form');
+    const emailInput = document.getElementById('subscribe-email');
+    const status = document.getElementById('subscribe-status');
+
+    function openModal(e) {
+      if (e) e.preventDefault();
+      if (modal) modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => { if (emailInput) emailInput.focus(); }, 100);
+    }
+
+    function closeModal() {
+      if (modal) modal.style.display = 'none';
+      document.body.style.overflow = '';
+      if (status) status.textContent = '';
+      if (emailInput) emailInput.value = '';
+    }
+
+    if (toggle) toggle.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = emailInput.value;
+        if (status) {
+          status.textContent = 'Enviando...';
+          status.style.color = '#8a8272';
+        }
+
+        try {
+          const res = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+
+          if (res.ok) {
+            if (status) {
+              status.textContent = '¡Gracias por suscribirte!';
+              status.style.color = '#2cc8e7';
+            }
+            if (emailInput) emailInput.value = '';
+            setTimeout(() => closeModal(), 2000);
+          } else {
+            const errData = await res.json();
+            if (status) {
+              status.textContent = errData.error || 'Hubo un error.';
+              status.style.color = '#c4560a';
+            }
+          }
+        } catch (err) {
+          if (status) {
+            status.textContent = 'Error de conexión.';
+            status.style.color = '#c4560a';
+          }
+        }
+      });
+    }
+  });
+</script>
