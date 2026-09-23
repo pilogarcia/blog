@@ -8,19 +8,15 @@ interface Props {
 
 const { prev, next } = Astro.props;
 ---
-{(prev || next) && (
-  <nav class="prev-next" aria-label="Navegación entre artículos">
-    {prev ? (
-      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev notch-corner">
+{prev ? (
+      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev">
         <span class="font-mono pn-label">← Anterior</span>
-        <!-- Le saqué la clase font-display de acá -->
         <span class="pn-title">{prev.data.title}</span>
       </a>
     ) : <span></span>}
     {next ? (
-      <a href={`/blog/${next.id}/`} class="pn-link pn-next notch-corner">
+      <a href={`/blog/${next.id}/`} class="pn-link pn-next">
         <span class="font-mono pn-label">Siguiente →</span>
-        <!-- Y de acá -->
         <span class="pn-title">{next.data.title}</span>
       </a>
     ) : <span></span>}
