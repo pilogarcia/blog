@@ -90,15 +90,17 @@ const { postId } = Astro.props;
   .comment-btn:hover {
     background: #e6cf66;
   }
-  .cancel-btn {
+ 
+    .cancel-btn {
     background: transparent;
     border: none;
     color: var(--muted);
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none; /* Le sacamos el subrayado por si acaso */
   }
+
   .comments-list {
     display: flex;
     flex-direction: column;
@@ -144,21 +146,27 @@ const { postId } = Astro.props;
     color: var(--fg-dim);
     margin-bottom: 0.5rem;
   }
-  /* NUEVO: Botón de responder */
+  /* NUEVO: Botón de responder con borde, igual al de Enviar */
   :global(.reply-btn) {
+    display: inline-block;
     background: transparent;
-    border: none;
-    color: var(--muted);
+    color: #333;
+    border: 1px solid var(--border-light);
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 600;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
     cursor: pointer;
-    padding: 0;
-    transition: color 0.3s;
+    padding: 0.5rem 1rem; /* Un poquito más chico que el principal */
+    margin-top: 0.5rem; /* Espacio arriba para separarlo del texto */
+    margin-bottom: 0.5rem; /* Espacio abajo para que no toque la línea */
+    border-bottom-right-radius: 10px; /* Tu detalle geométrico */
+    transition: background 0.3s;
+    text-decoration: none;
   }
-  :global(.reply-btn:hover) {
-    color: var(--accent);
+   :global(.reply-btn:hover) {
+    background: #e6cf66;
   }
   .loading-text {
     font-family: 'Libertinus Serif', serif;
