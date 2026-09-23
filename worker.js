@@ -54,21 +54,30 @@ export default {
     }
     // EXPORTAR SUSCRIPTORES A CSV
     if (url.pathname === '/api/exportar-suscriptores') {
-      const { results } = await env.DB.prepare("SELECT email, created_at FROM subscribers ORDER BY created_at DESC").all();
-      
-      // Armamos el texto en formato CSV
-      let csv = "Email,Fecha de suscripcion\n";
-      results.forEach(row => {
-        csv += `${row.email},${row.created_at}\n`;
-      });
-
-      // Le decimos al navegador que descargue un archivo
-      return new Response(csv, {
-        headers: {
-          'Content-Type': 'text/csv; charset=utf-8',
-          'Content-Disposition': 'attachment; filename=suscriptores.csv'
+      try {
+        const { results } = await env.DB.prepare("SELECT email, created_at FROM subscribers ORDER BY created_at DESC").all();
+        
+        // Armamos el texto en formato CSV
+        let csv = "Email,Fecha de suscripcion\n";
+        if (results && results.length > 0) {
+          results.forEach(row => {
+            csv += `${row.email},${row.created_at}\n`;
+          });
+        } else {
+          csv += "No hay suscriptores todavia,\n";
         }
-      });
+
+        // Le decimos al navegador que descargue un archivo
+        return new Response(csv, {
+          headers: {
+            'Content-Type': 'text/csv; charset=utf-8',
+            'Content-Disposition': 'attachment; filename=suscriptores.csv'
+          }
+        });
+      } catch (e) {
+        // Si hay un error, lo mostramos en pantalla en vez de crashear
+        return new Response('Error al exportar: ' + e.message, { status: 500 });
+      }
     }
     // Si es cualquier otro pedido (tu blog normal), le sirve la web estática
     return env.ASSETS.fetch(request);
