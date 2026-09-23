@@ -8,17 +8,17 @@ interface Props {
 
 const { prev, next } = Astro.props;
 ---
-   {prev ? (
-      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev notch-corner">
-        <span class="font-mono pn-label">Anterior</span>
-        <!-- Le saqué la clase font-display de acá -->
+{(prev || next) && (
+  <nav class="prev-next" aria-label="Navegación entre artículos">
+    {prev ? (
+      <a href={`/blog/${prev.id}/`} class="pn-link pn-prev">
+        <span class="font-mono pn-label">← Anterior</span>
         <span class="pn-title">{prev.data.title}</span>
       </a>
     ) : <span></span>}
     {next ? (
-      <a href={`/blog/${next.id}/`} class="pn-link pn-next notch-corner">
-        <span class="font-mono pn-label">Siguiente</span>
-        <!-- Y de acá -->
+      <a href={`/blog/${next.id}/`} class="pn-link pn-next">
+        <span class="font-mono pn-label">Siguiente →</span>
         <span class="pn-title">{next.data.title}</span>
       </a>
     ) : <span></span>}
@@ -27,7 +27,8 @@ const { prev, next } = Astro.props;
 
 <style>
   .prev-next {
-    margin: 4rem 0 0; /* Sacamos el auto para alinear a la izquierda */
+    max-width: none; /* Que ocupe todo el ancho de la columna del post */
+    margin: 4rem 0 0; /* Alineado a la izquierda, igual que los comentarios */
     display: grid; 
     grid-template-columns: 1fr 1fr; 
     gap: 1.25rem;
@@ -37,29 +38,19 @@ const { prev, next } = Astro.props;
     padding: 1.5rem 0; transition: opacity 0.3s;
   }
   .pn-link:hover { opacity: 0.7; }
-  .pn-link:hover { border-color: var(--accent-dim); background: var(--bg-card-hover); }
   .pn-next { text-align: right; align-items: flex-end; }
-  .pn-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
-  
-  /* Acá le aplicamos la tipografía Noto Serif Display */
+  .pn-label { 
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; 
+    color: var(--accent); 
+  }
   .pn-title { 
     font-family: 'Noto Serif Display', serif; 
-    font-size: 1.3rem; 
-    line-height: 1.2; 
-    color: var(--fg); 
-    font-weight: 400; 
-    text-transform: none; /* Respetar mayúscula tipo oración */
-    letter-spacing: -0.01em;
+    font-size: 1.3rem; line-height: 1.2; color: var(--fg); 
+    font-weight: 500; text-transform: none; letter-spacing: -0.01em;
   }
 
   @media (max-width: 640px) {
     .prev-next { grid-template-columns: 1fr; }
     .pn-next { text-align: left; align-items: flex-start; }
   }
-  /* Ocultamos las esquinas geométricas del notch-corner */
-  .pn-link.notch-corner::before,
-  .pn-link.notch-corner::after {
-    display: none !important;
-  }
-
 </style>
