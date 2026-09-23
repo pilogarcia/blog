@@ -106,10 +106,14 @@ const { postId } = Astro.props;
     flex-direction: column;
     gap: 1.5rem;
   }
+
+
   :global(.comment-item) {
-    border-bottom: 1px solid var(--border-light);
-    padding-bottom: 1.5rem;
+    border-bottom: none !important; /* Forzamos a que no haya línea */
+    padding-bottom: 0 !important;
+    margin-bottom: 1.5rem; /* Le damos espacio para separar los comentarios */
   }
+
   /* NUEVO: Estilo para las respuestas (indentadas hacia la derecha) */
   :global(.comment-item.reply) {
     margin-left: 2.5rem;
