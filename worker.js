@@ -84,7 +84,7 @@ export default {
     if (url.pathname === '/api/send-newsletter') {
       // Una clave secreta para que solo vos puedas disparar los mails
       // CAMBIÁ "ojo-inusual-2024" por la contraseña que vos quieras
-      const expectedSecret = 'PachaMama987#'; 
+      const expectedSecret = 'ojo-inusual-2024'; 
       const providedSecret = url.searchParams.get('secret');
       
       if (providedSecret !== expectedSecret) {
