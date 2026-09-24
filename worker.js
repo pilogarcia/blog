@@ -79,6 +79,52 @@ export default {
         return new Response('Error al exportar: ' + e.message, { status: 500 });
       }
     }
+
+        // ENVIAR NEWSLETTER A TODOS LOS SUSCRIPTORES
+    if (url.pathname === '/api/send-newsletter') {
+      // Una clave secreta para que solo vos puedas disparar los mails
+      // CAMBIÁ "ojo-inusual-2024" por la contraseña que vos quieras
+      const expectedSecret = 'ojo-inusual-2024'; 
+      const providedSecret = url.searchParams.get('secret');
+      
+      if (providedSecret !== expectedSecret) {
+        return new Response(JSON.stringify({ error: 'No autorizado' }), { status: 401 });
+      }
+
+      try {
+        // Traemos todos los mails de tu base de datos
+        const { results } = await env.DB.prepare("SELECT email FROM subscribers").all();
+        
+        if (results.length === 0) {
+          return new Response(JSON.stringify({ message: 'No hay suscriptores para enviar mails.' }), { headers: { 'Content-Type': 'application/json' } });
+        }
+
+        // Mandamos un mail a cada suscriptor usando la API de Resend
+        const emailPromises = results.map(sub => 
+          fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Authorization': 'Bearer ' + env.RESEND_API_KEY,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              from: 'El Ojo Inusual <newsletter@elojoinusual.com.ar>', 
+              to: sub.email,
+              subject: 'Nuevo artículo en El Ojo Inusual',
+              html: '<h1>¡Hola!</h1><p>Hay un nuevo artículo en el blog. Entrá a leerlo en <a href="https://elojoinusual.com.ar">elojoinusual.com.ar</a>.</p>'
+            })
+          })
+        );
+
+        await Promise.all(emailPromises);
+
+        return new Response(JSON.stringify({ success: true, sent: results.length }), {
+          headers: { 'Content-Type': 'application/json' }
+        });
+      } catch (e) {
+        return new Response(JSON.stringify({ error: e.message }), { status: 500 });
+      }
+    }
     // Si es cualquier otro pedido (tu blog normal), le sirve la web estática
     return env.ASSETS.fetch(request);
   }
