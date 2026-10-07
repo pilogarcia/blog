@@ -16,7 +16,7 @@ No quiero enojarme. Quiero entender. Porque esto está sucediendo en todo el mun
 
 Entonces: ¿qué nos han hecho?
 
-La poesía es un medio indispensable para entender algunas cosas. Intento algo, no me griten por favor, pero tal vez en versos puedo explicarme mejor…
+La poesía es un medio indispensable para entender algunas cosas. Intento algo, no me griten por favor, pero tal vez en versos puedo explicarme mejor.
 
 
 <b>El instinto de aparecer</b>  
