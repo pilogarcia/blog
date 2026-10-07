@@ -16,7 +16,8 @@ export async function GET(context: APIContext) {
       description: post.data.excerpt,
       pubDate: post.data.pubDate,
       link: `/blog/${post.id}/`,
-      categories: [post.data.tag],
+      // AQUÍ ESTÁ LA CORRECCIÓN: post.data.tag ya es un array, no lo envuelvas
+      categories: post.data.tag,
     })),
     customData: `<language>es</language>`,
   });
