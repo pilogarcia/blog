@@ -17,9 +17,7 @@ export async function getStaticPaths() {
       post,
       prev: i < posts.length - 1 ? posts[i + 1] : null, // más viejo
       next: i > 0 ? posts[i - 1] : null, // más nuevo
-      related: posts
-        .filter((p) => p.id !== post.id && p.data.tag === post.data.tag)
-        .slice(0, 3),
+     related: posts.filter((p) => p.id !== post.id && p.data.tag.some(t => post.data.tag.includes(t))).slice(0, 3),
     },
   }));
 }
@@ -57,7 +55,8 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
           
           <div class="post-hero-top">
             <a href="/#articulos" class="font-mono back-link">Volver | </a>
-            <p class="font-mono post-tag">{post.data.tag}</p>
+            <!-- ACÁ CAMBIAMOS para que una las categorías con un puntito -->
+            <p class="font-mono post-tag">{post.data.tag.join(' · ')}</p>
           </div>
 
           <h1 class="post-title">{post.data.title}</h1>
@@ -133,7 +132,8 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
     </div>
   </article>
 
-  <RelatedPosts posts={related} tag={post.data.tag} />
+  <!-- ACÁ TAMBIÉN LE HACEMOS EL JOIN PARA QUE NO FALLE -->
+  <RelatedPosts posts={related} tag={post.data.tag.join(' · ')} />
 </BaseLayout>
 
 <style>

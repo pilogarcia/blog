@@ -10,11 +10,13 @@ import type { GetStaticPathsOptions, Page } from 'astro';
 
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-  const tags = [...new Set(allPosts.map((p) => p.data.tag))];
+  // ACÁ CAMBIAMOS map por flatMap
+  const tags = [...new Set(allPosts.flatMap((p) => p.data.tag))];
 
   return tags.flatMap((tag) => {
     const filtered = allPosts
-      .filter((p) => p.data.tag === tag)
+      // ACÁ CAMBIAMOS === tag por .includes(tag)
+      .filter((p) => p.data.tag.includes(tag))
       .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
     return paginate(filtered, {
@@ -34,7 +36,8 @@ const { page, tagName } = Astro.props;
 const { tag: tagSlug } = Astro.params;
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const allTags = [...new Set(allPosts.map((p) => p.data.tag))];
+// ACÁ TAMBIÉN CAMBIAMOS map por flatMap
+const allTags = [...new Set(allPosts.flatMap((p) => p.data.tag))];
 
 const urlFor = (n: number) => (n === 1 ? `/tag/${tagSlug}/` : `/tag/${tagSlug}/${n}/`);
 ---
