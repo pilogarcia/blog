@@ -55,8 +55,14 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
           
           <div class="post-hero-top">
             <a href="/#articulos" class="font-mono back-link">Volver | </a>
-            <!-- ACÁ CAMBIAMOS para que una las categorías con un puntito -->
-            <p class="font-mono post-tag">{post.data.tag.join(' · ')}</p>
+            <!-- ACÁ CAMBIAMOS para que las categorías sean enlaces -->
+            <p class="font-mono post-tag">
+              {post.data.tag.map((tag, i) => (
+                <span>
+                  <a href={`/tag/${tag}`}>{tag}</a>{i < post.data.tag.length - 1 ? ' · ' : ''}
+                </span>
+              ))}
+            </p>
           </div>
 
           <h1 class="post-title">{post.data.title}</h1>
@@ -304,6 +310,16 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
   .back-link:hover { color: var(--accent); }
   
   .post-tag { color: var(--accent); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; margin-bottom: 2rem; display: inline-block; }
+  
+  /* NUEVO: Estilo para el enlace de la categoría dentro del hero */
+  .post-tag a {
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  .post-tag a:hover {
+    opacity: 0.7; /* Efecto sutil al pasar el mouse */
+  }
   
   .post-title { 
     font-family: 'Noto Serif Display', serif; 
