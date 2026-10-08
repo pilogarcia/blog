@@ -6,6 +6,7 @@ import RelatedPosts from '../../components/RelatedPosts.astro';
 import Comments from '../../components/Comments.astro';
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import { authors, defaultAuthor } from '../../data/authors';
+import { slugifyTag } from '../../lib/tags'; // <--- AGREGADO PARA ARREGLAR EL ERROR 1101
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -59,7 +60,7 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
             <p class="font-mono post-tag">
               {post.data.tag.map((tag, i) => (
                 <span>
-                  <a href={`/tag/${tag}`}>{tag}</a>{i < post.data.tag.length - 1 ? ' · ' : ''}
+                  <a href={`/tag/${slugifyTag(tag)}/`}>{tag}</a>{i < post.data.tag.length - 1 ? ' · ' : ''}
                 </span>
               ))}
             </p>

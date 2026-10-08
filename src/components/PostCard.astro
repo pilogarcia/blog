@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { slugifyTag } from '../lib/tags';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -12,6 +13,8 @@ const { post, index, featured = false } = Astro.props;
 const formatDate = (d: Date) =>
   d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }).replace('.', '').toUpperCase();
 ---
+
+
 <div class={`card ${featured ? 'featured' : ''}`}>
   {/* Enlace invisible que cubre toda la tarjeta para ir al post */}
   <a href={`/blog/${post.id}/`} class="card-global-link" aria-label={`Leer ${post.data.title}`}></a>
@@ -43,7 +46,7 @@ const formatDate = (d: Date) =>
       {post.data.tag && post.data.tag.length > 0 && (
         <span class="card-meta-tags">
           {post.data.tag.map((tag, i) => (
-            <a href={`/tag/${tag}`}>{tag}{i < post.data.tag.length - 1 ? ', ' : ''}</a>
+            <a href={`/tag/${slugifyTag(tag)}/`}>{tag}{i < post.data.tag.length - 1 ? ', ' : ''}</a>
           ))}
         </span>
       )}
