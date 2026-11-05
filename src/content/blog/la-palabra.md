@@ -12,9 +12,9 @@ popular: true
 
 
 <div align="right">
-<i>Es mi prenda encantada,<br> 
+<i>"Es mi prenda encantada,<br> 
 es mi extensa morada,<br>
-es mi espacio sin fin<sup>1
+es mi espacio sin fin"<sup>1
 </sup></i>
 </div><br>
 
@@ -58,7 +58,7 @@ Entiendo que la palabra que nos pone en peligro es la palabra amor. Deseo que no
 
 <div style="text-align: left; font-style: italic; font-size: 17px;">
 <b>Notas:</b><br>
-<sup>1</sup> Rodriguez, silvio
+<sup>1</sup> Rodriguez, Silvio
 <br>
 <sup>2</sup> sos-tener, así separado... casi como si al pronunciar determinada palabra estuviéramos pidiendo auxilio S.O.S y a la vez conteniendo el riesgo del decir.
 <br>
