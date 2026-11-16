@@ -51,7 +51,7 @@ te dedico la existencia
 en estos años me faltó tu palabra  
 tu poema extraño  
 que extraño  
-porque antes caían cuando hacía falta.  
+porque antes caían cuando hacían falta.  
 
 Dicen que aún el entusiasmo sobrevive  
 que el invierno  
