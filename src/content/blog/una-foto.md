@@ -1,5 +1,5 @@
 ---
-title: "Una foto"
+title: "Del pasado"
 excerpt: "Poema sobre el tiempo"
 type: "article"
 pubDate: 2026-11-10
@@ -11,43 +11,33 @@ popular: true
 ---
 
 Una foto  
-estoy mirando ahora una foto  
-estoy viendo  
-como el tiempo y el tiempo  
-y una foto  
-como un bicho, de a ratos me devoran  
+estoy mirando ahora una foto estoy viendo  
+como el tiempo y el tiempo y la imagen  
+como hambrientos  
+me amenazan.  
 
-hay tres personas  
-en una foto que miro  
-dos niños y una anciana  
-la abuela y uno  
-de los futbolistas de circo   
-&emsp;&emsp;&emsp;&emsp;&emsp;soy yo  
-con una mirada que sale de mi boca  
-con asuntos a futuro  
-estampados a futuro  
-en el lomo de la abuela  
-en el lomo de la madre  
+Hay tres personas en una foto que miro dos niños  
+una anciana  
+la abuela y uno de los futbolistas  
+niño  
+soy yo  
+con una mirada que sale de mi boca con asuntos  
+a futuro estampados  
+en el lomo de la abuela, en el lomo de la madre  
 de padre  
 del tiempo  
 
-se dice que una foto  
-y un tiempo hacen nostalgia  
+se dice que una foto y un tiempo hacen nostalgia  
 amarronada  
-con olor a tabaco y casa vieja  
-
-se dice que el bicho que me devora  
-y que la foto  
-y que el tiempo  
-y la abuela y el otro  
-mi hermano, el otro  
-somos transparencias  
-en los ojos ajenos  
-somos una foto  
-amarronada con olor a tabaco y casa vieja  
-miro una foto  
-que me dice y se desdice   
-que me aplasta  
-y me alegra  
-pero me llora a tiempo de olvido  
-porque luego, te olvidan.  
+con olor a tabaco y casa vieja se dice  
+que el pasado devora y que la foto y que el tiempo y la abuela y el otro  
+mi hermano  
+somos transparencias en los ojos ajenos somos un retrato  
+amarronado  
+con olor a tabaco y casa vieja y miro  
+ese instante  
+que me dice y se desdice que me aplasta  
+y me alegra pero me llora  
+a tiempo de olvido  
+porque luego  
+&emsp;&emsp;&emsp;&emsp;&emsp;te olvidan.  
