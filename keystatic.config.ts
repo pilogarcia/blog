@@ -104,23 +104,25 @@ export default config({
     }),
   },
 
-  // NUEVO: Página única "Sobre mí"
   singletons: {
     sobreMi: singleton({
       label: 'Página Sobre mí',
       path: 'src/content/paginas/sobre-mi',
       format: { contentField: 'contenido' },
       schema: {
-        titulo: fields.text({ label: 'Título de la página', defaultValue: 'Sobre mí' }),
-        subtitulo: fields.text({ label: 'Subtítulo o frase breve', multiline: true }),
+        titulo: fields.text({ label: 'Título de la página', defaultValue: 'Algo sobre mí' }),
         foto: fields.image({
-          label: 'Foto de perfil',
+          label: 'Foto (opcional)',
           directory: 'public/images',
           publicPath: '/images/',
         }),
         contenido: fields.mdx({
-          label: 'Biografía / Texto completo',
+          label: 'Texto de biografía',
           extension: 'mdx',
+        }),
+        textoPlataformas: fields.text({
+          label: 'Frase sobre plataformas musicales',
+          defaultValue: 'Los invito a visitar las plataformas donde encontrarán mi música!',
         }),
       },
     }),
