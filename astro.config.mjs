@@ -1,11 +1,25 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
-
+import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import keystatic from '@keystatic/astro';
 
-// https://astro.build/config
+const isDev = process.argv.includes('dev');
+
 export default defineConfig({
-  site: 'https://elojoinusual.com.ar',
-  integrations: [sitemap(), mdx()],
+  site: 'https://pages.dev', // <-- Cambiá esto por la URL real de tu blog
+  integrations: [
+    react(),
+    mdx(),
+    sitemap(),
+    ...(isDev ? [keystatic()] : []),
+  ],
+  vite: {
+    resolve: {
+      dedupe: ['react', 'react-dom'],
+    },
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-dom/client'],
+    },
+  },
 });
