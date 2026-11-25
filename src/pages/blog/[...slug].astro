@@ -1,5 +1,6 @@
 ---
 import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
+import Poema from '../../components/Poema.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import PrevNextNav from '../../components/PrevNextNav.astro';
@@ -89,6 +90,9 @@ const authorInfo = (authors as Record<string, any>)[post.data.author] || default
         <TableOfContents headings={headings} />
         <div class="prose">
           <Content components={{ YouTubeEmbed }} />
+       <Content components={{ YouTubeEmbed, Poema }} />
+
+
 
         </div>
 
