@@ -1,4 +1,4 @@
-import { config, fields, collection } from '@keystatic/core';
+import { config, fields, collection, singleton } from '@keystatic/core';
 import { block, wrapper, mark } from '@keystatic/core/content-components';
 import { superscriptIcon } from '@keystar/ui/icon/icons/superscriptIcon';
 
@@ -99,6 +99,28 @@ export default config({
               schema: {},
             }),
           },
+        }),
+      },
+    }),
+  },
+
+  // NUEVO: Página única "Sobre mí"
+  singletons: {
+    sobreMi: singleton({
+      label: 'Página Sobre mí',
+      path: 'src/content/paginas/sobre-mi',
+      format: { contentField: 'contenido' },
+      schema: {
+        titulo: fields.text({ label: 'Título de la página', defaultValue: 'Sobre mí' }),
+        subtitulo: fields.text({ label: 'Subtítulo o frase breve', multiline: true }),
+        foto: fields.image({
+          label: 'Foto de perfil',
+          directory: 'public/images',
+          publicPath: '/images/',
+        }),
+        contenido: fields.mdx({
+          label: 'Biografía / Texto completo',
+          extension: 'mdx',
         }),
       },
     }),

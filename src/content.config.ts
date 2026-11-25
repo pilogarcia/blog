@@ -8,7 +8,6 @@ const blog = defineCollection({
     excerpt: z.string(),
     pubDate: z.coerce.date(),
     author: z.string().default('Pilo García'),
-    // EL TRUCO DE MAGIA: Acepta string o array, y siempre lo convierte a array
     tag: z.union([
       z.string(),
       z.array(z.string())
@@ -17,8 +16,19 @@ const blog = defineCollection({
     cover: z.string().optional(),
     coverAuthor: z.string().optional(),
     draft: z.boolean().default(false),
+    popular: z.boolean().optional(),
+    type: z.string().optional(),
   }),
 });
 
-export const collections = { blog };
+const paginas = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/paginas' }),
+  schema: z.object({
+    titulo: z.string().default('Algo sobre mí'),
+    subtitulo: z.string().optional(),
+    foto: z.string().nullable().optional(),
+    textoPlataformas: z.string().default('Los invito a visitar las plataformas donde encontrarán mi música!'),
+  }),
+});
 
+export const collections = { blog, paginas };
