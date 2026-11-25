@@ -29,13 +29,22 @@ export default config({
           label: 'Autor',
           defaultValue: 'Pilo García',
         }),
-        tag: fields.array(
-          fields.text({ label: 'Etiqueta' }),
-          {
-            label: 'Etiquetas (Tags)',
-            itemLabel: (props) => props.value || 'Nueva etiqueta',
-          }
-        ),
+        tag: fields.multiselect({
+          label: 'Etiquetas (Tags)',
+          options: [
+            { label: 'Poesía', value: 'Poesía' },
+            { label: 'Ensayo', value: 'Ensayo' },
+            { label: 'Relato', value: 'Relato' },
+            { label: 'Micro documental', value: 'Micro documental' },
+            { label: 'Diario de viaje', value: 'Diario de viaje' },
+            { label: 'Escritores', value: 'Escritores' },
+            { label: 'Sociedad', value: 'Sociedad' },
+            { label: 'Modernidad', value: 'Modernidad' },
+            { label: 'Experiencias', value: 'Experiencias' },
+            { label: 'Interés general', value: 'Interés general' },
+          ],
+          defaultValue: ['Ensayo'],
+        }),
         minutesRead: fields.integer({
           label: 'Minutos de lectura (opcional)',
         }),
@@ -59,6 +68,18 @@ export default config({
           label: 'Contenido',
           extension: 'mdx',
           components: {
+            Poema: block({
+              label: 'Poema / Estrofa',
+              schema: {
+                texto: fields.text({
+                  label: 'Versos del poema',
+                  multiline: true,
+                }),
+                autor: fields.text({
+                  label: 'Autor del poema (opcional)',
+                }),
+              },
+            }),
             YouTubeEmbed: block({
               label: 'Video de YouTube',
               schema: {
